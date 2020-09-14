@@ -56,3 +56,6 @@ sysinfo.txt
 
 # Allow Dotween DLLs
 !Assets/External/Demigiant/**/*.dll
+
+# Unity Project Version
+ProjectSettings/ProjectVersion.txt
