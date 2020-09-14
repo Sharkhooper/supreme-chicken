@@ -8,6 +8,8 @@ public class MovementController : MonoBehaviour {
     [SerializeField] private float maxVelocity = 1;
     [SerializeField] private float velocitySmooth = 0;
     [SerializeField] private float rayOffsetRadius = 0.5f;
+    [SerializeField] private float rayDistanceCorrection = 0.5f;
+    [SerializeField] private float rayGroundTolerance = 0.15f;
 
     [SerializeField] private Vector3 feetOffset;
 
@@ -43,7 +45,7 @@ public class MovementController : MonoBehaviour {
         RaycastHit hit;
 
         // Get ground Vector and project velocity accordingly
-        if (Physics.Raycast(pos + feetOffset, Vector3.down, out hit, 0.1f)) {
+        if (Physics.Raycast(pos + feetOffset, Vector3.down, out hit, rayGroundTolerance)) {
             if (hit.normal == Vector3.up) {
                 plane = Vector3.right;
             }
@@ -58,11 +60,11 @@ public class MovementController : MonoBehaviour {
         float clamp = 1;
 
         if (Physics.Raycast(pos + Vector3.up * rayOffsetRadius, v, out hit, 0.8f)) {
-            clamp = Mathf.Max(0, Mathf.Min(mag, hit.distance - 0.5f)) / mag;
+            clamp = Mathf.Max(0, Mathf.Min(mag, hit.distance - rayDistanceCorrection)) / mag;
         }
 
         if (Physics.Raycast(pos, v, out hit, 0.8f)) {
-            clamp = Mathf.Min(clamp,Mathf.Max(0, Mathf.Min(mag, hit.distance - 0.5f)) / mag);
+            clamp = Mathf.Min(clamp,Mathf.Max(0, Mathf.Min(mag, hit.distance - rayDistanceCorrection)) / mag);
         }
         v *= clamp;
 
