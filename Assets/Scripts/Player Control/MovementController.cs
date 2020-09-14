@@ -7,6 +7,7 @@ public class MovementController : MonoBehaviour {
 
     [SerializeField] private float maxVelocity = 1;
     [SerializeField] private float velocitySmooth = 0;
+    [SerializeField] private float rayOffsetRadius = 0.5f;
 
     [SerializeField] private Vector3 feetOffset;
 
@@ -54,9 +55,16 @@ public class MovementController : MonoBehaviour {
 
         // Check Wall Collision
         float mag = v.magnitude;
-        if (Physics.Raycast(pos, v, out hit, 0.8f)) {
-            v *= Mathf.Max(0, Mathf.Min(mag, hit.distance - 0.5f)) / mag;
+        float clamp = 1;
+
+        if (Physics.Raycast(pos + Vector3.up * rayOffsetRadius, v, out hit, 0.8f)) {
+            clamp = Mathf.Max(0, Mathf.Min(mag, hit.distance - 0.5f)) / mag;
         }
+
+        if (Physics.Raycast(pos, v, out hit, 0.8f)) {
+            clamp = Mathf.Min(clamp,Mathf.Max(0, Mathf.Min(mag, hit.distance - 0.5f)) / mag);
+        }
+        v *= clamp;
 
         // Move player
         rb.MovePosition(pos + v);

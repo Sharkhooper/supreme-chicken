@@ -155,8 +155,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b78d407199f4f24b9457e1c29a66216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxVelocity: 26
+  maxVelocity: 22
   velocitySmooth: 0.06
+  rayOffsetRadius: 0.5
   feetOffset: {x: 0, y: -0.48, z: 0}
   rb: {fileID: 33564944}
 --- !u!114 &33564942
