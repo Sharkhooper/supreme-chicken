@@ -4,44 +4,32 @@ using UnityEngine;
 
 public class EnemyWalkingController : MonoBehaviour
 {
+    private EnemyHolder holder;
     public GameObject model;
     public float moveSpeed;
-    private Vector3 direction = new Vector3(1, 0, 0);
-    private bool rotating;
+    public Vector3 direction = new Vector3(1, 0, 0);
+    public bool rotated = false;
+    public bool attacking;
 
     void Update()
     {
-        if(!rotating)
+        if(!attacking)
             transform.parent.position += direction * Time.deltaTime * moveSpeed;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        direction *= -1;
-        if(!rotating)
-            StartCoroutine(Rotate());
+        if(other.name != "Player" && other.name != "Enemy")
+        {
+            Debug.Log("Not Player: " + other.name);
+            direction *= -1;
+            transform.parent.RotateAround(model.transform.position, Vector3.up, 180);
+            rotated = !rotated;
+        }
     }
 
-    IEnumerator Rotate()
+    public void SetHolder(EnemyHolder h)
     {
-        rotating = true;
-        float currentRotation = transform.parent.rotation.y;
-        if (currentRotation < 180)
-        {
-            while (transform.parent.rotation.y < 180)
-            {
-                transform.parent.RotateAround(model.transform.position, new Vector3(0, 1, 0), Time.deltaTime * moveSpeed * 100);
-                yield return null;
-            }
-        }
-        else if(currentRotation >= 180)
-        {
-            while(transform.parent.rotation.y > 0)
-            {
-                transform.parent.RotateAround(model.transform.position, new Vector3(0, 1, 0), Time.deltaTime * -moveSpeed * 100);
-                yield return null;
-            }
-        }
-        rotating = false;
+        holder = h;
     }
 }
