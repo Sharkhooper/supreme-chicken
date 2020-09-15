@@ -8,7 +8,7 @@ public class MovementController : MonoBehaviour {
     [Flags] private enum MovementState {
         None = 0,
         OnGround = 1,
-        CanJump = 2,
+        Jump = 2,
     }
 
     [SerializeField] private float colliderRadius = 0.5f;
@@ -29,26 +29,37 @@ public class MovementController : MonoBehaviour {
     [SerializeField] private MovementState state;
 
     // Movement
-    [SerializeField] private float inputVelocity = 0;
+    bool jumpInputDown = false;
+    bool jumpInput = false;
+    private float inputVelocity = 0;
     private float velocityMagnitude = 0;
     private float velocityChangeRate = 0;
 
     // Jump
-    private bool jumping = false;
-    private Vector3 jumpVelocity = Vector3.zero;
+    [SerializeField] private float lowJumpMultiplier = 1;
+    [SerializeField] private float highJumpMultiplier = 2;
+    [SerializeField] private float fallMultiplier = 2.5f;
+    [SerializeField] private float initialJumpVelocity = 5;
 
     // Coyote Time - Meep Meep
     [SerializeField] private double coyoteTime = 0.5;
+    private double coyoteTimeCooldown;
 
     // Components
     [SerializeField] private Rigidbody rb;
+
+    [SerializeField] [Range(0,1)] private float debugScale = 0.2f;
 
     public void HandleMovementInput(InputAction.CallbackContext context) {
         inputVelocity = context.ReadValue<float>();
     }
 
     public void HandleJumpInput(InputAction.CallbackContext context) {
-        jumping = context.ReadValueAsButton();
+        bool b = context.ReadValueAsButton();
+        if (!jumpInput && b) {
+            jumpInputDown = true;
+        }
+        jumpInput = b;
     }
 
     public void HandleDashInput(InputAction.CallbackContext context) {
@@ -57,6 +68,8 @@ public class MovementController : MonoBehaviour {
 
     private static readonly Quaternion planeNormalRotation = Quaternion.Euler(0, 0, -90);
     private Vector3 plane;
+    private Vector3 gravity;
+    private Vector3 velocity;
 
     private void FixedUpdate() {
         Vector3 pos = rb.transform.position;
@@ -68,7 +81,7 @@ public class MovementController : MonoBehaviour {
 
         // Smooth input velocity
         velocityMagnitude = Mathf.SmoothDamp(velocityMagnitude, inputVelocity, ref velocityChangeRate, velocitySmooth);
-        Vector3 velocity = Vector3.right * velocityMagnitude * maxVelocity * Time.fixedDeltaTime;
+        velocity = Vector3.right * velocityMagnitude * maxVelocity * Time.fixedDeltaTime;
         float orientation = velocityMagnitude > 0 ? 1 : -1;
 
         RaycastHit hit;
@@ -84,27 +97,61 @@ public class MovementController : MonoBehaviour {
             if (angle < slopeAngleThreshold) {
                 state |= MovementState.OnGround;
 
+                coyoteTimeCooldown = coyoteTime;
+
                 plane = planeNormalRotation * hit.normal;
                 velocity = Vector3.Project(velocity, plane);
                 onGroundCorrection = hit.distance * Vector3.down * groundCorrectionScale;
             }
         }
+        else if (coyoteTimeCooldown > 0) {
+            coyoteTimeCooldown -= Time.fixedDeltaTime;
+        }
 
-        // Slope Fix
-        Vector3 ground = hit.point;
-        // Fire spherecast in velocity direction
-        if (Mathf.Abs(velocityMagnitude) > 0.00001f && Physics.SphereCast(pos, colliderRadius, velocity, out hit, velocity.magnitude)) {
-            // check if cast hits something and hitted plane is a walkable plane
-            float angle = Vector3.Angle(Vector3.up, hit.normal);
-            if (angle < slopeAngleThreshold) {
-                // Get intersection point of velocity line and plane tangent
-                Vector3 tangent = planeNormalRotation * hit.normal;
-                Vector3 intersect = GetIntersectionPointCoordinates(ground, ground + velocity, hit.point, hit.point + tangent, out bool found);
-                if (found) {
-                    // Slice velocity vector at intersection and "project" remaining piece to tangent while keeping the same magnitude
-                    float f = Vector3.Dot(intersect - ground, velocity);
-                    velocity = f * velocity + orientation * (1 - f) * velocity.magnitude * tangent.normalized;
-                    Debug.Log(velocity);
+        // Jump
+        bool canJump = coyoteTimeCooldown > 0 || state.HasFlag(MovementState.OnGround);
+        if (canJump && jumpInputDown) {
+            gravity = Vector3.up * initialJumpVelocity;
+            state |= MovementState.Jump;
+            state &= ~MovementState.OnGround;
+            coyoteTimeCooldown = 0;
+        }
+
+        if (state.HasFlag(MovementState.Jump) && !jumpInput) {
+            state &= ~MovementState.Jump;
+        }
+
+        if (gravity.y > 0 && state.HasFlag(MovementState.Jump)) {
+            if (jumpInput) {
+                gravity += Physics.gravity * highJumpMultiplier * Time.fixedDeltaTime;
+            }
+            else {
+                gravity += Physics.gravity * lowJumpMultiplier * Time.fixedDeltaTime;
+            }
+        }
+        else if (!state.HasFlag(MovementState.OnGround)) {
+            gravity += Physics.gravity * fallMultiplier * Time.fixedDeltaTime;
+        }
+        else {
+            gravity = Vector3.zero;
+
+            // Slope Fix if not jumping
+            // Fixes speedloss on transition between planes with different angles
+            Vector3 ground = hit.point;
+            // Fire spherecast in velocity direction
+            if (Mathf.Abs(velocityMagnitude) > 0.00001f && Physics.SphereCast(pos, colliderRadius, velocity, out hit, velocity.magnitude)) {
+                // check if cast hits something and hitted plane is a walkable plane
+                float angle = Vector3.Angle(Vector3.up, hit.normal);
+                if (angle < slopeAngleThreshold) {
+                    // Get intersection point of velocity line and plane tangent
+                    Vector3 tangent = planeNormalRotation * hit.normal;
+                    Vector3 intersect = GetIntersectionPointCoordinates(ground, ground + velocity, hit.point, hit.point + tangent, out bool found);
+                    if (found) {
+                        // Slice velocity vector at intersection and "project" remaining piece to tangent while keeping the same magnitude
+                        float f = Vector3.Dot(intersect - ground, velocity);
+                        velocity = f * velocity + orientation * (1 - f) * velocity.magnitude * tangent.normalized;
+                        Debug.Log(velocity);
+                    }
                 }
             }
         }
@@ -114,17 +161,25 @@ public class MovementController : MonoBehaviour {
             velocity *= hit.distance;
         }
 
+        velocity /= Time.fixedDeltaTime;
+        rb.velocity = velocity;
+
         // =================
         // #### Gravity ####
         // =================
 
-
-        // Move player
-        rb.velocity = velocity / Time.fixedDeltaTime;
-        if (!state.HasFlag(MovementState.OnGround))
-            rb.velocity += Physics.gravity * Time.fixedDeltaTime;
+        if (!state.HasFlag(MovementState.OnGround)) {
+            rb.velocity += gravity;
+            if (Physics.Raycast(pos, rb.velocity, out hit, rb.velocity.magnitude * Time.fixedDeltaTime + colliderRadius)) {
+                rb.velocity = rb.velocity.normalized * (Mathf.Max(hit.distance - colliderRadius, 0) / Time.fixedDeltaTime);;
+            }
+        }
         else {
             rb.velocity += onGroundCorrection / Time.fixedDeltaTime;
+        }
+
+        if (jumpInputDown) {
+            jumpInputDown = false;
         }
     }
 
@@ -161,6 +216,11 @@ public class MovementController : MonoBehaviour {
         Gizmos.DrawWireSphere(rb.transform.position + feetOffset, 0.1f);
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(rb.transform.position + feetOffset + rb.velocity * Time.deltaTime, 0.1f);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(transform.position, transform.position + rb.velocity * debugScale);
+        Gizmos.DrawLine(transform.position + Vector3.right, transform.position + Vector3.right + gravity * debugScale);
+        Gizmos.DrawLine(transform.position + Vector3.down, transform.position + Vector3.down + velocity * debugScale);
     }
 
     private void OnDrawGizmosSelected() {
