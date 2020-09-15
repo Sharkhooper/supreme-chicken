@@ -17,7 +17,7 @@ public class MovementController : MonoBehaviour {
     [SerializeField] private float velocitySmooth = 0;
     [SerializeField] private float rayOffsetRadius = 0.5f;
     [SerializeField] private float rayDistanceCorrection = 0.5f;
-    [SerializeField] private float rayGroundTolerance = 0.01f;
+    [SerializeField] private float rayGroundTolerance = 0.1f;
     [SerializeField] private float rayWallTolerance = 0.55f;
     [SerializeField] private float slopeAngleThreshold = 45;
     [SerializeField] [Range(0, 1)]  private float groundCorrectionScale = 0.96f;
@@ -101,14 +101,15 @@ public class MovementController : MonoBehaviour {
 
                 plane = planeNormalRotation * hit.normal;
                 velocity = Vector3.Project(velocity, plane);
-                onGroundCorrection = hit.distance * Vector3.down * groundCorrectionScale;
+                float distance = Vector3.Distance(pos, hit.point) - colliderRadius;
+                onGroundCorrection = distance * Vector3.down * groundCorrectionScale;
             }
         }
         else if (coyoteTimeCooldown > 0) {
             coyoteTimeCooldown -= Time.fixedDeltaTime;
         }
 
-        // Jump
+        // Initialize jump
         bool canJump = coyoteTimeCooldown > 0 || state.HasFlag(MovementState.OnGround);
         if (canJump && jumpInputDown) {
             gravity = Vector3.up * initialJumpVelocity;
@@ -117,10 +118,16 @@ public class MovementController : MonoBehaviour {
             coyoteTimeCooldown = 0;
         }
 
-        if (state.HasFlag(MovementState.Jump) && !jumpInput) {
+        // Stop receiving new jump input midair
+        if (state.HasFlag(MovementState.Jump) && (!jumpInput || gravity.y <= 0)) {
             state &= ~MovementState.Jump;
         }
 
+        // =================
+        // #### Gravity ####
+        // =================
+
+        // Handle jump gravity
         if (gravity.y > 0 && state.HasFlag(MovementState.Jump)) {
             if (jumpInput) {
                 gravity += Physics.gravity * highJumpMultiplier * Time.fixedDeltaTime;
@@ -129,9 +136,11 @@ public class MovementController : MonoBehaviour {
                 gravity += Physics.gravity * lowJumpMultiplier * Time.fixedDeltaTime;
             }
         }
+        // Regular gravity
         else if (!state.HasFlag(MovementState.OnGround)) {
             gravity += Physics.gravity * fallMultiplier * Time.fixedDeltaTime;
         }
+        // On ground special cases
         else {
             gravity = Vector3.zero;
 
@@ -150,28 +159,35 @@ public class MovementController : MonoBehaviour {
                         // Slice velocity vector at intersection and "project" remaining piece to tangent while keeping the same magnitude
                         float f = Vector3.Dot(intersect - ground, velocity);
                         velocity = f * velocity + orientation * (1 - f) * velocity.magnitude * tangent.normalized;
-                        Debug.Log(velocity);
                     }
                 }
             }
         }
 
-        if (velocity.magnitude > 0 && Physics.SphereCast(pos, colliderRadius, velocity, out hit, velocity.magnitude)) {
-            velocity.Normalize();
-            velocity *= hit.distance;
+        // Wall detection
+        if (velocity.magnitude > 0 && Physics.SphereCast(pos - Vector3.right * orientation * 0.01f, colliderRadius, velocity, out hit, velocity.magnitude + 0.01f)) {
+            float angle = Vector3.Angle(Vector3.up, hit.normal);
+            if (angle >= slopeAngleThreshold) {
+                velocity.Normalize();
+                float dist = Vector3.Distance(hit.point, pos) - colliderRadius;
+                velocity *= dist;
+            }
         }
 
         velocity /= Time.fixedDeltaTime;
         rb.velocity = velocity;
 
-        // =================
-        // #### Gravity ####
-        // =================
 
         if (!state.HasFlag(MovementState.OnGround)) {
             rb.velocity += gravity;
-            if (Physics.Raycast(pos, rb.velocity, out hit, rb.velocity.magnitude * Time.fixedDeltaTime + colliderRadius)) {
-                rb.velocity = rb.velocity.normalized * (Mathf.Max(hit.distance - colliderRadius, 0) / Time.fixedDeltaTime);;
+            // Cap velocity to not glitch into ground
+            // Capping this on velocity instead of on gravity and then correcting velocity like on slopes
+            // results in a slowdown on landing, because horizontal movement gets skipped
+            // Ideally remember the cut part and perform a slope fix on it with the landingplane as ground
+            Vector3 off = velocity.normalized * 0.01f;
+            if (Physics.SphereCast(pos - off, colliderRadius, rb.velocity, out hit, rb.velocity.magnitude * Time.fixedDeltaTime + colliderRadius + 0.01f)) {
+                float dist = Vector3.Distance(pos, hit.point) - colliderRadius;
+                rb.velocity = rb.velocity.normalized * dist / Time.fixedDeltaTime;
             }
         }
         else {

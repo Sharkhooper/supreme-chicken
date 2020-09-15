@@ -255,13 +255,14 @@ MonoBehaviour:
   velocitySmooth: 0.06
   rayOffsetRadius: 0.5
   rayDistanceCorrection: 0.5
-  rayGroundTolerance: 0.02
+  rayGroundTolerance: 0.095
   rayWallTolerance: 1
   slopeAngleThreshold: 45
-  groundCorrectionScale: 0.862
+  groundCorrectionScale: 0.987
   feetOffset: {x: 0, y: -0.5, z: 0}
   capVelocityClip: 1
   state: 0
+  inputVelocity: 0
   lowJumpMultiplier: 2
   highJumpMultiplier: 3
   fallMultiplier: 5
@@ -359,7 +360,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 33564940}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.53, y: 1.55, z: 0}
+  m_LocalPosition: {x: 8.555, y: 1.761, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 587718497}
@@ -678,7 +679,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 791746964}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.53, y: 4.417, z: -10}
+  m_LocalPosition: {x: 8.555, y: 4.628, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1725730882}
@@ -828,7 +829,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.53, y: 4.417, z: -10}
+  m_LocalPosition: {x: 8.555, y: 4.628, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
