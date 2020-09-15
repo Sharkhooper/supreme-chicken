@@ -253,7 +253,10 @@ MonoBehaviour:
   velocitySmooth: 0.12
   rayGroundTolerance: 0.09
   rayWallTolerance: 1
+  wallDistTolerance: 0.03
   slopeAngleThreshold: 45
+  wallGrabAngleThreshold: 33
+  wallGrabDistTolerance: 0.02
   groundCorrectionScale: 0.98
   feetOffset: {x: 0, y: -0.5, z: 0}
   capVelocityClip: 1
@@ -357,7 +360,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 33564940}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.74, y: 1.745, z: 0}
+  m_LocalPosition: {x: 14.793, y: 4.252, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 587718497}
@@ -666,7 +669,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 791746964}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.74, y: 4.612, z: -10}
+  m_LocalPosition: {x: 14.793, y: 7.119, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1725730882}
@@ -904,7 +907,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.74, y: 4.612, z: -10}
+  m_LocalPosition: {x: 14.793, y: 7.119, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

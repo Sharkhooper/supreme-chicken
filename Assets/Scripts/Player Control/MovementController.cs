@@ -9,6 +9,7 @@ public class MovementController : MonoBehaviour {
         None = 0,
         OnGround = 1,
         Jump = 2,
+        WallGrab = 4,
     }
 
     //[SerializeField] private float colliderRadius = 0.5f;
@@ -19,7 +20,10 @@ public class MovementController : MonoBehaviour {
     //[SerializeField] private float rayDistanceCorrection = 0.5f;
     [SerializeField] private float rayGroundTolerance = 0.1f;
     [SerializeField] private float rayWallTolerance = 0.55f;
+    [SerializeField] private float wallDistTolerance = 0.02f;
     [SerializeField] private float slopeAngleThreshold = 45;
+    [SerializeField] private float wallGrabAngleThreshold = 32;
+    [SerializeField] private float wallGrabDistTolerance = 0.02f;
     [SerializeField] [Range(0, 1)]  private float groundCorrectionScale = 0.96f;
 
     [SerializeField] private Vector3 feetOffset;
@@ -111,16 +115,28 @@ public class MovementController : MonoBehaviour {
                 onGroundCorrection = distance * Vector3.down * groundCorrectionScale;
             }
         }
-        else if (coyoteTimeCooldown > 0) {
-            coyoteTimeCooldown -= Time.fixedDeltaTime;
+
+        if (!state.HasFlag(MovementState.OnGround)) {
+            if (coyoteTimeCooldown > 0) {
+                coyoteTimeCooldown -= Time.fixedDeltaTime;
+            }
+
+            if (Physics.SphereCast(bodyPos + Vector3.up * 0.001f, bodyRad, Vector3.down, out hit, 0.001f + wallGrabDistTolerance/*, layerMask*/)) {
+                float angle = Vector3.Angle(Vector3.up, hit.normal);
+                if (angle < wallGrabAngleThreshold) {
+                    state |= MovementState.WallGrab;
+                    velocity = Vector3.zero;
+                }
+            }
         }
 
         // Initialize jump
-        bool canJump = coyoteTimeCooldown > 0 || state.HasFlag(MovementState.OnGround);
+        bool canJump = coyoteTimeCooldown > 0 || state.HasFlag(MovementState.OnGround) || state.HasFlag(MovementState.WallGrab);
         if (canJump && jumpInputDown) {
             gravity = Vector3.up * initialJumpVelocity;
             state |= MovementState.Jump;
             state &= ~MovementState.OnGround;
+            state &= ~MovementState.WallGrab;
             coyoteTimeCooldown = 0;
         }
 
@@ -143,7 +159,7 @@ public class MovementController : MonoBehaviour {
             }
         }
         // Regular gravity
-        else if (!state.HasFlag(MovementState.OnGround)) {
+        else if (!state.HasFlag(MovementState.OnGround) && !state.HasFlag(MovementState.WallGrab)) {
             gravity += Physics.gravity * fallMultiplier * Time.fixedDeltaTime;
         }
         // On ground special cases
