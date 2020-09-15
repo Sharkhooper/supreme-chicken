@@ -114,7 +114,7 @@ MonoBehaviour:
     m_ActionId: 4cbafefa-0833-4338-8ca7-643c7056ea8e
     m_ActionName: actionMap/Dash[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Mouse&Keyboard
   m_DefaultActionMap: actionMap
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -132,6 +132,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxVelocity: 30
   velocitySmooth: 0.06
+  rayOffsetRadius: 0.5
+  rayDistanceCorrection: 0.5
+  rayGroundTolerance: 0.15
   feetOffset: {x: 0, y: -0.48, z: 0}
   rb: {fileID: 7943806799201917392}
 --- !u!54 &7943806799201917392
