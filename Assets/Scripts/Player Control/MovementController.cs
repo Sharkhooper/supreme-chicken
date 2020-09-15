@@ -11,12 +11,12 @@ public class MovementController : MonoBehaviour {
         Jump = 2,
     }
 
-    [SerializeField] private float colliderRadius = 0.5f;
+    //[SerializeField] private float colliderRadius = 0.5f;
 
     [SerializeField] private float maxVelocity = 1;
     [SerializeField] private float velocitySmooth = 0;
-    [SerializeField] private float rayOffsetRadius = 0.5f;
-    [SerializeField] private float rayDistanceCorrection = 0.5f;
+    //[SerializeField] private float rayOffsetRadius = 0.5f;
+    //[SerializeField] private float rayDistanceCorrection = 0.5f;
     [SerializeField] private float rayGroundTolerance = 0.1f;
     [SerializeField] private float rayWallTolerance = 0.55f;
     [SerializeField] private float slopeAngleThreshold = 45;
@@ -47,6 +47,8 @@ public class MovementController : MonoBehaviour {
 
     // Components
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private SphereCollider bodyCollider;
+    [SerializeField] private SphereCollider feetCollider;
 
     [SerializeField] [Range(0,1)] private float debugScale = 0.2f;
 
@@ -72,8 +74,12 @@ public class MovementController : MonoBehaviour {
     private Vector3 velocity;
 
     private void FixedUpdate() {
-        Vector3 pos = rb.transform.position;
+        //Vector3 pos = rb.transform.position;
         Vector3 onGroundCorrection = Vector3.zero;
+        Vector3 feetPos = feetCollider.transform.position;
+        Vector3 bodyPos = bodyCollider.transform.position;
+        float feetRad = feetCollider.radius;
+        float bodyRad = bodyCollider.radius;
 
         // ==================
         // #### Movement ####
@@ -92,7 +98,7 @@ public class MovementController : MonoBehaviour {
         // Spherecast skips colliders if colliders overlap at start
         // As a workaround the startingposition ist set slightly above center
         // Proper workaround would be multiple colliders for the body - and one only for the legs / feet
-        if (Physics.SphereCast(pos + Vector3.up * 0.01f, colliderRadius, Vector3.down, out hit, rayGroundTolerance/*, layerMask*/)) {
+        if (Physics.SphereCast(feetPos + Vector3.up * 0.01f, feetRad, Vector3.down, out hit, 0.01f + rayGroundTolerance/*, layerMask*/)) {
             float angle = Vector3.Angle(Vector3.up, hit.normal);
             if (angle < slopeAngleThreshold) {
                 state |= MovementState.OnGround;
@@ -101,7 +107,7 @@ public class MovementController : MonoBehaviour {
 
                 plane = planeNormalRotation * hit.normal;
                 velocity = Vector3.Project(velocity, plane);
-                float distance = Vector3.Distance(pos, hit.point) - colliderRadius;
+                float distance = Vector3.Distance(feetPos, hit.point) - feetRad;
                 onGroundCorrection = distance * Vector3.down * groundCorrectionScale;
             }
         }
@@ -148,7 +154,7 @@ public class MovementController : MonoBehaviour {
             // Fixes speedloss on transition between planes with different angles
             Vector3 ground = hit.point;
             // Fire spherecast in velocity direction
-            if (Mathf.Abs(velocityMagnitude) > 0.00001f && Physics.SphereCast(pos, colliderRadius, velocity, out hit, velocity.magnitude)) {
+            if (Mathf.Abs(velocityMagnitude) > 0.00001f && Physics.SphereCast(feetPos, feetRad, velocity, out hit, velocity.magnitude)) {
                 // check if cast hits something and hitted plane is a walkable plane
                 float angle = Vector3.Angle(Vector3.up, hit.normal);
                 if (angle < slopeAngleThreshold) {
@@ -165,11 +171,11 @@ public class MovementController : MonoBehaviour {
         }
 
         // Wall detection
-        if (velocity.magnitude > 0 && Physics.SphereCast(pos - Vector3.right * orientation * 0.01f, colliderRadius, velocity, out hit, velocity.magnitude + 0.01f)) {
+        if (velocity.magnitude > 0.01f && Physics.SphereCast(bodyPos - Vector3.right * orientation * 0.01f, bodyRad, velocity, out hit, velocity.magnitude + 0.01f)) {
             float angle = Vector3.Angle(Vector3.up, hit.normal);
             if (angle >= slopeAngleThreshold) {
                 velocity.Normalize();
-                float dist = Vector3.Distance(hit.point, pos) - colliderRadius;
+                float dist = Vector3.Distance(hit.point, bodyPos) - bodyRad;
                 velocity *= dist;
             }
         }
@@ -185,8 +191,8 @@ public class MovementController : MonoBehaviour {
             // results in a slowdown on landing, because horizontal movement gets skipped
             // Ideally remember the cut part and perform a slope fix on it with the landingplane as ground
             Vector3 off = velocity.normalized * 0.01f;
-            if (Physics.SphereCast(pos - off, colliderRadius, rb.velocity, out hit, rb.velocity.magnitude * Time.fixedDeltaTime + colliderRadius + 0.01f)) {
-                float dist = Vector3.Distance(pos, hit.point) - colliderRadius;
+            if (Physics.SphereCast(feetPos - off, feetRad, rb.velocity, out hit, rb.velocity.magnitude * Time.fixedDeltaTime + feetRad + 0.01f)) {
+                float dist = Vector3.Distance(feetPos, hit.point) - feetRad;
                 rb.velocity = rb.velocity.normalized * dist / Time.fixedDeltaTime;
             }
         }
