@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using DG.Tweening.Core;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,6 +16,8 @@ public class MenuButtons : MonoBehaviour
 
     public Transform m_startButton;
     public Transform m_quitButton;
+    public Transform m_door;
+    public Transform m_pivot;
     
     private void Awake()
     {
@@ -40,12 +43,16 @@ public class MenuButtons : MonoBehaviour
                 m_animating = true;
                 Animate(m_startButton);
                 EventSystems.MainEventSystem.MainEvents.GameStarts();
+                
+                m_door.RotateAround(m_pivot.position, new Vector3(1, 0,0), -90);
+                m_door.position = new Vector3(m_door.position.x, m_door.position.y , m_door.position.z + 1.0f);
             }
             
             else if(hit.transform == m_quitButton)
             {
                 m_animating = true;
                 Animate(m_quitButton);
+                EventSystems.MainEventSystem.MainEvents.GameQuit();
             }
         }
     }

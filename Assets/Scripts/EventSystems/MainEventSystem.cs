@@ -6,6 +6,7 @@ namespace EventSystems
     public class MainEventSystem : MonoBehaviour
     {
         public event Action onGameStarts;
+        public event Action onGameQuit;
 
         public static MainEventSystem MainEvents;
 
@@ -19,6 +20,13 @@ namespace EventSystems
             if (onGameStarts != null)
             {
                 onGameStarts();
+            }
+        }
+        public void GameQuit()
+        {
+            if (onGameQuit != null)
+            {
+                onGameQuit();
             }
         }
     }
