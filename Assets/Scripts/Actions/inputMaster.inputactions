@@ -117,6 +117,52 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Menu",
+            "id": "b2bc62aa-df69-47df-8745-4b105c614025",
+            "actions": [
+                {
+                    "name": "UI Click",
+                    "type": "Button",
+                    "id": "c7939bd1-e4f5-4b03-a3a0-509e47b8865d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "MouseParameters",
+                    "type": "PassThrough",
+                    "id": "40924d0d-0c9f-42cb-bc81-7408ddfde8f9",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "bb175b35-9e7c-4b2b-bd86-ed71070fc3ba",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UI Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d9e22f55-1846-4c49-8e3b-51b1219feaa7",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseParameters",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

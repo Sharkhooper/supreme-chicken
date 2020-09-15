@@ -130,6 +130,52 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Menu"",
+            ""id"": ""b2bc62aa-df69-47df-8745-4b105c614025"",
+            ""actions"": [
+                {
+                    ""name"": ""UI Click"",
+                    ""type"": ""Button"",
+                    ""id"": ""c7939bd1-e4f5-4b03-a3a0-509e47b8865d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""MouseParameters"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""40924d0d-0c9f-42cb-bc81-7408ddfde8f9"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""bb175b35-9e7c-4b2b-bd86-ed71070fc3ba"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UI Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d9e22f55-1846-4c49-8e3b-51b1219feaa7"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseParameters"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -157,6 +203,10 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_actionMap_Jump = m_actionMap.FindAction("Jump", throwIfNotFound: true);
         m_actionMap_Attack = m_actionMap.FindAction("Attack", throwIfNotFound: true);
         m_actionMap_Dash = m_actionMap.FindAction("Dash", throwIfNotFound: true);
+        // Menu
+        m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
+        m_Menu_UIClick = m_Menu.FindAction("UI Click", throwIfNotFound: true);
+        m_Menu_MouseParameters = m_Menu.FindAction("MouseParameters", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -259,6 +309,47 @@ public class @InputMaster : IInputActionCollection, IDisposable
         }
     }
     public ActionMapActions @actionMap => new ActionMapActions(this);
+
+    // Menu
+    private readonly InputActionMap m_Menu;
+    private IMenuActions m_MenuActionsCallbackInterface;
+    private readonly InputAction m_Menu_UIClick;
+    private readonly InputAction m_Menu_MouseParameters;
+    public struct MenuActions
+    {
+        private @InputMaster m_Wrapper;
+        public MenuActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
+        public InputAction @UIClick => m_Wrapper.m_Menu_UIClick;
+        public InputAction @MouseParameters => m_Wrapper.m_Menu_MouseParameters;
+        public InputActionMap Get() { return m_Wrapper.m_Menu; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MenuActions set) { return set.Get(); }
+        public void SetCallbacks(IMenuActions instance)
+        {
+            if (m_Wrapper.m_MenuActionsCallbackInterface != null)
+            {
+                @UIClick.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnUIClick;
+                @UIClick.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnUIClick;
+                @UIClick.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnUIClick;
+                @MouseParameters.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnMouseParameters;
+                @MouseParameters.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnMouseParameters;
+                @MouseParameters.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnMouseParameters;
+            }
+            m_Wrapper.m_MenuActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @UIClick.started += instance.OnUIClick;
+                @UIClick.performed += instance.OnUIClick;
+                @UIClick.canceled += instance.OnUIClick;
+                @MouseParameters.started += instance.OnMouseParameters;
+                @MouseParameters.performed += instance.OnMouseParameters;
+                @MouseParameters.canceled += instance.OnMouseParameters;
+            }
+        }
+    }
+    public MenuActions @Menu => new MenuActions(this);
     private int m_MouseKeyboardSchemeIndex = -1;
     public InputControlScheme MouseKeyboardScheme
     {
@@ -274,5 +365,10 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
+    }
+    public interface IMenuActions
+    {
+        void OnUIClick(InputAction.CallbackContext context);
+        void OnMouseParameters(InputAction.CallbackContext context);
     }
 }
