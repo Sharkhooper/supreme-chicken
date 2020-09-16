@@ -3,7 +3,12 @@ guid: 8b239113c5bf4c043b399cd0166f281e
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: chicken_texture
+    second: {fileID: 2100000, guid: e5415b42fe76a2543b8e75728528284b, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
