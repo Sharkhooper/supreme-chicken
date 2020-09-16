@@ -24,16 +24,12 @@ public class MenuButtons : MonoBehaviour
         m_camera = Camera.main;
     }
 
-    // Store mouse pos
-    public void MousePos(InputAction.CallbackContext context)
-    {
-        Vector3 pos = context.ReadValue<Vector2>();
-        pos.z = 1000;
-        m_lastMousePos = m_camera.ScreenToWorldPoint(pos);
-    }
-
     public void MouseClick()
     {
+        Vector3 pos = Mouse.current.position.ReadValue();
+        pos.z = 1000;
+        m_lastMousePos = m_camera.ScreenToWorldPoint(pos);
+        Debug.DrawRay(m_camera.transform.position, m_lastMousePos, Color.black, 100);
         // Determine which button was pressed if any
         RaycastHit hit;
         if (Physics.Raycast(m_camera.transform.position, m_lastMousePos - m_camera.transform.position, out hit, int.MaxValue) && !m_animating)
@@ -45,7 +41,7 @@ public class MenuButtons : MonoBehaviour
                 EventSystems.MainEventSystem.MainEvents.GameStarts();
                 
                 m_door.RotateAround(m_pivot.position, new Vector3(1, 0,0), -90);
-                m_door.position = new Vector3(m_door.position.x, m_door.position.y , m_door.position.z + 1.0f);
+                m_door.position = m_door.transform.forward * -1;
             }
             
             else if(hit.transform == m_quitButton)
@@ -62,10 +58,12 @@ public class MenuButtons : MonoBehaviour
         //Vector3[] points = new Vector3[2];
         //points[0] = new Vector3(toAnimate.position.x, toAnimate.position.y, toAnimate.position.z + 0.06f);
         //points[1] = new Vector3(toAnimate.position.x, toAnimate.position.y, toAnimate.position.z - 0.06f);
-
-        toAnimate.DOMove(new Vector3(toAnimate.position.x, toAnimate.position.y, toAnimate.position.z + 0.06f), 0.6f)
+        Vector3 backPos = toAnimate.transform.localPosition + new Vector3(0,0,0.1f);
+        Vector3 fowPos = toAnimate.transform.localPosition;
+        
+        toAnimate.DOLocalMove(backPos, 0.6f)
             .onComplete += () =>
-            toAnimate.DOMove(new Vector3(toAnimate.position.x, toAnimate.position.y, toAnimate.position.z - 0.06f), 0.6f)
+            toAnimate.DOLocalMove(fowPos, 0.6f)
                 .onComplete += () => m_animating = false;
     }
 }
