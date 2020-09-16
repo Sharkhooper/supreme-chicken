@@ -19,6 +19,7 @@ public class EnemyHolder : MonoBehaviour
         if (enemyLaserAttack != null)
             enemyLaserAttack.SetHolder(this);
         enemyWalkingController.SetHolder(this);
+        enemyWalkingController.PlaceDown();
         closeRangeController.SetHolder(this);
     }
 }

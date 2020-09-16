@@ -24,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2928074979051735030}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -289,6 +289,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972ec6f42f8dbdf49861368351c1f53d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 7991
   moveSpeed: 4
   turnRange: 2
   direction: {x: 1, y: 0, z: 0}
@@ -306,11 +309,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b6e71f94347e144bb6937f7646bc15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aimDuration: 0
+  aimDuration: 1
   shootDuration: 1
-  growSpeed: 0
-  waitBetweenShoots: 0
-  degreesAbove: 0
+  growSpeed: 3
+  waitBetweenShoots: 1
+  degreesAbove: 10
   myLaser: {fileID: 2330470213979071866}
   myAim: {fileID: 2684472915934865427}
   burnParticlesPrefab: {fileID: 5254735629226669536, guid: 194f08b67e2c47842bfc92c40886086b, type: 3}
@@ -371,6 +374,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972ec6f42f8dbdf49861368351c1f53d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
   moveSpeed: 2
   turnRange: 0
   direction: {x: 1, y: 0, z: 0}

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4412744807157588310}
-  m_Layer: 2
+  m_Layer: 13
   m_Name: Laser_Aim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 4412744807446982512}
   - component: {fileID: 4412744807446982513}
   - component: {fileID: 3065021569829305467}
-  m_Layer: 2
+  m_Layer: 13
   m_Name: LaserObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,5 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 655eac26bcf9c7449afe89175b658827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 7735
   originTrans: {fileID: 4412744807157588310}
   defaultLength: 200

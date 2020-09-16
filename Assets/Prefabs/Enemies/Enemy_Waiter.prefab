@@ -142,6 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyCloseAttack: {fileID: 0}
   enemyThrowAttack: {fileID: 2846318861996803891}
+  enemyLaserAttack: {fileID: 0}
   enemyWalkingController: {fileID: 3938164016899307976}
   closeRangeController: {fileID: 2928074980260237392}
 --- !u!1 &2928074980082450596
@@ -365,10 +366,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972ec6f42f8dbdf49861368351c1f53d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 7991
   moveSpeed: 4
   turnRange: 2
   direction: {x: 1, y: 0, z: 0}
   rotated: 0
+  move: 1
 --- !u!54 &984993348480145041
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -458,7 +463,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972ec6f42f8dbdf49861368351c1f53d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
   moveSpeed: 4
   turnRange: 0
   direction: {x: 1, y: 0, z: 0}
   rotated: 0
+  move: 1
