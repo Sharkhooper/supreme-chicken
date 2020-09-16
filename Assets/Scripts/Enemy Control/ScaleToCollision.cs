@@ -8,7 +8,6 @@ public class ScaleToCollision : MonoBehaviour
     public float defaultLength;
     private Vector3 hitPosition;
 
-    // Update is called once per frame
     void Update()
     {
         Vector3 myDirection = transform.parent.rotation * Vector3.up;

@@ -5,10 +5,11 @@ using UnityEngine;
 public class EnemyLaserAttack : MonoBehaviour
 {
     public float aimDuration, shootDuration, growSpeed, waitBetweenShoots, degreesAbove;
-    public GameObject myLaser, myAim;
+    public GameObject myLaser, myAim, burnParticlesPrefab;
     private EnemyHolder holder;
     private bool shooting, running, aiming;
     private float timeElapsed = 0;
+    private GameObject burnParticles;
 
     private void Update() {
         //Debug.Log("Time elapsed: " + timeElapsed);
@@ -18,10 +19,12 @@ public class EnemyLaserAttack : MonoBehaviour
             //myLaser.transform.Rotate(new Vector3(0, 0, Time.deltaTime * rotationSpeed * holder.enemyWalkingController.direction.x * -1));
             float change = Time.deltaTime * growSpeed;
             myLaser.transform.localScale += new Vector3(change, 0, change);
+            burnParticles.transform.position = myLaser.GetComponentInChildren<ScaleToCollision>().GetHitPosition();
             timeElapsed += Time.deltaTime;
         }
         else if (!running && shooting && timeElapsed >= shootDuration)
         {
+            Destroy(burnParticles);
             myLaser.SetActive(false);
             holder.enemyWalkingController.move = true;
             StartCoroutine(WaitForNextShoot());
@@ -47,6 +50,8 @@ public class EnemyLaserAttack : MonoBehaviour
         myAim.SetActive(false);
         shooting = true;
         myLaser.SetActive(true);
+        burnParticles = Instantiate(burnParticlesPrefab);
+
         myLaser.transform.position = transform.position;
         myLaser.transform.localScale = Vector3.one;
         myLaser.transform.rotation = Quaternion.Euler(0, 0, (90 - angle) * holder.enemyWalkingController.direction.x * -1);

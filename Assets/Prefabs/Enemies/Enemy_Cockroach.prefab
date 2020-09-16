@@ -293,6 +293,7 @@ MonoBehaviour:
   turnRange: 2
   direction: {x: 1, y: 0, z: 0}
   rotated: 0
+  move: 1
 --- !u!114 &649336593273321801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,10 +308,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aimDuration: 0
   shootDuration: 1
-  rotationSpeed: 1.5
+  growSpeed: 0
   waitBetweenShoots: 0
+  degreesAbove: 0
   myLaser: {fileID: 2330470213979071866}
   myAim: {fileID: 2684472915934865427}
+  burnParticlesPrefab: {fileID: 5254735629226669536, guid: 194f08b67e2c47842bfc92c40886086b, type: 3}
 --- !u!1 &2928074980761305679
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,6 +375,7 @@ MonoBehaviour:
   turnRange: 0
   direction: {x: 1, y: 0, z: 0}
   rotated: 0
+  move: 1
 --- !u!1001 &1764304813570885956
 PrefabInstance:
   m_ObjectHideFlags: 0
