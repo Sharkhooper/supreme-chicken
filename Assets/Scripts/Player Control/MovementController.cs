@@ -12,23 +12,25 @@ public class MovementController : MonoBehaviour {
         WallGrab = 4,
     }
 
-    //[SerializeField] private float colliderRadius = 0.5f;
+    // Maximum horizontal velocity
+    [SerializeField] private float maxVelocity = 16;
+    // Velocity damping - zero equals instant changes
+    [SerializeField] private float velocitySmooth = 0.12f;
 
-    [SerializeField] private float maxVelocity = 1;
-    [SerializeField] private float velocitySmooth = 0;
-    //[SerializeField] private float rayOffsetRadius = 0.5f;
-    //[SerializeField] private float rayDistanceCorrection = 0.5f;
-    [SerializeField] private float rayGroundTolerance = 0.1f;
-    [SerializeField] private float rayWallTolerance = 0.55f;
-    [SerializeField] private float wallDistTolerance = 0.02f;
+    // Ground is detected with a tolerance resulting in a slight hover
+    // Distance of said tolerance in downwards direction
+    [SerializeField] private float rayGroundTolerance = 0.09f;
+
+    // Maximum angle at which a plane is walkable / counts as ground
     [SerializeField] private float slopeAngleThreshold = 45;
-    [SerializeField] private float wallGrabAngleThreshold = 32;
+
+    // Maximum angle at which a ledge is considerd for a grab
+    [SerializeField] private float wallGrabAngleThreshold = 33;
+    // Distance tolerance for wall grab spherecast
     [SerializeField] private float wallGrabDistTolerance = 0.02f;
-    [SerializeField] [Range(0, 1)]  private float groundCorrectionScale = 0.96f;
 
-    [SerializeField] private Vector3 feetOffset;
-
-    [SerializeField] private bool capVelocityClip = true;
+    // If on ground and hovering because of tolerance, how much hoverheight percentage should be corrected per fixedUpdate
+    [SerializeField] [Range(0, 1)]  private float groundCorrectionScale = 0.98f;
 
     [SerializeField] private MovementState state;
 
@@ -40,19 +42,23 @@ public class MovementController : MonoBehaviour {
     private float velocityChangeRate = 0;
 
     // Jump
-    [SerializeField] private float lowJumpMultiplier = 1;
-    [SerializeField] private float highJumpMultiplier = 2;
-    [SerializeField] private float fallMultiplier = 2.5f;
-    [SerializeField] private float initialJumpVelocity = 5;
+    [SerializeField] private float lowJumpMultiplier = 5;
+    [SerializeField] private float highJumpMultiplier = 3;
+    [SerializeField] private float fallMultiplier = 6;
+    [SerializeField] private float initialJumpVelocity = 15;
 
     // Coyote Time - Meep Meep
-    [SerializeField] private double coyoteTime = 0.5;
+    [SerializeField] private double coyoteTime = 0.09;
     private double coyoteTimeCooldown;
 
     // Components
     [SerializeField] private Rigidbody rb;
     [SerializeField] private SphereCollider bodyCollider;
     [SerializeField] private SphereCollider feetCollider;
+    [SerializeField] private Transform cameraTarget;
+    [SerializeField] private Vector3 cameraOffset;
+    [SerializeField] private float cameraMaxDelta = 1.86f;
+    [SerializeField] private LayerMask collisionLayers = ~0;
 
     [SerializeField] [Range(0,1)] private float debugScale = 0.2f;
 
@@ -78,7 +84,6 @@ public class MovementController : MonoBehaviour {
     private Vector3 velocity;
 
     private void FixedUpdate() {
-        //Vector3 pos = rb.transform.position;
         Vector3 onGroundCorrection = Vector3.zero;
         Vector3 feetPos = feetCollider.transform.position;
         Vector3 bodyPos = bodyCollider.transform.position;
@@ -94,6 +99,8 @@ public class MovementController : MonoBehaviour {
         velocity = Vector3.right * velocityMagnitude * maxVelocity * Time.fixedDeltaTime;
         float orientation = velocityMagnitude > 0 ? 1 : -1;
 
+        cameraTarget.localPosition =  Vector3.Lerp(cameraTarget.localPosition, cameraOffset * velocityMagnitude, cameraMaxDelta * Time.fixedDeltaTime);
+
         RaycastHit hit;
 
         // Get ground Vector and project velocity accordingly
@@ -102,7 +109,7 @@ public class MovementController : MonoBehaviour {
         // Spherecast skips colliders if colliders overlap at start
         // As a workaround the startingposition ist set slightly above center
         // Proper workaround would be multiple colliders for the body - and one only for the legs / feet
-        if (Physics.SphereCast(feetPos + Vector3.up * 0.01f, feetRad, Vector3.down, out hit, 0.01f + rayGroundTolerance/*, layerMask*/)) {
+        if (Physics.SphereCast(feetPos + Vector3.up * 0.01f, feetRad, Vector3.down, out hit, 0.01f + rayGroundTolerance, collisionLayers)) {
             float angle = Vector3.Angle(Vector3.up, hit.normal);
             if (angle < slopeAngleThreshold) {
                 state |= MovementState.OnGround;
@@ -121,7 +128,7 @@ public class MovementController : MonoBehaviour {
                 coyoteTimeCooldown -= Time.fixedDeltaTime;
             }
 
-            if (Physics.SphereCast(bodyPos + Vector3.up * 0.001f, bodyRad, Vector3.down, out hit, 0.001f + wallGrabDistTolerance/*, layerMask*/)) {
+            if (Physics.SphereCast(bodyPos + Vector3.up * 0.001f, bodyRad, Vector3.down, out hit, 0.001f + wallGrabDistTolerance, collisionLayers)) {
                 float angle = Vector3.Angle(Vector3.up, hit.normal);
                 if (angle < wallGrabAngleThreshold) {
                     state |= MovementState.WallGrab;
@@ -150,7 +157,7 @@ public class MovementController : MonoBehaviour {
         // =================
 
         // Handle jump gravity
-        if (gravity.y > 0 && state.HasFlag(MovementState.Jump)) {
+        if (gravity.y > 0) {
             if (jumpInput) {
                 gravity += Physics.gravity * highJumpMultiplier * Time.fixedDeltaTime;
             }
@@ -170,7 +177,7 @@ public class MovementController : MonoBehaviour {
             // Fixes speedloss on transition between planes with different angles
             Vector3 ground = hit.point;
             // Fire spherecast in velocity direction
-            if (Mathf.Abs(velocityMagnitude) > 0.00001f && Physics.SphereCast(feetPos, feetRad, velocity, out hit, velocity.magnitude)) {
+            if (Mathf.Abs(velocityMagnitude) > 0.00001f && Physics.SphereCast(feetPos, feetRad, velocity, out hit, velocity.magnitude, collisionLayers)) {
                 // check if cast hits something and hitted plane is a walkable plane
                 float angle = Vector3.Angle(Vector3.up, hit.normal);
                 if (angle < slopeAngleThreshold) {
@@ -187,7 +194,7 @@ public class MovementController : MonoBehaviour {
         }
 
         // Wall detection
-        if (velocity.magnitude > 0.01f && Physics.SphereCast(bodyPos - Vector3.right * orientation * 0.01f, bodyRad, velocity, out hit, velocity.magnitude + 0.01f)) {
+        if (velocity.magnitude > 0.01f && Physics.SphereCast(bodyPos - Vector3.right * orientation * 0.01f, bodyRad, velocity, out hit, velocity.magnitude + 0.01f, collisionLayers)) {
             float angle = Vector3.Angle(Vector3.up, hit.normal);
             if (angle >= slopeAngleThreshold) {
                 velocity.Normalize();
@@ -206,8 +213,12 @@ public class MovementController : MonoBehaviour {
             // Capping this on velocity instead of on gravity and then correcting velocity like on slopes
             // results in a slowdown on landing, because horizontal movement gets skipped
             // Ideally remember the cut part and perform a slope fix on it with the landingplane as ground
+
+            // Calculating this step on gravity instead of velocity can result in a glitch where walking
+            // over a ledge causes swapping to WallGrab state without actually snapping to a wall, which
+            // therefor results in infinite hover, cancelable through a jump
             Vector3 off = velocity.normalized * 0.01f;
-            if (Physics.SphereCast(feetPos - off, feetRad, rb.velocity, out hit, rb.velocity.magnitude * Time.fixedDeltaTime + feetRad + 0.01f)) {
+            if (Physics.SphereCast(feetPos - off, feetRad, rb.velocity, out hit, rb.velocity.magnitude * Time.fixedDeltaTime + feetRad + 0.01f, collisionLayers)) {
                 float dist = Vector3.Distance(feetPos, hit.point) - feetRad;
                 rb.velocity = rb.velocity.normalized * dist / Time.fixedDeltaTime;
             }
@@ -250,10 +261,10 @@ public class MovementController : MonoBehaviour {
     }
 
     private void OnDrawGizmos() {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(rb.transform.position + feetOffset, 0.1f);
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(rb.transform.position + feetOffset + rb.velocity * Time.deltaTime, 0.1f);
+        //Gizmos.color = Color.red;
+        //Gizmos.DrawWireSphere(rb.transform.position + feetOffset, 0.1f);
+        //Gizmos.color = Color.green;
+        //Gizmos.DrawWireSphere(rb.transform.position + feetOffset + rb.velocity * Time.deltaTime, 0.1f);
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position, transform.position + rb.velocity * debugScale);
@@ -263,6 +274,7 @@ public class MovementController : MonoBehaviour {
 
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.magenta;
+        Vector3 feetOffset = new Vector3(0, -0.5f, 0);
         Gizmos.DrawLine(rb.transform.position + feetOffset, rb.transform.position + feetOffset + plane);
     }
 }
