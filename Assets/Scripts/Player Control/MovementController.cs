@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -53,6 +53,9 @@ public class MovementController : MonoBehaviour {
     [SerializeField] private Rigidbody rb;
     [SerializeField] private SphereCollider bodyCollider;
     [SerializeField] private SphereCollider feetCollider;
+    [SerializeField] private Transform cameraTarget;
+    [SerializeField] private Vector3 cameraOffset;
+    [SerializeField] private float cameraMaxDelta = 1.86f;
 
     [SerializeField] [Range(0,1)] private float debugScale = 0.2f;
 
@@ -93,6 +96,8 @@ public class MovementController : MonoBehaviour {
         velocityMagnitude = Mathf.SmoothDamp(velocityMagnitude, inputVelocity, ref velocityChangeRate, velocitySmooth);
         velocity = Vector3.right * velocityMagnitude * maxVelocity * Time.fixedDeltaTime;
         float orientation = velocityMagnitude > 0 ? 1 : -1;
+
+        cameraTarget.localPosition =  Vector3.Lerp(cameraTarget.localPosition, cameraOffset * velocityMagnitude, cameraMaxDelta * Time.fixedDeltaTime);
 
         RaycastHit hit;
 
