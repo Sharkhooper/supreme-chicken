@@ -159,7 +159,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Mouse&Keyboard"",
+                    ""groups"": """",
                     ""action"": ""UI Click"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

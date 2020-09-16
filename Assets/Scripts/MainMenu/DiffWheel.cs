@@ -28,14 +28,16 @@ namespace Mainmenu
         {
             var currentDir = (m_head.position - transform.position).normalized;
             var dir = (pos - transform.position).normalized;
-            var angle = Mathf.Rad2Deg * (Mathf.Atan2(dir.y, dir.x) - Mathf.Atan2(currentDir.y, currentDir.x));
+            var angle = Mathf.Rad2Deg * (Mathf.Atan2(dir.y, dir.z) - Mathf.Atan2(currentDir.y, currentDir.z));
             Debug.Log(angle);
             // Make sure it doesn't rotate the wrong way
             angle = Mathf.Abs(angle) < 170 || angle < -170 ? angle * -1 : angle;
+            Debug.Log(angle);
             if(Mathf.Abs(angle) > 20 && !m_animating)
             {
+                m_currentRot *= Quaternion.Euler(0, angle,0);
                 m_animating = true;
-                transform.DOLocalRotate(new Vector3(0, angle, 0), 0.5f).onComplete += () => m_animating = false;
+                transform.DORotateQuaternion(m_currentRot, 0.3f).onComplete += () => m_animating = false;
             }
         }
        /* public void MouseClick()
