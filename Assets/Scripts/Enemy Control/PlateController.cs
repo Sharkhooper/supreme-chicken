@@ -4,21 +4,23 @@ using UnityEngine;
 
 public class PlateController : MonoBehaviour
 {
-    public GameObject splinterPrefab;
     public float moveSpeed, randomPlusMinusThrow, randomPlusMinusRotate, toRotate, explosionForce, explosionRadius;
-    public int splinters;
     public Vector3 direction;
     private Rigidbody rb;
+    private GameObject mesh, particle; 
 
     private void Start() {
+        mesh = transform.Find("PlateObject").gameObject;
+        particle = transform.Find("PlateExplosion").gameObject;
         rb = gameObject.GetComponent<Rigidbody>();
         float randomizerThrow = Random.Range(-randomPlusMinusThrow, randomPlusMinusThrow);
         direction.y += randomizerThrow;
         float randomizerRotate = Random.Range(-randomPlusMinusRotate, randomPlusMinusRotate);
         rb.MoveRotation(Quaternion.Euler(0, 0, toRotate + randomizerRotate));
         rb.AddForce(direction.normalized * moveSpeed * 100);
-        Debug.Log("direction: " + direction + " / randomizer: " + randomizerThrow);
+        //Debug.Log("direction: " + direction + " / randomizer: " + randomizerThrow);
     }
+
 
 /*
     void FixedUpdate()
@@ -33,6 +35,7 @@ public class PlateController : MonoBehaviour
     {
         if(other.name != "Enemy" && other.gameObject.layer != 8)
         {
+            //Debug.Log("Exploding because of " + other.name);
             Explode();
         }
     }
@@ -40,15 +43,7 @@ public class PlateController : MonoBehaviour
     public void Explode()
     {
         rb.velocity = Vector3.zero;
-        for (int i = 0; i < splinters; i++)
-        {
-            GameObject splinter = Instantiate(splinterPrefab, transform.position, Quaternion.identity);
-            float xRot = Random.Range(0, 180);
-            float yRot = Random.Range(0, 180);
-            float zRot = Random.Range(0, 180);
-            splinter.GetComponent<Rigidbody>().MoveRotation(Quaternion.Euler(xRot, yRot, zRot));
-            splinter.GetComponent<Rigidbody>().AddExplosionForce(explosionForce, transform.position, explosionRadius);
-        }
-        Destroy(gameObject);
+        Destroy(mesh);
+        particle.SetActive(true);
     }
 }

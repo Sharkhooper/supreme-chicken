@@ -383,7 +383,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 120
   m_CollisionDetection: 0
 --- !u!114 &2846318861996803891
 MonoBehaviour:
@@ -399,7 +399,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instantiateDistance: 1
   waitBetweenThrows: 0.5
-  platePrefab: {fileID: 964763338535378036, guid: 64c5e6b2033af094c9d424f2af7c0203, type: 3}
+  platePrefab: {fileID: 8290947007672981349, guid: 9a907e73995e4754bb07db7c9263f14d, type: 3}
 --- !u!1 &2928074980761305679
 GameObject:
   m_ObjectHideFlags: 0

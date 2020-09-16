@@ -6,6 +6,7 @@ public class EnemyHolder : MonoBehaviour
 {
     public EnemyCloseAttack enemyCloseAttack;
     public EnemyThrowAttack enemyThrowAttack;
+    public EnemyLaserAttack enemyLaserAttack;
     public EnemyWalkingController enemyWalkingController;
     public CloseRangeController closeRangeController;
 
@@ -15,6 +16,8 @@ public class EnemyHolder : MonoBehaviour
             enemyCloseAttack.SetHolder(this);
         if(enemyThrowAttack != null)
             enemyThrowAttack.SetHolder(this);
+        if (enemyLaserAttack != null)
+            enemyLaserAttack.SetHolder(this);
         enemyWalkingController.SetHolder(this);
         closeRangeController.SetHolder(this);
     }

@@ -26,8 +26,10 @@ public class CloseRangeController : MonoBehaviour
             {
                 if (holder.enemyCloseAttack != null)
                     holder.enemyCloseAttack.StartAttack();
-                if (holder.enemyThrowAttack != null)
+                else if (holder.enemyThrowAttack != null)
                     holder.enemyThrowAttack.StartAttack(distanceVector, angle);
+                else if (holder.enemyLaserAttack != null)
+                    holder.enemyLaserAttack.StartAttack(angle);
             }
             else
             {
@@ -35,7 +37,7 @@ public class CloseRangeController : MonoBehaviour
                 /*
                 for (int i = 0; i < hits.Length; i++)
                 {
-                    Debug.Log("Hit " + i + ": " + hits[i].transform.name);
+                    Debug.w a("Hit " + i + ": " + hits[i].transform.name);
                 }
                 */
 
@@ -45,8 +47,10 @@ public class CloseRangeController : MonoBehaviour
                     //Debug.Log("Behind invisiwall");
                     if (holder.enemyCloseAttack != null)
                         holder.enemyCloseAttack.StartAttack();
-                    if (holder.enemyThrowAttack != null)
+                    else if (holder.enemyThrowAttack != null)
                         holder.enemyThrowAttack.StartAttack(distanceVector, angle);
+                    else if (holder.enemyLaserAttack != null)
+                        holder.enemyLaserAttack.StartAttack(angle);
                 }
                 else
                 {
