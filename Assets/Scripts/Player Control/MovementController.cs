@@ -155,7 +155,7 @@ public class MovementController : MonoBehaviour {
         // =================
 
         // Handle jump gravity
-        if (gravity.y > 0 && state.HasFlag(MovementState.Jump)) {
+        if (gravity.y > 0) {
             if (jumpInput) {
                 gravity += Physics.gravity * highJumpMultiplier * Time.fixedDeltaTime;
             }
