@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using Cinemachine;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class MainMenuZoomOut : MonoBehaviour
 {
-    private CinemachineTrackedDolly m_cam;
+    private PlayableDirector m_cam;
+    public Transform m_door;
     void Start()
     {
         EventSystems.MainEventSystem.MainEvents.onGameStarts += GameStarts;
-        m_cam = GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>();
+        m_cam = GetComponent<PlayableDirector>();
     }
 
     private void GameStarts()
     {
         // Animate the cam and its rotation
-        transform.DORotate(new Vector3(0, transform.rotation.eulerAngles.y + 90, 0), 1);
-
-        DOTween.To(() => m_cam.m_PathPosition, x => m_cam.m_PathPosition = x, 2, 2);
+        m_cam.Play();
     }
 }
