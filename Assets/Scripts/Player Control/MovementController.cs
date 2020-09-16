@@ -4,6 +4,17 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class MovementController : MonoBehaviour {
+    private struct ButtonHelper {
+        public bool pressed;
+        public bool down;
+        public void Update(bool b) {
+            if (!pressed && b) {
+                down = true;
+            }
+            pressed = b;
+        }
+    }
+
     [Flags] private enum MovementState {
         None = 0,
         OnGround = 1,
@@ -35,16 +46,14 @@ public class MovementController : MonoBehaviour {
     [SerializeField] private MovementState state;
 
     // Movement
-    bool jumpInputDown = false;
-    bool jumpInput = false;
+    private ButtonHelper jumpButton;
     private float inputVelocity = 0;
     private float velocityMagnitude = 0;
     private float velocityChangeRate = 0;
     private Vector3 dashTarget;
     private Vector3 dashDirection;
-    private bool dashInput = false;
-    private bool dashInputDown = false;
-    private bool attackInput = false;
+    private ButtonHelper dashButton;
+    private ButtonHelper attackButton;
 
     // Jump
     [SerializeField] private float lowJumpMultiplier = 5;
@@ -62,6 +71,14 @@ public class MovementController : MonoBehaviour {
     [SerializeField] private float dashDuration = 0.5f;
     private float dashTime = 0;
 
+    // Attack
+    [SerializeField] private float attackDuration;
+    [SerializeField] private float attackCooldown;
+    [SerializeField] private float attackRange;
+    [SerializeField] private int attackTicks = 10;
+    private float attackTime = 0;
+    private int attackActiveTicks = 0;
+
     // Components
     [SerializeField] private Animator animator;
     [SerializeField] private Rigidbody rb;
@@ -71,6 +88,7 @@ public class MovementController : MonoBehaviour {
     [SerializeField] private Vector3 cameraOffset;
     [SerializeField] private float cameraMaxDelta = 1.86f;
     [SerializeField] private LayerMask collisionLayers = ~0;
+    [SerializeField] private LayerMask damageLayers = 0;
     private Camera cam;
 
     private struct AnimationParameters {
@@ -103,24 +121,18 @@ public class MovementController : MonoBehaviour {
 
     public void HandleJumpInput(InputAction.CallbackContext context) {
         bool b = context.ReadValueAsButton();
-        if (!jumpInput && b) {
-            jumpInputDown = true;
-        }
-        jumpInput = b;
+        jumpButton.Update(b);
     }
 
     public void HandleAttackInput(InputAction.CallbackContext context) {
-        attackInput = context.ReadValueAsButton();
+        attackButton.Update(context.ReadValueAsButton());
     }
 
     public void HandleDashInput(InputAction.CallbackContext context) {
         bool b = context.ReadValueAsButton();
-        if (!dashInput && b) {
-            dashInputDown = true;
-        }
-        dashInput = b;
+        dashButton.Update(b);
 
-        if (dashInputDown) {
+        if (dashButton.down) {
             Ray r = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
             intersectionPlane.Raycast(r, out float d);
             dashTarget = r.origin + d * r.direction.normalized;
@@ -145,31 +157,65 @@ public class MovementController : MonoBehaviour {
 
         animator.SetLayerWeight(animator.GetLayerIndex("Walking"), 0);
         animator.SetFloat(animationParameters.walking, 0);
-        animator.SetBool(animationParameters.attack, attackInput);
+        //animator.SetBool(animationParameters.attack, attackButton.pressed);
 
-        if (dashInputDown && !state.HasFlag(MovementState.Dashing) && dashTime <= 0) {
+        if (dashButton.down && !state.HasFlag(MovementState.Dashing) && dashTime <= 0) {
             state |= MovementState.Dashing;
             state &= ~MovementState.OnGround;
             state &= ~MovementState.Jump;
             state &= ~MovementState.WallGrab;
+            animator.SetBool(animationParameters.dash, true);
             coyoteTimeCooldown = 0;
             dashTime = dashCooldown;
             gravity = Vector3.zero;
             velocity = Vector3.zero;
+            attackTime = 0;
+            animator.SetBool(animationParameters.attack, false);
         }
+        else if (attackButton.down && !state.HasFlag(MovementState.WallGrab) && attackTime <= 0) {
+            attackTime = attackCooldown;
+        }
+
 
         if (dashTime > 0) {
             dashTime -= Time.fixedDeltaTime;
         }
+
+        if (attackTime > 0) {
+            attackTime -= Time.fixedDeltaTime;
+        }
+
 
         if (state.HasFlag(MovementState.Dashing)) {
             if (dashTime >= dashCooldown - dashDuration)
                 rb.velocity = dashDirection;
             else {
                 state &= ~MovementState.Dashing;
+                animator.SetBool(animationParameters.dash, false);
             }
         }
         else {
+            if (attackTime >= attackCooldown - attackDuration) {
+                animator.SetBool(animationParameters.attack, true);
+                --attackActiveTicks;
+
+                if (attackActiveTicks <= 0) {
+                    // Damage Code
+                    Vector3 origin = rb.transform.position;
+                    Collider[] hits = Physics.OverlapSphere(origin, attackRange);
+                    foreach (Collider c in hits) {
+                        if ((1 << c.gameObject.layer & damageLayers.value) != 0) {
+                            c.GetComponent<Killable>().GetKilled();
+                        }
+                    }
+                    attackActiveTicks = attackTicks;
+                }
+
+            }
+            else {
+                animator.SetBool(animationParameters.attack, false);
+            }
+
             // ==================
             // #### Movement ####
             // ==================
@@ -225,7 +271,7 @@ public class MovementController : MonoBehaviour {
 
             // Initialize jump
             bool canJump = coyoteTimeCooldown > 0 || state.HasFlag(MovementState.OnGround) || state.HasFlag(MovementState.WallGrab);
-            if (canJump && jumpInputDown) {
+            if (canJump && jumpButton.down) {
                 gravity = Vector3.up * initialJumpVelocity;
                 state |= MovementState.Jump;
                 state &= ~MovementState.OnGround;
@@ -234,7 +280,7 @@ public class MovementController : MonoBehaviour {
             }
 
             // Stop receiving new jump input midair
-            if (state.HasFlag(MovementState.Jump) && (!jumpInput || gravity.y <= 0)) {
+            if (state.HasFlag(MovementState.Jump) && (!jumpButton.pressed || gravity.y <= 0)) {
                 state &= ~MovementState.Jump;
             }
 
@@ -244,7 +290,7 @@ public class MovementController : MonoBehaviour {
 
             // Handle jump gravity
             if (gravity.y > 0) {
-                if (jumpInput) {
+                if (jumpButton.pressed) {
                     gravity += Physics.gravity * highJumpMultiplier * Time.fixedDeltaTime;
                 }
                 else {
@@ -314,8 +360,9 @@ public class MovementController : MonoBehaviour {
             }
         }
 
-        jumpInputDown = false;
-        dashInputDown = false;
+        jumpButton.down = false;
+        attackButton.down = false;
+        dashButton.down = false;
     }
 
     // Currently only supports vectors on xy-plane. For more versatility project on some plane.
