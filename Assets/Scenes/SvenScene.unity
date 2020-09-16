@@ -1312,14 +1312,10 @@ MonoBehaviour:
   maxVelocity: 16
   velocitySmooth: 0.12
   rayGroundTolerance: 0.09
-  rayWallTolerance: 1
-  wallDistTolerance: 0.03
   slopeAngleThreshold: 45
   wallGrabAngleThreshold: 33
   wallGrabDistTolerance: 0.02
   groundCorrectionScale: 0.98
-  feetOffset: {x: 0, y: -0.5, z: 0}
-  capVelocityClip: 1
   state: 0
   lowJumpMultiplier: 2
   highJumpMultiplier: 3
@@ -1329,6 +1325,12 @@ MonoBehaviour:
   rb: {fileID: 1469422218}
   bodyCollider: {fileID: 2122385586}
   feetCollider: {fileID: 850272137}
+  cameraTarget: {fileID: 982957128}
+  cameraOffset: {x: 0, y: 0, z: 0}
+  cameraMaxDelta: 1.86
+  collisionLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   debugScale: 0.2
 --- !u!114 &1469422220
 MonoBehaviour:
@@ -1427,6 +1429,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 40924d0d-0c9f-42cb-bc81-7408ddfde8f9
     m_ActionName: Menu/MouseParameters[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1469422223}
+        m_TargetAssemblyTypeName: DashAbility, Assembly-CSharp
+        m_MethodName: HandleDirectionInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 56212232-19d8-43c5-813f-1230e1b6a0ed
+    m_ActionName: actionMap/MousePosition[/Mouse/position]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: actionMap
