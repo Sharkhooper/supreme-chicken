@@ -99,6 +99,7 @@ public class MovementController : MonoBehaviour {
         public int dash;
         public int attack;
         public int walking;
+        public int ascending;
         public int layerWalking;
     }
 
@@ -110,7 +111,7 @@ public class MovementController : MonoBehaviour {
     private Sequence walkingHobble;
     [SerializeField] private float hobbleInterval = 0.15f;
     [SerializeField] private float hobbleHeight = 0.1f;
-    private bool walkingHobbleCondition => !walkingHobble.IsPlaying() && velocity.magnitude > 0.1f;
+    private bool walkingHobbleCondition => state.HasFlag(MovementState.OnGround) && !walkingHobble.IsPlaying() && velocity.magnitude > 0.1f;
 
     private void Start() {
         cam = Camera.main;
@@ -122,6 +123,7 @@ public class MovementController : MonoBehaviour {
             dash = Animator.StringToHash("Dash"),
             attack = Animator.StringToHash("Attacking"),
             walking = Animator.StringToHash("Walking"),
+            ascending = Animator.StringToHash("Ascending"),
             layerWalking = animator.GetLayerIndex("Walking"),
         };
 
@@ -184,14 +186,16 @@ public class MovementController : MonoBehaviour {
             state &= ~MovementState.OnGround;
             state &= ~MovementState.Jump;
             state &= ~MovementState.WallGrab;
-            animator.SetBool(animationParameters.dash, true);
             coyoteTimeCooldown = 0;
             dashTime = dashCooldown;
             gravity = Vector3.zero;
             velocity = Vector3.zero;
             attackTime = 0;
-            animator.SetBool(animationParameters.attack, false);
+
             trail.emitting = true;
+            animator.SetBool(animationParameters.attack, false);
+            animator.SetBool(animationParameters.dash, true);
+            animator.SetBool(animationParameters.ascending, false);
         }
         else if (attackButton.down && !state.HasFlag(MovementState.WallGrab) && attackTime <= 0) {
             attackTime = attackCooldown;
@@ -295,6 +299,8 @@ public class MovementController : MonoBehaviour {
                     if (angle < wallGrabAngleThreshold) {
                         state |= MovementState.WallGrab;
                         velocity = Vector3.zero;
+                        animator.SetBool(animationParameters.ascending, false);
+                        animator.SetBool(animationParameters.air, false);
                     }
                 }
             }
@@ -320,6 +326,7 @@ public class MovementController : MonoBehaviour {
 
             // Handle jump gravity
             if (gravity.y > 0) {
+                animator.SetBool(animationParameters.ascending, true);
                 if (jumpButton.pressed) {
                     gravity += Physics.gravity * highJumpMultiplier * Time.fixedDeltaTime;
                 }
@@ -329,6 +336,7 @@ public class MovementController : MonoBehaviour {
             }
             // Regular gravity
             else if (!state.HasFlag(MovementState.OnGround) && !state.HasFlag(MovementState.WallGrab)) {
+                animator.SetBool(animationParameters.ascending, false);
                 gravity += Physics.gravity * fallMultiplier * Time.fixedDeltaTime;
             }
             // On ground special cases
@@ -393,7 +401,14 @@ public class MovementController : MonoBehaviour {
         attackButton.down = false;
         dashButton.down = false;
 
-        if (state.HasFlag(MovementState.OnGround) && walkingHobbleCondition) {
+        if (state != 0 && !state.HasFlag(MovementState.Jump)) {
+            animator.SetBool(animationParameters.air, false);
+        }
+        else {
+            animator.SetBool(animationParameters.air, true);
+        }
+
+        if (walkingHobbleCondition) {
             walkingHobble.Rewind();
             walkingHobble.Play();
         }
