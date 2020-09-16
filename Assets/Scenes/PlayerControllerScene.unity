@@ -218,17 +218,6 @@ Transform:
   m_Father: {fileID: 1994501076}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 83.14}
---- !u!114 &33564941 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3125131243484565127, guid: 0f2af4da406889541915690fb0ff965e, type: 3}
-  m_PrefabInstance: {fileID: 3125131243518125962}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b78d407199f4f24b9457e1c29a66216, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &144793967
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,7 +724,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1478853574}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: accd1e256b646d54784cf86835ba1ee0, type: 3}
+  m_Script: {fileID: 11500000, guid: 2844a3709081e36438a29876c5fc5ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!65 &1478853576
@@ -1671,34 +1660,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3125131243484565124, guid: 0f2af4da406889541915690fb0ff965e, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3125131243484565124, guid: 0f2af4da406889541915690fb0ff965e, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3125131243484565124, guid: 0f2af4da406889541915690fb0ff965e, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3125131243484565124, guid: 0f2af4da406889541915690fb0ff965e, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 33564941}
-    - target: {fileID: 3125131243484565124, guid: 0f2af4da406889541915690fb0ff965e, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: MovementController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 3125131243484565124, guid: 0f2af4da406889541915690fb0ff965e, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: HandleAttackInput
-      objectReference: {fileID: 0}
-    - target: {fileID: 3125131243484565124, guid: 0f2af4da406889541915690fb0ff965e, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 3125131243484565125, guid: 0f2af4da406889541915690fb0ff965e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.59
@@ -1746,22 +1707,6 @@ PrefabInstance:
     - target: {fileID: 3125131243484565126, guid: 0f2af4da406889541915690fb0ff965e, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 3125131243484565127, guid: 0f2af4da406889541915690fb0ff965e, type: 3}
-      propertyPath: attackDuration
-      value: 0.71
-      objectReference: {fileID: 0}
-    - target: {fileID: 3125131243484565127, guid: 0f2af4da406889541915690fb0ff965e, type: 3}
-      propertyPath: attackCooldown
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 3125131243484565127, guid: 0f2af4da406889541915690fb0ff965e, type: 3}
-      propertyPath: attackRange
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3125131243484565127, guid: 0f2af4da406889541915690fb0ff965e, type: 3}
-      propertyPath: damageLayers.m_Bits
-      value: 512
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f2af4da406889541915690fb0ff965e, type: 3}

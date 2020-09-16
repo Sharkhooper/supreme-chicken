@@ -1,5 +1,24 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!95 &3125131242461071312
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2855242165559718446}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 46ac87eaa82ab124a9937ab6ef68099e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3125131242319238766
 GameObject:
   m_ObjectHideFlags: 0
@@ -44,25 +63,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!95 &3125131242461071312
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2855242165559718446}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 46ac87eaa82ab124a9937ab6ef68099e, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3125131242706715144
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,7 +295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 4f938f7615d0ab746871c8dca68bbb6f, type: 3}
+  m_Actions: {fileID: -944628639613478452, guid: ee0336a47353d3b40a61509e1b971468, type: 3}
   m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -341,7 +341,19 @@ MonoBehaviour:
     m_ActionId: c715acba-2c7f-4046-b0fd-b4c756279d4c
     m_ActionName: actionMap/Jump[/Keyboard/space,/Keyboard/w]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3125131243484565127}
+        m_TargetAssemblyTypeName: MovementController, Assembly-CSharp
+        m_MethodName: HandleAttackInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 0d39739f-97b3-46f0-9b64-56bdb0a77fad
     m_ActionName: actionMap/Attack[/Mouse/leftButton]
   - m_PersistentCalls:
@@ -401,6 +413,10 @@ MonoBehaviour:
   dashCooldown: 1.5
   dashVelocity: 22
   dashDuration: 0.25
+  attackDuration: 0.71
+  attackCooldown: 0.9
+  attackRange: 1
+  attackTicks: 10
   animator: {fileID: 3125131242461071312}
   rb: {fileID: 3125131243484565146}
   bodyCollider: {fileID: 3125131243217173979}
@@ -411,6 +427,9 @@ MonoBehaviour:
   collisionLayers:
     serializedVersion: 2
     m_Bits: 4096
+  damageLayers:
+    serializedVersion: 2
+    m_Bits: 512
   debugScale: 0.2
 --- !u!54 &3125131243484565146
 Rigidbody:
