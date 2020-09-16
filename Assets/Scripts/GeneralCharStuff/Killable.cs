@@ -24,6 +24,7 @@ public class Killable : MonoBehaviour
         else
         {
             Destroy(_character);
+            // Trigger Death Animation
         }
     }
 }
