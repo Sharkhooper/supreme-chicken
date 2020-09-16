@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -43,8 +42,9 @@ public class MovementController : MonoBehaviour {
     private float velocityChangeRate = 0;
     private Vector3 dashTarget;
     private Vector3 dashDirection;
-    bool dashInput = false;
-    bool dashInputDown = false;
+    private bool dashInput = false;
+    private bool dashInputDown = false;
+    private bool attackInput = false;
 
     // Jump
     [SerializeField] private float lowJumpMultiplier = 5;
@@ -63,6 +63,7 @@ public class MovementController : MonoBehaviour {
     private float dashTime = 0;
 
     // Components
+    [SerializeField] private Animator animator;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private SphereCollider bodyCollider;
     [SerializeField] private SphereCollider feetCollider;
@@ -72,11 +73,28 @@ public class MovementController : MonoBehaviour {
     [SerializeField] private LayerMask collisionLayers = ~0;
     private Camera cam;
 
+    private struct AnimationParameters {
+        public int air;
+        public int dash;
+        public int attack;
+        public int walking;
+    }
+
+    private AnimationParameters animationParameters;
+
     [SerializeField] [Range(0,1)] private float debugScale = 0.2f;
 
     private void Start() {
         cam = Camera.main;
         Debug.Assert(dashCooldown > dashDuration);
+
+
+        animationParameters = new AnimationParameters {
+            air = Animator.StringToHash("Air"),
+            dash = Animator.StringToHash("Dash"),
+            attack = Animator.StringToHash("Attacking"),
+            walking = Animator.StringToHash("Walking"),
+        };
     }
 
     public void HandleMovementInput(InputAction.CallbackContext context) {
@@ -89,6 +107,10 @@ public class MovementController : MonoBehaviour {
             jumpInputDown = true;
         }
         jumpInput = b;
+    }
+
+    public void HandleAttackInput(InputAction.CallbackContext context) {
+        attackInput = context.ReadValueAsButton();
     }
 
     public void HandleDashInput(InputAction.CallbackContext context) {
@@ -121,6 +143,10 @@ public class MovementController : MonoBehaviour {
         float feetRad = feetCollider.radius;
         float bodyRad = bodyCollider.radius;
 
+        animator.SetLayerWeight(animator.GetLayerIndex("Walking"), 0);
+        animator.SetFloat(animationParameters.walking, 0);
+        animator.SetBool(animationParameters.attack, attackInput);
+
         if (dashInputDown && !state.HasFlag(MovementState.Dashing) && dashTime <= 0) {
             state |= MovementState.Dashing;
             state &= ~MovementState.OnGround;
@@ -129,6 +155,7 @@ public class MovementController : MonoBehaviour {
             coyoteTimeCooldown = 0;
             dashTime = dashCooldown;
             gravity = Vector3.zero;
+            velocity = Vector3.zero;
         }
 
         if (dashTime > 0) {
@@ -136,13 +163,6 @@ public class MovementController : MonoBehaviour {
         }
 
         if (state.HasFlag(MovementState.Dashing)) {
-            //Ray r = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
-            //intersectionPlane.Raycast(r, out float d);
-            //dashTarget = r.origin + d * r.direction.normalized;
-            //dashDirection = dashTarget - rb.transform.position;
-            //dashDirection.Normalize();
-            //dashDirection *= dashVelocity;
-
             if (dashTime >= dashCooldown - dashDuration)
                 rb.velocity = dashDirection;
             else {
@@ -162,6 +182,12 @@ public class MovementController : MonoBehaviour {
             cameraTarget.localPosition =  Vector3.Lerp(cameraTarget.localPosition, cameraOffset * velocityMagnitude, cameraMaxDelta * Time.fixedDeltaTime);
 
             RaycastHit hit;
+            float animWalk = Mathf.Abs(velocityMagnitude);
+            if (animWalk < 0.05f) animWalk = 0;
+            if (animWalk > 0.95f) animWalk = 1;
+            animator.SetFloat(animationParameters.walking, 1);
+            animator.SetLayerWeight(animator.GetLayerIndex("Walking"), animWalk);
+
 
             // Get ground Vector and project velocity accordingly
             state &= ~MovementState.OnGround;
