@@ -56,6 +56,7 @@ public class MovementController : MonoBehaviour {
     [SerializeField] private Transform cameraTarget;
     [SerializeField] private Vector3 cameraOffset;
     [SerializeField] private float cameraMaxDelta = 1.86f;
+    [SerializeField] private LayerMask collisionLayers = ~0;
 
     [SerializeField] [Range(0,1)] private float debugScale = 0.2f;
 
@@ -107,7 +108,7 @@ public class MovementController : MonoBehaviour {
         // Spherecast skips colliders if colliders overlap at start
         // As a workaround the startingposition ist set slightly above center
         // Proper workaround would be multiple colliders for the body - and one only for the legs / feet
-        if (Physics.SphereCast(feetPos + Vector3.up * 0.01f, feetRad, Vector3.down, out hit, 0.01f + rayGroundTolerance/*, layerMask*/)) {
+        if (Physics.SphereCast(feetPos + Vector3.up * 0.01f, feetRad, Vector3.down, out hit, 0.01f + rayGroundTolerance, collisionLayers)) {
             float angle = Vector3.Angle(Vector3.up, hit.normal);
             if (angle < slopeAngleThreshold) {
                 state |= MovementState.OnGround;
@@ -126,7 +127,7 @@ public class MovementController : MonoBehaviour {
                 coyoteTimeCooldown -= Time.fixedDeltaTime;
             }
 
-            if (Physics.SphereCast(bodyPos + Vector3.up * 0.001f, bodyRad, Vector3.down, out hit, 0.001f + wallGrabDistTolerance/*, layerMask*/)) {
+            if (Physics.SphereCast(bodyPos + Vector3.up * 0.001f, bodyRad, Vector3.down, out hit, 0.001f + wallGrabDistTolerance, collisionLayers)) {
                 float angle = Vector3.Angle(Vector3.up, hit.normal);
                 if (angle < wallGrabAngleThreshold) {
                     state |= MovementState.WallGrab;
@@ -175,7 +176,7 @@ public class MovementController : MonoBehaviour {
             // Fixes speedloss on transition between planes with different angles
             Vector3 ground = hit.point;
             // Fire spherecast in velocity direction
-            if (Mathf.Abs(velocityMagnitude) > 0.00001f && Physics.SphereCast(feetPos, feetRad, velocity, out hit, velocity.magnitude)) {
+            if (Mathf.Abs(velocityMagnitude) > 0.00001f && Physics.SphereCast(feetPos, feetRad, velocity, out hit, velocity.magnitude, collisionLayers)) {
                 // check if cast hits something and hitted plane is a walkable plane
                 float angle = Vector3.Angle(Vector3.up, hit.normal);
                 if (angle < slopeAngleThreshold) {
@@ -192,7 +193,7 @@ public class MovementController : MonoBehaviour {
         }
 
         // Wall detection
-        if (velocity.magnitude > 0.01f && Physics.SphereCast(bodyPos - Vector3.right * orientation * 0.01f, bodyRad, velocity, out hit, velocity.magnitude + 0.01f)) {
+        if (velocity.magnitude > 0.01f && Physics.SphereCast(bodyPos - Vector3.right * orientation * 0.01f, bodyRad, velocity, out hit, velocity.magnitude + 0.01f, collisionLayers)) {
             float angle = Vector3.Angle(Vector3.up, hit.normal);
             if (angle >= slopeAngleThreshold) {
                 velocity.Normalize();
@@ -212,7 +213,7 @@ public class MovementController : MonoBehaviour {
             // results in a slowdown on landing, because horizontal movement gets skipped
             // Ideally remember the cut part and perform a slope fix on it with the landingplane as ground
             Vector3 off = velocity.normalized * 0.01f;
-            if (Physics.SphereCast(feetPos - off, feetRad, rb.velocity, out hit, rb.velocity.magnitude * Time.fixedDeltaTime + feetRad + 0.01f)) {
+            if (Physics.SphereCast(feetPos - off, feetRad, rb.velocity, out hit, rb.velocity.magnitude * Time.fixedDeltaTime + feetRad + 0.01f, collisionLayers)) {
                 float dist = Vector3.Distance(feetPos, hit.point) - feetRad;
                 rb.velocity = rb.velocity.normalized * dist / Time.fixedDeltaTime;
             }
