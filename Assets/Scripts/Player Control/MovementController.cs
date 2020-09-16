@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -84,6 +85,8 @@ public class MovementController : MonoBehaviour {
     [SerializeField] private Rigidbody rb;
     [SerializeField] private SphereCollider bodyCollider;
     [SerializeField] private SphereCollider feetCollider;
+    [SerializeField] private TrailRenderer trail;
+    [SerializeField] private Transform model;
     [SerializeField] private Transform cameraTarget;
     [SerializeField] private Vector3 cameraOffset;
     [SerializeField] private float cameraMaxDelta = 1.86f;
@@ -96,11 +99,18 @@ public class MovementController : MonoBehaviour {
         public int dash;
         public int attack;
         public int walking;
+        public int layerWalking;
     }
 
     private AnimationParameters animationParameters;
 
     [SerializeField] [Range(0,1)] private float debugScale = 0.2f;
+
+    // Sequences
+    private Sequence walkingHobble;
+    [SerializeField] private float hobbleInterval = 0.15f;
+    [SerializeField] private float hobbleHeight = 0.1f;
+    private bool walkingHobbleCondition => !walkingHobble.IsPlaying() && velocity.magnitude > 0.1f;
 
     private void Start() {
         cam = Camera.main;
@@ -112,6 +122,17 @@ public class MovementController : MonoBehaviour {
             dash = Animator.StringToHash("Dash"),
             attack = Animator.StringToHash("Attacking"),
             walking = Animator.StringToHash("Walking"),
+            layerWalking = animator.GetLayerIndex("Walking"),
+        };
+
+        // Hobble sequence
+        walkingHobble = DOTween.Sequence();
+        walkingHobble.SetAutoKill(false);
+        walkingHobble.Append(model.DOLocalMoveY(hobbleHeight, hobbleInterval).SetEase(Ease.OutSine));
+        walkingHobble.Append(model.DOLocalMoveY(0, hobbleInterval).SetEase(Ease.InSine));
+
+        walkingHobble.onComplete += () => {
+            if (walkingHobbleCondition) walkingHobble.Restart();
         };
     }
 
@@ -155,9 +176,8 @@ public class MovementController : MonoBehaviour {
         float feetRad = feetCollider.radius;
         float bodyRad = bodyCollider.radius;
 
-        animator.SetLayerWeight(animator.GetLayerIndex("Walking"), 0);
+        animator.SetLayerWeight(animationParameters.layerWalking, 0);
         animator.SetFloat(animationParameters.walking, 0);
-        //animator.SetBool(animationParameters.attack, attackButton.pressed);
 
         if (dashButton.down && !state.HasFlag(MovementState.Dashing) && dashTime <= 0) {
             state |= MovementState.Dashing;
@@ -171,6 +191,7 @@ public class MovementController : MonoBehaviour {
             velocity = Vector3.zero;
             attackTime = 0;
             animator.SetBool(animationParameters.attack, false);
+            trail.emitting = true;
         }
         else if (attackButton.down && !state.HasFlag(MovementState.WallGrab) && attackTime <= 0) {
             attackTime = attackCooldown;
@@ -187,15 +208,19 @@ public class MovementController : MonoBehaviour {
 
 
         if (state.HasFlag(MovementState.Dashing)) {
+            model.rotation = Quaternion.Euler(0, Vector3.Angle(Vector3.right, dashDirection) < 90 ? 0 : 180, 0);
+
             if (dashTime >= dashCooldown - dashDuration)
                 rb.velocity = dashDirection;
             else {
                 state &= ~MovementState.Dashing;
+                trail.emitting = false;
                 animator.SetBool(animationParameters.dash, false);
             }
         }
         else {
             if (attackTime >= attackCooldown - attackDuration) {
+                trail.emitting = true;
                 animator.SetBool(animationParameters.attack, true);
                 --attackActiveTicks;
 
@@ -213,6 +238,7 @@ public class MovementController : MonoBehaviour {
 
             }
             else {
+                trail.emitting = false;
                 animator.SetBool(animationParameters.attack, false);
             }
 
@@ -223,7 +249,11 @@ public class MovementController : MonoBehaviour {
             // Smooth input velocity
             velocityMagnitude = Mathf.SmoothDamp(velocityMagnitude, inputVelocity, ref velocityChangeRate, velocitySmooth);
             velocity = Vector3.right * velocityMagnitude * maxVelocity * Time.fixedDeltaTime;
+
             float orientation = velocityMagnitude > 0 ? 1 : -1;
+            if (Mathf.Abs(velocityMagnitude) > 0.1f) {
+                model.rotation = Quaternion.Euler(0, velocityMagnitude > 0 ? 0 : 180, 0);
+            }
 
             cameraTarget.localPosition =  Vector3.Lerp(cameraTarget.localPosition, cameraOffset * velocityMagnitude, cameraMaxDelta * Time.fixedDeltaTime);
 
@@ -335,8 +365,7 @@ public class MovementController : MonoBehaviour {
                 }
             }
 
-            velocity /= Time.fixedDeltaTime;
-            rb.velocity = velocity;
+            rb.velocity = velocity / Time.fixedDeltaTime;
 
 
             if (!state.HasFlag(MovementState.OnGround)) {
@@ -363,6 +392,11 @@ public class MovementController : MonoBehaviour {
         jumpButton.down = false;
         attackButton.down = false;
         dashButton.down = false;
+
+        if (state.HasFlag(MovementState.OnGround) && walkingHobbleCondition) {
+            walkingHobble.Rewind();
+            walkingHobble.Play();
+        }
     }
 
     // Currently only supports vectors on xy-plane. For more versatility project on some plane.
