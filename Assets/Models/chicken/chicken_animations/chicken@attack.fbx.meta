@@ -5,7 +5,7 @@ ModelImporter:
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: Take 001
+    second: attack
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -33,7 +33,118 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: attack
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 1
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: root_1
+        weight: 0
+      - path: root_1/booty_1
+        weight: 0
+      - path: root_1/booty_1/botty_2
+        weight: 0
+      - path: root_1/booty_1/botty_2/tail_1_1
+        weight: 0
+      - path: root_1/booty_1/botty_2/tail_1_1/tail_1_2
+        weight: 0
+      - path: root_1/booty_1/botty_2/tail_1_1/tail_1_2/tail_1_3
+        weight: 0
+      - path: root_1/booty_1/botty_2/tail_2_1
+        weight: 0
+      - path: root_1/booty_1/botty_2/tail_2_1/tail_2_2
+        weight: 0
+      - path: root_1/booty_1/botty_2/tail_2_1/tail_2_2/tail_2_3
+        weight: 0
+      - path: root_1/booty_1/botty_2/tail_3_1
+        weight: 0
+      - path: root_1/booty_1/botty_2/tail_3_1/tail_3_2
+        weight: 0
+      - path: root_1/booty_1/botty_2/tail_3_1/tail_3_2/tail_3_3
+        weight: 0
+      - path: root_1/booty_1/botty_2/tail_4_1
+        weight: 0
+      - path: root_1/booty_1/botty_2/tail_4_1/tail_4_2
+        weight: 0
+      - path: root_1/booty_1/botty_2/tail_4_1/tail_4_2/tail_4_3
+        weight: 0
+      - path: root_1/booty_1/botty_2/tail_5_1
+        weight: 0
+      - path: root_1/booty_1/botty_2/tail_5_1/tail_5_2
+        weight: 0
+      - path: root_1/booty_1/botty_2/tail_5_1/tail_5_2/tail_5_3
+        weight: 0
+      - path: root_1/head_1
+        weight: 1
+      - path: root_1/head_1/head_2
+        weight: 1
+      - path: root_1/head_1/titts_1_left
+        weight: 1
+      - path: root_1/head_1/titts_1_left/titts_2_left
+        weight: 1
+      - path: root_1/head_1/titts_1_right
+        weight: 1
+      - path: root_1/head_1/titts_1_right/titts_2_right
+        weight: 1
+      - path: root_1/root_2
+        weight: 0
+      - path: root_1/root_2/leg_1_left
+        weight: 0
+      - path: root_1/root_2/leg_1_left/leg_2_left
+        weight: 0
+      - path: root_1/root_2/leg_1_left/leg_2_left/foot_left
+        weight: 0
+      - path: root_1/root_2/leg_1_right
+        weight: 0
+      - path: root_1/root_2/leg_1_right/leg_2_right
+        weight: 0
+      - path: root_1/root_2/leg_1_right/leg_2_right/foot_right
+        weight: 0
+      - path: root_1/wing_1_left
+        weight: 1
+      - path: root_1/wing_1_left/wing_2_left
+        weight: 1
+      - path: root_1/wing_1_left/wing_2_left/wing_3_left
+        weight: 1
+      - path: root_1/wing_1_left/wing_2_left/wing_3_left/wing_4_left
+        weight: 1
+      - path: root_1/wing_1_right
+        weight: 1
+      - path: root_1/wing_1_right/wing_2_right
+        weight: 1
+      - path: root_1/wing_1_right/wing_2_right/wing_3_right
+        weight: 1
+      - path: root_1/wing_1_right/wing_2_right/wing_3_right/wing_4_right
+        weight: 1
+      - path: sword_low
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -93,11 +204,11 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 8b239113c5bf4c043b399cd0166f281e, type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 2
   additionalBone: 0
   userData: 
   assetBundleName: 

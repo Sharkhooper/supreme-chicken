@@ -20,15 +20,12 @@ namespace MainMenu
             m_wheel = FindObjectOfType<DiffWheel>();
         }
 
-        public void MousePos(InputAction.CallbackContext context)
-        {
-            Vector3 pos = context.ReadValue<Vector2>();
-            pos.z = 1000;
-            m_lastMousePos = m_camera.ScreenToWorldPoint(pos);
-        }
-
         public void MouseClick()
         {
+            Vector3 pos = Mouse.current.position.ReadValue();
+            pos.z = 1000;
+            m_lastMousePos = m_camera.ScreenToWorldPoint(pos);
+            
             // Fancier movement
             RaycastHit hit;
              if (Physics.Raycast(m_camera.transform.position, m_lastMousePos - m_camera.transform.position, out hit, int.MaxValue))

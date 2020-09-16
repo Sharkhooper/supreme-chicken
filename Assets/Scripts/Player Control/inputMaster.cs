@@ -170,7 +170,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Mouse&Keyboard"",
                     ""action"": ""MouseParameters"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

@@ -17,6 +17,7 @@ namespace Mainmenu
         private Quaternion m_currentRot;
         private Vector3 m_currentDir;
         private bool m_animating;
+        
         private void Awake()
         {
             m_currentRot = transform.rotation;
@@ -25,19 +26,18 @@ namespace Mainmenu
         // Rotate the slider to the clicked difficulty box
         public void DifficultyClicked(Vector3 pos)
         {
-            var currentDir = m_head.position - transform.position;
-            var dir = pos - transform.position;
-            var angle = Mathf.Rad2Deg * (Mathf.Atan2(dir.y, dir.x) - Mathf.Atan2(currentDir.y, currentDir.x));
-
+            var currentDir = (m_head.position - transform.position).normalized;
+            var dir = (pos - transform.position).normalized;
+            var angle = Mathf.Rad2Deg * (Mathf.Atan2(dir.y, dir.z) - Mathf.Atan2(currentDir.y, currentDir.z));
+            Debug.Log(angle);
             // Make sure it doesn't rotate the wrong way
             angle = Mathf.Abs(angle) < 170 || angle < -170 ? angle * -1 : angle;
+            Debug.Log(angle);
             if(Mathf.Abs(angle) > 20 && !m_animating)
             {
-                var rot = Quaternion.Euler(0, angle, 0);
-
-                m_currentRot *= rot;
+                m_currentRot *= Quaternion.Euler(0, angle,0);
                 m_animating = true;
-                transform.DORotateQuaternion(m_currentRot, 1).onComplete += () => m_animating = false;
+                transform.DORotateQuaternion(m_currentRot, 0.3f).onComplete += () => m_animating = false;
             }
         }
        /* public void MouseClick()
