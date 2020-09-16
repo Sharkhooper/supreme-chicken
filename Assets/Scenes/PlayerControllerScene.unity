@@ -262,6 +262,9 @@ MonoBehaviour:
   fallMultiplier: 6
   initialJumpVelocity: 15
   coyoteTime: 0.09
+  dashCooldown: 1.5
+  dashVelocity: 22
+  dashDuration: 0.25
   rb: {fileID: 33564944}
   bodyCollider: {fileID: 842029649}
   feetCollider: {fileID: 1219932646}
@@ -349,6 +352,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 4cbafefa-0833-4338-8ca7-643c7056ea8e
     m_ActionName: actionMap/Dash[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c7939bd1-e4f5-4b03-a3a0-509e47b8865d
+    m_ActionName: Menu/UI Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 40924d0d-0c9f-42cb-bc81-7408ddfde8f9
+    m_ActionName: Menu/MouseParameters[/Mouse/position]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: actionMap
@@ -547,7 +558,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 0.9669811, g: 0.9816643, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
