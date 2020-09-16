@@ -5,27 +5,29 @@ using UnityEngine;
 public class EnemyWalkingController : MonoBehaviour
 {
     private EnemyHolder holder;
-    public GameObject model;
-    public float moveSpeed;
+    public float moveSpeed, turnRange;
     public Vector3 direction = new Vector3(1, 0, 0);
     public bool rotated = false;
-    public bool attacking;
 
     void Update()
     {
-        if(!attacking)
-            transform.parent.position += direction * Time.deltaTime * moveSpeed;
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position, direction, out hit, turnRange))
+        {
+            if (hit.transform.name != "Player" && hit.transform.name != "Plate(Clone)")
+            {
+                Debug.Log("Not Player (turn): " + hit.transform.name);
+                direction *= -1;
+                transform.parent.RotateAround(transform.position, Vector3.up, 180);
+                rotated = !rotated;
+            }
+        }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void MoveUpdate()
     {
-        if(other.name != "Player" && other.name != "Enemy")
-        {
-            Debug.Log("Not Player: " + other.name);
-            direction *= -1;
-            transform.parent.RotateAround(model.transform.position, Vector3.up, 180);
-            rotated = !rotated;
-        }
+        transform.position += direction * Time.deltaTime * moveSpeed;
+        //holder.closeRangeController.gameObject.GetComponent<Rigidbody>().MovePosition(transform.parent.position + direction * Time.fixedDeltaTime * moveSpeed);
     }
 
     public void SetHolder(EnemyHolder h)

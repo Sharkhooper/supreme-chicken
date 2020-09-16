@@ -5,32 +5,63 @@ using UnityEngine;
 public class CloseRangeController : MonoBehaviour
 {
     private EnemyHolder holder;
-    public float range;
-    public GameObject player;
+    public float range, maxAngle;
+    private GameObject player;
+
+    private void Start() {
+        player = FindObjectOfType<MovementController>().gameObject;
+    }
 
     void Update()
     {
-        if(holder != null)
+        Vector3 distanceVector = player.transform.position - transform.position;
+        Vector3 normalized = distanceVector.normalized;
+        Vector3 direction = holder.enemyWalkingController.direction;
+        float angle = Vector3.Angle(distanceVector, direction);
+
+        if(distanceVector.magnitude < range && angle < maxAngle)
         {
-            Vector3 fwd;
-            Debug.Log("holder " + holder);
-            Debug.Log("enemyWalkingController " + holder.enemyWalkingController);
-            Debug.Log("rotated " + holder.enemyWalkingController.rotated);
-            if (!holder.enemyWalkingController.rotated)
-                fwd = Vector3.right;
-            else
-                fwd = Vector3.left;
-
-            RaycastHit[] hits = Physics.RaycastAll(transform.position, fwd, range);
-
-            foreach (RaycastHit hit in hits)
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, distanceVector, out hit, range) &&  hit.transform.name == "Player")
             {
-                if (hit.transform.name == "Player")
+                if (holder.enemyCloseAttack != null)
                     holder.enemyCloseAttack.StartAttack();
+                if (holder.enemyThrowAttack != null)
+                    holder.enemyThrowAttack.StartAttack(distanceVector, angle);
             }
+            else
+            {
+                RaycastHit[] hits = Physics.RaycastAll(transform.position, distanceVector, range);
+                /*
+                for (int i = 0; i < hits.Length; i++)
+                {
+                    Debug.Log("Hit " + i + ": " + hits[i].transform.name);
+                }
+                */
 
-            Debug.DrawLine(transform.position, transform.position + fwd * range, Color.red, Time.deltaTime);
+                //if (hits.Length > 1 && hits[0].collider.tag == "InvisibleWall" && hits[1].transform.name == "Player")
+                if (hits.Length > 1 && hits[0].transform.gameObject.layer == 8 && hits[1].transform.name == "Player")
+                {
+                    //Debug.Log("Behind invisiwall");
+                    if (holder.enemyCloseAttack != null)
+                        holder.enemyCloseAttack.StartAttack();
+                    if (holder.enemyThrowAttack != null)
+                        holder.enemyThrowAttack.StartAttack(distanceVector, angle);
+                }
+                else
+                {
+                    holder.enemyWalkingController.MoveUpdate();
+                }
+            }
+            
         }
+        else
+        {
+            holder.enemyWalkingController.MoveUpdate();
+        }
+
+        Vector3 targetLine = transform.position + direction * range;
+        Debug.DrawLine(transform.position, targetLine, Color.red, Time.deltaTime);
     }
 
     public void SetHolder(EnemyHolder h)

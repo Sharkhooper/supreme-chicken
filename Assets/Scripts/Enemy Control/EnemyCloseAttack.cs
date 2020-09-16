@@ -18,12 +18,12 @@ public class EnemyCloseAttack : MonoBehaviour
 
     private IEnumerator Attack()
     {
-        running = holder.enemyWalkingController.attacking = true;
+        running = true;
         transform.localScale *= 1.1f;
         yield return new WaitForSeconds(0.5f);
         transform.localScale /= 1.1f;
         yield return new WaitForSeconds(0.5f);
-        running = holder.enemyWalkingController.attacking = false;
+        running = false;
     }
 
     public void SetHolder(EnemyHolder h)
