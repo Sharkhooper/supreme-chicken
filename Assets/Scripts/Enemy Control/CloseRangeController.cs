@@ -22,25 +22,26 @@ public class CloseRangeController : MonoBehaviour
         float angle = Vector3.Angle(distanceVector, direction);
         if(distanceVector.magnitude < range && angle < maxAngle)
         {
-            Debug.DrawLine(transform.position + offset, distanceVector, Color.green, Time.deltaTime);
+            Debug.DrawRay(transform.position + offset, distanceVector, Color.green, Time.deltaTime);
+            //Debug.DrawLine(transform.position + offset, player.transform.position, Color.green, Time.deltaTime);
             RaycastHit hit;
             if (Physics.Raycast(transform.position + offset, distanceVector, out hit, range, layerMask))
             {
-                if (holder.enemyCloseAttack != null)
-                    holder.enemyCloseAttack.StartAttack();
+                if (GetComponent<EnemyCloseAttack>() != null)
+                    GetComponent<EnemyCloseAttack>().StartAttack();
                 else if (GetComponent<EnemyThrowAttack>() != null)
                     GetComponent<EnemyThrowAttack>().StartAttack(distanceVector, angle, offset);
-                else if (holder.enemyLaserAttack != null)
-                    holder.enemyLaserAttack.StartAttack(angle);
+                else if (GetComponent<EnemyLaserAttack>() != null)
+                    GetComponent<EnemyLaserAttack>().StartAttack(angle);
             }
             else
             {
-                holder.enemyWalkingController.MoveUpdate();
+                GetComponent<EnemyWalkingController>().MoveUpdate();
             }
         }
         else
         {
-            holder.enemyWalkingController.MoveUpdate();
+            GetComponent<EnemyWalkingController>().MoveUpdate();
         }
 
         Vector3 targetLine = transform.position + offset + direction * range;
