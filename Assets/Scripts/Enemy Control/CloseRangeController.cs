@@ -16,6 +16,8 @@ public class CloseRangeController : MonoBehaviour
 
     void Update()
     {
+        if (!player)
+            return;
         Vector3 distanceVector = player.transform.position - (transform.position + offset);
         Vector3 normalized = distanceVector.normalized;
         Vector3 direction = GetComponent<EnemyWalkingController>().direction;

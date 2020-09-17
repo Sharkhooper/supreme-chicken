@@ -10,7 +10,7 @@ public class finishLine : MonoBehaviour
     {
         if (other.tag.Equals("Player"))
         {
-            SceneManager.LoadScene("MainMenu");
+            Application.Quit();
         }
     }
 }
