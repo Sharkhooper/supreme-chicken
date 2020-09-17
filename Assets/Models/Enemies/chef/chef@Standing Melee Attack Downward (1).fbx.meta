@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 7d1af74ef8571fe43ae63ac46e0e22ec
+=======
+guid: bcf1b2d9182d05b44b11c812eab0a1d6
+>>>>>>> f37ce993b4c92a72b4069c5055dded5e0673843c
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable:
@@ -26,7 +30,11 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
+<<<<<<< HEAD
     animationCompression: 1
+=======
+    animationCompression: 3
+>>>>>>> f37ce993b4c92a72b4069c5055dded5e0673843c
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -91,6 +99,7 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
+<<<<<<< HEAD
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
@@ -98,6 +107,15 @@ ModelImporter:
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
+=======
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 3
+  humanoidOversampling: 1
+  avatarSetup: 1
+>>>>>>> f37ce993b4c92a72b4069c5055dded5e0673843c
   additionalBone: 0
   userData: 
   assetBundleName: 

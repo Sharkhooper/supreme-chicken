@@ -19,10 +19,9 @@ public class EnemyCloseAttack : MonoBehaviour
     private IEnumerator Attack()
     {
         running = true;
-        transform.localScale *= 1.1f;
-        yield return new WaitForSeconds(0.5f);
-        transform.localScale /= 1.1f;
-        yield return new WaitForSeconds(0.5f);
+        GetComponent<Animator>().SetTrigger("hit");
+        yield return new WaitForSeconds(2.25f / 2f);
+        GetComponent<Animator>().ResetTrigger("hit");
         running = false;
     }
 

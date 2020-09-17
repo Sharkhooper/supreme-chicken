@@ -33,7 +33,6 @@ public class EnemyThrowAttack : MonoBehaviour
 
     public void SetHolder(EnemyHolder h)
     {
-        Debug.Log("Set holder");
         holder = h;
     }
 }
