@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class Killable : MonoBehaviour
 {
-
+    public GameObject splashPrefab;
     private GameObject _character;
 
     private void Awake()
@@ -23,8 +23,16 @@ public class Killable : MonoBehaviour
         }
         else
         {
-            Destroy(_character);
+            StartCoroutine(PlayAnim());
+            Destroy(_character.transform.parent.gameObject);
             // Trigger Death Animation
         }
+    }
+
+    private IEnumerator PlayAnim()
+    {
+        GameObject splash = Instantiate(splashPrefab, transform.position, Quaternion.identity);
+        float secondsToWait = splash.GetComponent<ParticleSystem>().main.duration;
+        yield return new WaitForSeconds(secondsToWait);
     }
 }

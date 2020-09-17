@@ -18,24 +18,12 @@ public class PlateController : MonoBehaviour
         float randomizerRotate = Random.Range(-randomPlusMinusRotate, randomPlusMinusRotate);
         rb.MoveRotation(Quaternion.Euler(0, 0, toRotate + randomizerRotate));
         rb.AddForce(direction.normalized * moveSpeed * 100);
-        //Debug.Log("direction: " + direction + " / randomizer: " + randomizerThrow);
     }
-
-
-/*
-    void FixedUpdate()
-    {
-        if(direction != null)
-
-            //transform.position += direction * Time.deltaTime * moveSpeed;
-    }
-*/
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.name != "Enemy" && other.gameObject.layer != 8)
         {
-            //Debug.Log("Exploding because of " + other.name);
             Explode();
         }
     }

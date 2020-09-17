@@ -110,7 +110,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 243555d50652ecf488fd2e2ba72d5b9d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 984993348480145041}
   - component: {fileID: 2854417761960703678}
   - component: {fileID: 649336593273321801}
+  - component: {fileID: 6871456936019912160}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Untagged
@@ -317,6 +318,19 @@ MonoBehaviour:
   myLaser: {fileID: 2330470213979071866}
   myAim: {fileID: 2684472915934865427}
   burnParticlesPrefab: {fileID: 5254735629226669536, guid: 194f08b67e2c47842bfc92c40886086b, type: 3}
+--- !u!114 &6871456936019912160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2928074980260237395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2844a3709081e36438a29876c5fc5ca0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  splashPrefab: {fileID: 260916201467912036, guid: 7315dc899536e5b478428ca7c6697d94, type: 3}
 --- !u!1 &2928074980761305679
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,6 +467,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.05
       objectReference: {fileID: 0}
+    - target: {fileID: 4412744807446982514, guid: 49b3d86de094ace49b645437d571c936, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4412744807446982514, guid: 49b3d86de094ace49b645437d571c936, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49b3d86de094ace49b645437d571c936, type: 3}
 --- !u!1 &2684472915934865427 stripped
@@ -523,6 +545,14 @@ PrefabInstance:
     - target: {fileID: 4412744807157588311, guid: 6a9b5f7a3342ac14484086fb44a8b250, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4412744807446982514, guid: 6a9b5f7a3342ac14484086fb44a8b250, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4412744807446982514, guid: 6a9b5f7a3342ac14484086fb44a8b250, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a9b5f7a3342ac14484086fb44a8b250, type: 3}

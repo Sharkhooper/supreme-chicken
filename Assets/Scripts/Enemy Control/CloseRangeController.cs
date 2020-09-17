@@ -34,17 +34,9 @@ public class CloseRangeController : MonoBehaviour
             else
             {
                 RaycastHit[] hits = Physics.RaycastAll(transform.position, distanceVector, range);
-                /*
-                for (int i = 0; i < hits.Length; i++)
-                {
-                    Debug.w a("Hit " + i + ": " + hits[i].transform.name);
-                }
-                */
 
-                //if (hits.Length > 1 && hits[0].collider.tag == "InvisibleWall" && hits[1].transform.name == "Player")
                 if (hits.Length > 1 && hits[0].transform.gameObject.layer == 8 && hits[1].transform.name == "Player")
                 {
-                    //Debug.Log("Behind invisiwall");
                     if (holder.enemyCloseAttack != null)
                         holder.enemyCloseAttack.StartAttack();
                     else if (holder.enemyThrowAttack != null)

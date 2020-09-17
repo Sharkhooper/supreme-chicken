@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class EnemyDeath : MonoBehaviour
 {
-    public GameObject organPrefab;
-    
+    public GameObject splashPrefab;
+
+    private void OnMouseDown() {
+        KillMe();
+    }
+
     public void KillMe()
     {
-        
+        Debug.Log("KILLED");
+        GameObject splash = Instantiate(splashPrefab, transform.position, Quaternion.identity);
+        splash.transform.SetParent(transform);
+        Destroy(gameObject);
     }
 }

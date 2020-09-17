@@ -25,7 +25,7 @@ public class EnemyWalkingController : MonoBehaviour
         {
             if (hit.transform.name != "Player" && hit.transform.name != "Plate(Clone)")
             {
-                Debug.Log("Not Player (turn): " + hit.transform.name);
+                //Debug.Log("Not Player (turn): " + hit.transform.name);
                 direction *= -1;
                 transform.parent.RotateAround(transform.position, Vector3.up, 180);
                 rotated = !rotated;
