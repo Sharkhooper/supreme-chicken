@@ -9,6 +9,7 @@ public class Killable : MonoBehaviour
 {
     public GameObject splashPrefab;
     private GameObject _character;
+    [SerializeField] private String sceneName = "Level 1";
 
     private void Awake()
     {
@@ -20,7 +21,7 @@ public class Killable : MonoBehaviour
         if (_character.CompareTag("Player"))
         {
             Debug.Log("Killed Player!");
-            SceneManager.LoadScene("MarvinScene");  // Lädt die InGame Szene neu
+            SceneManager.LoadScene(sceneName);  // Lädt die InGame Szene neu
         }
         else if(gameObject.GetComponent<PlateController>() != null)
         {
