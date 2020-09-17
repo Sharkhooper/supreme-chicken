@@ -58,7 +58,7 @@ public class MenuButtons : MonoBehaviour
         //Vector3[] points = new Vector3[2];
         //points[0] = new Vector3(toAnimate.position.x, toAnimate.position.y, toAnimate.position.z + 0.06f);
         //points[1] = new Vector3(toAnimate.position.x, toAnimate.position.y, toAnimate.position.z - 0.06f);
-        Vector3 backPos = toAnimate.transform.localPosition + new Vector3(0,0,0.1f);
+        Vector3 backPos = toAnimate.transform.localPosition - new Vector3(0.1f,0,0);
         Vector3 fowPos = toAnimate.transform.localPosition;
         
         toAnimate.DOLocalMove(backPos, 0.6f)
