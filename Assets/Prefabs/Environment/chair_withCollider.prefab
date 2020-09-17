@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 2481862948164148195}
   - component: {fileID: 3868817009431381656}
   - component: {fileID: 3868817009431381657}
-  m_Layer: 0
-  m_Name: chair
+  m_Layer: 12
+  m_Name: chair_withCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 425578023163996758}
   - component: {fileID: 174881208933174707}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: table_withCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 7661888963392220687}
   - component: {fileID: 4992565686737170928}
   - component: {fileID: 6857598619627189394}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: polySurface10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 8220047720127315538}
   - component: {fileID: 380745518705254699}
   - component: {fileID: 939110492016479256}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: polySurface11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
