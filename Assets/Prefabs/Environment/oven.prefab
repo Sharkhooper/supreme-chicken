@@ -672,8 +672,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4065221883889558204}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -7.606871, y: -0.13934605, z: -4.132897}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.7598046, y: 1.7598046, z: 1.7598046}
   m_Children:
   - {fileID: 5088511660153686405}
@@ -682,7 +682,7 @@ Transform:
   - {fileID: 4576933170786240545}
   m_Father: {fileID: 8666606649652065949}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4065221883889558205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -722,9 +722,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4383569288923720877}
-  m_LocalRotation: {x: 0.50000006, y: 0.49999997, z: -0.50000006, w: 0.49999997}
-  m_LocalPosition: {x: -6.671299, y: 2.608654, z: -4.828897}
-  m_LocalScale: {x: 0.0012875358, y: 0.0012875356, z: 0.0012875355}
+  m_LocalRotation: {x: 0.7071069, y: -0, z: -0, w: 0.70710677}
+  m_LocalPosition: {x: 0.69600004, y: 2.7480001, z: 0.93557245}
+  m_LocalScale: {x: 0.0012875356, y: 0.0012875351, z: 0.0012875351}
   m_Children:
   - {fileID: 4576933171094085182}
   m_Father: {fileID: 8666606649652065949}
@@ -1119,7 +1119,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8666606649652065949}
   m_Layer: 0
-  m_Name: Oven
+  m_Name: oven
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1133,7 +1133,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7899438315451484360}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.936791, y: -0.030653954, z: 4.992897}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1412002705963527901}
