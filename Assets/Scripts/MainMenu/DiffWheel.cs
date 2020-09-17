@@ -29,7 +29,7 @@ namespace Mainmenu
             var currentDir = (m_head.position - transform.position).normalized;
             var dir = (pos - transform.position).normalized;
             var angle = Mathf.Rad2Deg * (Mathf.Atan2(dir.y, dir.z) - Mathf.Atan2(currentDir.y, currentDir.z));
-            Debug.Log(angle);
+            
             // Make sure it doesn't rotate the wrong way
             angle = Mathf.Abs(angle) < 170 || angle < -170 ? angle * -1 : angle;
             
