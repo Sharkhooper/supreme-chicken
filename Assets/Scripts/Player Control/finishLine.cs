@@ -6,9 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class finishLine : MonoBehaviour
 {
+
+    [SerializeField] private int playerLayer = 10;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag.Equals("Player"))
+        if (other.gameObject.layer.Equals(playerLayer))
         {
             Application.Quit();
         }
