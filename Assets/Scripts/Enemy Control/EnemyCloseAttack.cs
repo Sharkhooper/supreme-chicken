@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class EnemyCloseAttack : MonoBehaviour
 {
+    public GameObject weapon;
     private EnemyHolder holder;
     private bool running;
-    private void Start() {
-        
+    private KillPlayerOnHit killPlayer;
+    private Animator animator;
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+        killPlayer = weapon.GetComponent<KillPlayerOnHit>();
+        killPlayer.shouldKill = false;
     }
 
     public void StartAttack()
@@ -19,9 +25,11 @@ public class EnemyCloseAttack : MonoBehaviour
     private IEnumerator Attack()
     {
         running = true;
-        GetComponent<Animator>().SetTrigger("hit");
+        animator.SetTrigger("hit");
+        killPlayer.shouldKill = true;
         yield return new WaitForSeconds(2.25f / 2f);
-        GetComponent<Animator>().ResetTrigger("hit");
+        killPlayer.shouldKill = false;
+        animator.ResetTrigger("hit");
         running = false;
     }
 

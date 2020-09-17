@@ -29,7 +29,8 @@ public class Killable : MonoBehaviour
         }
         else
         {
-            Instantiate(splashPrefab, transform.position, Quaternion.identity);
+            if(splashPrefab)
+                Instantiate(splashPrefab, transform.position + new Vector3(0,1,0), Quaternion.identity);
             Destroy(_character.transform.parent.gameObject);
             // Trigger Death Animation
         }
