@@ -346,7 +346,7 @@ MonoBehaviour:
     width: 0.4
   m_Looped: 0
   m_Waypoints:
-  - position: {x: -2.2, y: 1.55, z: 0.86}
+  - position: {x: -2.05, y: 0.92, z: 1.02}
     roll: 0
   - position: {x: 4.802014, y: 1.1042901, z: 0.6417341}
     roll: 0
@@ -5908,7 +5908,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 858401031}
-  m_LocalRotation: {x: 0.098052, y: -0.6917368, z: 0.095659405, w: 0.7090383}
+  m_LocalRotation: {x: 0.03451659, y: -0.71322715, z: 0.03520922, w: 0.6991967}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -7164,8 +7164,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1575272009}
-  m_LocalRotation: {x: 0.098052, y: -0.6917368, z: 0.095659405, w: 0.7090383}
-  m_LocalPosition: {x: 1.9678934, y: -0.0400002, z: 0.6235968}
+  m_LocalRotation: {x: 0.03451659, y: -0.71322715, z: 0.03520922, w: 0.6991967}
+  m_LocalPosition: {x: 2.1178935, y: -0.6700001, z: 0.78359675}
   m_LocalScale: {x: 0.29971012, y: 0.29971012, z: 0.2997101}
   m_Children:
   - {fileID: 1073388128}
@@ -7568,6 +7568,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 276552296358441886, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.106
+      objectReference: {fileID: 0}
     - target: {fileID: 276552296358441955, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_wheel
       value: 

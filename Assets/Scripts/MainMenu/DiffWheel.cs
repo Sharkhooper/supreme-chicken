@@ -32,7 +32,7 @@ namespace Mainmenu
             Debug.Log(angle);
             // Make sure it doesn't rotate the wrong way
             angle = Mathf.Abs(angle) < 170 || angle < -170 ? angle * -1 : angle;
-            Debug.Log(angle);
+            
             if(Mathf.Abs(angle) > 20 && !m_animating)
             {
                 m_currentRot *= Quaternion.Euler(0, angle,0);
