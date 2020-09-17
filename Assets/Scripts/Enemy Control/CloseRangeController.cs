@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class CloseRangeController : MonoBehaviour
 {
+    public LayerMask layerMask;
     private EnemyHolder holder;
     public float range, maxAngle;
     private GameObject player;
+    public Vector3 offset;
 
     private void Start() {
         player = FindObjectOfType<MovementController>().gameObject;
@@ -14,50 +16,35 @@ public class CloseRangeController : MonoBehaviour
 
     void Update()
     {
-        Vector3 distanceVector = player.transform.position - transform.position;
+        Vector3 distanceVector = player.transform.position - (transform.position + offset);
         Vector3 normalized = distanceVector.normalized;
-        Vector3 direction = holder.enemyWalkingController.direction;
+        Vector3 direction = GetComponent<EnemyWalkingController>().direction;
         float angle = Vector3.Angle(distanceVector, direction);
-
         if(distanceVector.magnitude < range && angle < maxAngle)
         {
+            Debug.DrawLine(transform.position + offset, distanceVector, Color.green, Time.deltaTime);
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, distanceVector, out hit, range) &&  hit.transform.name == "Player")
+            if (Physics.Raycast(transform.position + offset, distanceVector, out hit, range, layerMask))
             {
                 if (holder.enemyCloseAttack != null)
                     holder.enemyCloseAttack.StartAttack();
-                else if (holder.enemyThrowAttack != null)
-                    holder.enemyThrowAttack.StartAttack(distanceVector, angle);
+                else if (GetComponent<EnemyThrowAttack>() != null)
+                    GetComponent<EnemyThrowAttack>().StartAttack(distanceVector, angle, offset);
                 else if (holder.enemyLaserAttack != null)
                     holder.enemyLaserAttack.StartAttack(angle);
             }
             else
             {
-                RaycastHit[] hits = Physics.RaycastAll(transform.position, distanceVector, range);
-
-                if (hits.Length > 1 && hits[0].transform.gameObject.layer == 8 && hits[1].transform.name == "Player")
-                {
-                    if (holder.enemyCloseAttack != null)
-                        holder.enemyCloseAttack.StartAttack();
-                    else if (holder.enemyThrowAttack != null)
-                        holder.enemyThrowAttack.StartAttack(distanceVector, angle);
-                    else if (holder.enemyLaserAttack != null)
-                        holder.enemyLaserAttack.StartAttack(angle);
-                }
-                else
-                {
-                    holder.enemyWalkingController.MoveUpdate();
-                }
+                holder.enemyWalkingController.MoveUpdate();
             }
-            
         }
         else
         {
             holder.enemyWalkingController.MoveUpdate();
         }
 
-        Vector3 targetLine = transform.position + direction * range;
-        Debug.DrawLine(transform.position, targetLine, Color.red, Time.deltaTime);
+        Vector3 targetLine = transform.position + offset + direction * range;
+        Debug.DrawLine(transform.position + offset, targetLine, Color.red, Time.deltaTime);
     }
 
     public void SetHolder(EnemyHolder h)

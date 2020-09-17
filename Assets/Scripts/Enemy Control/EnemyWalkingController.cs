@@ -9,17 +9,24 @@ public class EnemyWalkingController : MonoBehaviour
     public float moveSpeed, turnRange;
     public Vector3 direction = new Vector3(1, 0, 0);
     public bool rotated = false, move = true;
+    private Animator animator;
+
+    private void Start() {
+        animator = GetComponent<Animator>();
+    }
 
     public void PlaceDown() {
         RaycastHit hit;
         if(Physics.Raycast(transform.position, Vector3.down, out hit, 5))
         {
-            holder.transform.position = hit.point + new Vector3(0, GetComponent<Renderer>().bounds.size.y / 2, 0);
+            holder.transform.position = hit.point + new Vector3(0, GetComponent<BoxCollider>().bounds.size.y / 2, 0);
         }
     }
 
     void Update()
     {
+        if(animator != null)
+            animator.SetBool("isWalking", move);
         RaycastHit hit;
         if(Physics.Raycast(transform.position, direction, out hit, turnRange, layerMask))
         {

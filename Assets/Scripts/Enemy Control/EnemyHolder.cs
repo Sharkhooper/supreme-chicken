@@ -12,6 +12,7 @@ public class EnemyHolder : MonoBehaviour
 
     void Start()
     {
+        closeRangeController.SetHolder(this);
         if(enemyCloseAttack != null)
             enemyCloseAttack.SetHolder(this);
         if(enemyThrowAttack != null)
@@ -20,6 +21,5 @@ public class EnemyHolder : MonoBehaviour
             enemyLaserAttack.SetHolder(this);
         enemyWalkingController.SetHolder(this);
         enemyWalkingController.PlaceDown();
-        closeRangeController.SetHolder(this);
     }
 }

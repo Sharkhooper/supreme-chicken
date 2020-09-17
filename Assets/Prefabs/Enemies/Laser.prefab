@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 4412744807446982512}
   - component: {fileID: 4412744807446982513}
   - component: {fileID: 6088913779776483354}
+  - component: {fileID: 8408077165681817008}
   m_Layer: 13
   m_Name: LaserObject
   m_TagString: Untagged
@@ -145,3 +146,15 @@ MonoBehaviour:
     m_Bits: 7735
   originTrans: {fileID: 4412744807157588310}
   defaultLength: 200
+--- !u!114 &8408077165681817008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4412744807446982515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 643584afd8e8fb84699fbb1e8e8ee5a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

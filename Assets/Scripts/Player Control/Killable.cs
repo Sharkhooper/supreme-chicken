@@ -19,20 +19,18 @@ public class Killable : MonoBehaviour
     {
         if (_character.CompareTag("Player"))
         {
-           // SceneManager.LoadScene("Game");  // Lädt die InGame Szene neu
+            Debug.Log("Killed Player!");
+            SceneManager.LoadScene("MarvinScene");  // Lädt die InGame Szene neu
+        }
+        else if(gameObject.GetComponent<PlateController>() != null)
+        {
+            gameObject.GetComponent<PlateController>().Explode();
         }
         else
         {
-            StartCoroutine(PlayAnim());
+            Instantiate(splashPrefab, transform.position, Quaternion.identity);
             Destroy(_character.transform.parent.gameObject);
             // Trigger Death Animation
         }
-    }
-
-    private IEnumerator PlayAnim()
-    {
-        GameObject splash = Instantiate(splashPrefab, transform.position, Quaternion.identity);
-        float secondsToWait = splash.GetComponent<ParticleSystem>().main.duration;
-        yield return new WaitForSeconds(secondsToWait);
     }
 }

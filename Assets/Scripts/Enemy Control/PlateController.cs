@@ -27,11 +27,13 @@ public class PlateController : MonoBehaviour
             Explode();
         }
     }
+    
 
     public void Explode()
     {
         rb.velocity = Vector3.zero;
         Destroy(mesh);
+        GetComponent<BoxCollider>().enabled = false;
         particle.SetActive(true);
     }
 }
