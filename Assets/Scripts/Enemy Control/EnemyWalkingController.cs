@@ -19,7 +19,7 @@ public class EnemyWalkingController : MonoBehaviour
         RaycastHit hit;
         if(Physics.Raycast(transform.position, Vector3.down, out hit, 5))
         {
-            holder.transform.position = hit.point + new Vector3(0, GetComponent<BoxCollider>().bounds.size.y / 2, 0);
+            holder.transform.position = hit.point;
         }
     }
 
