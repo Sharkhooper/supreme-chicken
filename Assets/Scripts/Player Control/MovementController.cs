@@ -45,6 +45,7 @@ public class MovementController : MonoBehaviour {
     [SerializeField] [Range(0, 1)]  private float groundCorrectionScale = 0.98f;
 
     [SerializeField] private MovementState state;
+    private MovementState prevState;
 
     // Movement
     private ButtonHelper jumpButton;
@@ -68,6 +69,7 @@ public class MovementController : MonoBehaviour {
 
     // Dash
     [SerializeField] private float dashCooldown = 1.5f;
+    [SerializeField] private float dashResetFallTime = 0.25f;
     [SerializeField] private float dashVelocity = 22;
     [SerializeField] private float dashDuration = 0.5f;
     private float dashTime = 0;
@@ -212,17 +214,19 @@ public class MovementController : MonoBehaviour {
 
 
         if (state.HasFlag(MovementState.Dashing)) {
-            model.rotation = Quaternion.Euler(0, Vector3.Angle(Vector3.right, dashDirection) < 90 ? 0 : 180, 0);
-
-            if (dashTime >= dashCooldown - dashDuration)
-                rb.velocity = dashDirection;
-            else {
+            if (dashTime < dashCooldown - dashDuration) {
                 state &= ~MovementState.Dashing;
                 trail.emitting = false;
                 animator.SetBool(animationParameters.dash, false);
             }
+            else {
+                model.rotation = Quaternion.Euler(0, Vector3.Angle(Vector3.right, dashDirection) < 90 ? 0 : 180, 0);
+                rb.velocity = dashDirection;
+            }
         }
-        else {
+
+        // not else so this path is called when dashing flag is cleared
+        if (!state.HasFlag(MovementState.Dashing)) {
             if (attackTime >= attackCooldown - attackDuration) {
                 trail.emitting = true;
                 animator.SetBool(animationParameters.attack, true);
@@ -284,6 +288,13 @@ public class MovementController : MonoBehaviour {
                 float angle = Vector3.Angle(Vector3.up, hit.normal);
                 if (angle < slopeAngleThreshold) {
                     state |= MovementState.OnGround;
+
+                    // Reset Dash Cooldown on Landing
+                    // Only reset if enogh time has passed since end of dash
+                    if (!prevState.HasFlag(MovementState.Dashing) && !prevState.HasFlag(MovementState.OnGround) && dashTime < dashCooldown - dashDuration - dashResetFallTime) {
+                        dashTime = 0;
+                        Debug.Log("Cooldown Reset");
+                    }
 
                     coyoteTimeCooldown = coyoteTime;
 
@@ -417,6 +428,8 @@ public class MovementController : MonoBehaviour {
             walkingHobble.Rewind();
             walkingHobble.Play();
         }
+
+        prevState = state;
     }
 
     // Currently only supports vectors on xy-plane. For more versatility project on some plane.
