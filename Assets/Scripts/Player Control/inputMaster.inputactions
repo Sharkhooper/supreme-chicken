@@ -7,9 +7,9 @@
             "actions": [
                 {
                     "name": "Movement",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "a53bf271-f336-4c63-8216-92c6c3715f6b",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": ""
                 },
@@ -33,6 +33,14 @@
                     "name": "Dash",
                     "type": "Button",
                     "id": "4cbafefa-0833-4338-8ca7-643c7056ea8e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Pad Dash",
+                    "type": "Button",
+                    "id": "d644f844-f747-4fa6-966a-adad64bd817c",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -74,6 +82,17 @@
                 },
                 {
                     "name": "",
+                    "id": "1a965a10-4bff-49bd-a350-a1cc02e05414",
+                    "path": "<Gamepad>/leftStick/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "ad5fa82a-f3c7-4820-9e94-92c6923b7259",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -96,11 +115,33 @@
                 },
                 {
                     "name": "",
+                    "id": "69c87feb-1451-4a4d-a9cf-b78bddaecc2f",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "Press(pressPoint=0.7,behavior=2)",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "2758971c-d189-4c39-ba59-b726d40f9016",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse&Keyboard",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5572fc3f-cd63-44b7-a22c-83f4681b8834",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
                     "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -113,6 +154,17 @@
                     "processors": "",
                     "groups": "Mouse&Keyboard",
                     "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fac3dd6d-66f5-4857-a1ca-974a3696a591",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "Press(pressPoint=0.7,behavior=2)",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Pad Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -178,6 +230,27 @@
                 {
                     "devicePath": "<Keyboard>",
                     "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Gamepad",
+            "bindingGroup": "Gamepad",
+            "devices": [
+                {
+                    "devicePath": "<DualShockGamepad>",
+                    "isOptional": true,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<SwitchProControllerHID>",
+                    "isOptional": true,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<XInputController>",
+                    "isOptional": true,
                     "isOR": false
                 }
             ]

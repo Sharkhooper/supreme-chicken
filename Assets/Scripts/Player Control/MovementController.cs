@@ -24,8 +24,7 @@ public class MovementController : MonoBehaviour {
         Dashing = 8,
     }
 
-    public static MovementController Active => active;
-    private static MovementController active;
+    public static MovementController Active { get; private set; }
 
     // Maximum horizontal velocity
     [SerializeField] private float maxVelocity = 16;
@@ -56,7 +55,7 @@ public class MovementController : MonoBehaviour {
     private float inputVelocity = 0;
     private float velocityMagnitude = 0;
     private float velocityChangeRate = 0;
-    private Vector3 dashTarget;
+    private float orientation;
     private Vector3 dashDirection;
     private ButtonHelper dashButton;
     private ButtonHelper attackButton;
@@ -125,7 +124,7 @@ public class MovementController : MonoBehaviour {
         cam = Camera.main;
         Debug.Assert(dashCooldown > dashDuration);
 
-        active = this;
+        Active = this;
 
 
         animationParameters = new AnimationParameters {
@@ -163,15 +162,35 @@ public class MovementController : MonoBehaviour {
 
     public void HandleDashInput(InputAction.CallbackContext context) {
         bool b = context.ReadValueAsButton();
-        dashButton.Update(b);
+        dashButton.Update(context.ReadValueAsButton());
 
         if (dashButton.down) {
             Ray r = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
             intersectionPlane.Raycast(r, out float d);
-            dashTarget = r.origin + d * r.direction.normalized;
+            Vector3 dashTarget = r.origin + d * r.direction.normalized;
             dashDirection = dashTarget - rb.transform.position;
-            dashDirection.Normalize();
-            dashDirection *= dashVelocity;
+ 
+            if (dashDirection.magnitude < 0.01f) {
+                dashDirection = Vector3.zero;
+            }
+            else {
+                dashDirection.Normalize();
+                dashDirection *= dashVelocity;
+            }
+        }
+    }
+
+    public void HandleDashInputGamepad(InputAction.CallbackContext context) {
+        dashButton.Update(context.ReadValueAsButton());
+
+        if (dashButton.down) {
+            Vector2 target = Gamepad.current.rightStick.ReadValue();
+            if (target.magnitude < 0.01f) {
+                dashDirection = Vector3.zero;
+            }
+            else {
+                dashDirection = (Vector3)(target.normalized * dashVelocity);
+            }
         }
     }
 
@@ -201,6 +220,10 @@ public class MovementController : MonoBehaviour {
             gravity = Vector3.zero;
             velocity = Vector3.zero;
             attackTime = 0;
+
+            if (dashDirection == Vector3.zero) {
+                dashDirection = (orientation > 0 ? Vector3.right : Vector3.left) * dashVelocity;
+            }
 
             trail.emitting = true;
             animator.SetBool(animationParameters.attack, false);
@@ -266,8 +289,8 @@ public class MovementController : MonoBehaviour {
             velocityMagnitude = Mathf.SmoothDamp(velocityMagnitude, inputVelocity, ref velocityChangeRate, velocitySmooth);
             velocity = Vector3.right * velocityMagnitude * maxVelocity * Time.fixedDeltaTime;
 
-            float orientation = velocityMagnitude > 0 ? 1 : -1;
             if (Mathf.Abs(velocityMagnitude) > 0.1f) {
+                orientation = velocityMagnitude > 0 ? 1 : -1;
                 model.rotation = Quaternion.Euler(0, velocityMagnitude > 0 ? 0 : 180, 0);
             }
 
