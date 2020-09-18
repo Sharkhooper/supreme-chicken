@@ -4956,8 +4956,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d5fe40706442ae448976c80f0c4eb7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 20
-  randomPlusMinusThrow: 1
+  randomPlusMinusThrow: 2
   randomPlusMinusRotate: 30
   toRotate: 0
   explosionForce: 20
@@ -5018,4 +5017,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   splashPrefab: {fileID: 0}
-  sceneName: Level 1

@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class PlateController : MonoBehaviour
 {
-    public float moveSpeed, randomPlusMinusThrow, randomPlusMinusRotate, toRotate, explosionForce, explosionRadius;
+    public float randomPlusMinusThrow, randomPlusMinusRotate, toRotate, explosionForce, explosionRadius;
+    private float moveSpeed;
     public Vector3 direction;
     private Rigidbody rb;
-    private GameObject mesh, particle; 
+    private GameObject mesh, particle;
+    private Difficulty difficulty;
 
     private void Start() {
+        difficulty = Difficulty.current;
+        moveSpeed = difficulty.waiter.plateSpeed;
+        randomPlusMinusThrow *= (1 - difficulty.waiter.accuracy);
+
         mesh = transform.Find("PlateObject").gameObject;
         particle = transform.Find("PlateExplosion").gameObject;
         rb = gameObject.GetComponent<Rigidbody>();

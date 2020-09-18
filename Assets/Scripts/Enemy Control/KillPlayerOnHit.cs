@@ -10,7 +10,7 @@ public class KillPlayerOnHit : MonoBehaviour
     {
         if (shouldKill && other.gameObject.layer == 10 && other.GetComponent<Killable>() != null)
         {
-            Debug.Log("Player gets killed");
+            //Debug.Log("Player gets killed");
             other.GetComponent<Killable>().GetKilled();
         }
     }

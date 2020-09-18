@@ -4,14 +4,35 @@ using UnityEngine;
 
 public class CloseRangeController : MonoBehaviour
 {
+    public enum EnemyType {Chef, Waiter, Cockroach}
+    public EnemyType type;
     public LayerMask layerMask;
     private EnemyHolder holder;
-    public float range, maxAngle;
+    private float range, maxAngle;
     private GameObject player;
     public Vector3 offset;
+    private Difficulty difficulty;
 
     private void Start() {
+        difficulty = Difficulty.current;
         player = FindObjectOfType<MovementController>().gameObject;
+        switch(type)
+        {
+            case EnemyType.Chef:
+                range = difficulty.chef.range;
+                maxAngle = difficulty.chef.angle;
+                break;
+            case EnemyType.Waiter:
+                range = difficulty.waiter.range;
+                maxAngle = difficulty.waiter.angle;
+                break;
+            case EnemyType.Cockroach:
+                range = difficulty.cockroach.range;
+                maxAngle = difficulty.cockroach.angle;
+                break;
+            default:
+                break;
+        }
     }
 
     void Update()

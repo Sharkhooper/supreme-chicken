@@ -260,11 +260,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74fbc52665ec35841b749aa56037d587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 2
   layerMask:
     serializedVersion: 2
     m_Bits: 1024
-  range: 12
-  maxAngle: 45
   offset: {x: 0, y: 0, z: 0}
 --- !u!54 &984993348480145041
 Rigidbody:
@@ -294,10 +293,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972ec6f42f8dbdf49861368351c1f53d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 2
   layerMask:
     serializedVersion: 2
     m_Bits: 7991
-  moveSpeed: 4
   turnRange: 2
   direction: {x: 1, y: 0, z: 0}
   rotated: 0
@@ -314,11 +313,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b6e71f94347e144bb6937f7646bc15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aimDuration: 1
-  shootDuration: 1
-  growSpeed: 3
-  waitBetweenShoots: 1
-  degreesAbove: 10
   myLaser: {fileID: 2330470213979071866}
   myAim: {fileID: 2684472915934865427}
   burnParticlesPrefab: {fileID: 5254735629226669536, guid: 194f08b67e2c47842bfc92c40886086b, type: 3}
@@ -335,7 +329,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   splashPrefab: {fileID: 260916201467912036, guid: 7315dc899536e5b478428ca7c6697d94, type: 3}
-  sceneName: Level 1
 --- !u!1 &2928074980761305679
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,10 +386,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972ec6f42f8dbdf49861368351c1f53d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
   layerMask:
     serializedVersion: 2
     m_Bits: 0
-  moveSpeed: 2
   turnRange: 0
   direction: {x: 1, y: 0, z: 0}
   rotated: 0

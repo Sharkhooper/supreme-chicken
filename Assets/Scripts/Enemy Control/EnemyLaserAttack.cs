@@ -4,19 +4,27 @@ using UnityEngine;
 
 public class EnemyLaserAttack : MonoBehaviour
 {
-    public float aimDuration, shootDuration, growSpeed, waitBetweenShoots, degreesAbove;
+    private float aimDuration, shootDuration, growSpeed, waitBetweenShoots;
     public GameObject myLaser, myAim, burnParticlesPrefab;
     private EnemyHolder holder;
     private bool shooting, running, aiming;
     private float timeElapsed = 0;
     private GameObject burnParticles;
+    private Difficulty difficulty;
 
-    private void Update() {
-        //Debug.Log("Time elapsed: " + timeElapsed);
+    private void Start()
+    {
+        difficulty = Difficulty.current;
+        aimDuration = difficulty.cockroach.aimDuration;
+        shootDuration = difficulty.cockroach.shootDuration;
+        growSpeed = difficulty.cockroach.growSpeed;
+        waitBetweenShoots = difficulty.cockroach.shootCooldown;
+    }
+
+    private void Update()
+    {
         if(shooting && timeElapsed < shootDuration)
         {
-            //Quaternion currentRotation = myLaser.transform.rotation;
-            //myLaser.transform.Rotate(new Vector3(0, 0, Time.deltaTime * rotationSpeed * holder.enemyWalkingController.direction.x * -1));
             float change = Time.deltaTime * growSpeed;
             myLaser.transform.localScale += new Vector3(change, 0, change);
             burnParticles.transform.position = myLaser.GetComponentInChildren<ScaleToCollision>().GetHitPosition();

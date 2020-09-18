@@ -9,11 +9,14 @@ public class EnemyCloseAttack : MonoBehaviour
     private bool running;
     private KillPlayerOnHit killPlayer;
     private Animator animator;
+    private Difficulty difficulty;
     private void Start()
     {
+        difficulty = Difficulty.current;
         animator = GetComponent<Animator>();
         killPlayer = weapon.GetComponent<KillPlayerOnHit>();
         killPlayer.shouldKill = false;
+        animator.SetFloat("attackSpeed", difficulty.chef.attackSpeed);
     }
 
     public void StartAttack()
@@ -27,7 +30,7 @@ public class EnemyCloseAttack : MonoBehaviour
         running = true;
         animator.SetTrigger("hit");
         killPlayer.shouldKill = true;
-        yield return new WaitForSeconds(2.25f / 2f);
+        yield return new WaitForSeconds(2.25f / difficulty.chef.attackSpeed);
         killPlayer.shouldKill = false;
         animator.ResetTrigger("hit");
         running = false;

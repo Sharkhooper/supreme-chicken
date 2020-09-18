@@ -9,11 +9,13 @@ namespace MainMenu
 {
     public class DiffBox : MonoBehaviour
     {
+        public int m_index;
+        
         private Vector3 m_lastMousePos;
         private Vector2 m_mouseDelta;
-        public Camera m_camera;
-        public DiffWheel m_wheel;
-
+        private Camera m_camera;
+        private DiffWheel m_wheel;
+        
         private void Awake()
         {
             m_camera = Camera.main;
@@ -32,7 +34,7 @@ namespace MainMenu
              {
                  if(hit.transform == transform)
                  {
-                    m_wheel.DifficultyClicked(transform.position);
+                    m_wheel.DifficultyClicked(transform.position, m_index);
                  }
              }
         }
