@@ -1,4 +1,4 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -204,6 +204,8 @@ public class MovementController : MonoBehaviour {
         }
         else if (attackButton.down && !state.HasFlag(MovementState.WallGrab) && attackTime <= 0) {
             attackTime = attackCooldown;
+            // Skip first attack to account for animation delay
+            attackActiveTicks = attackTicks;
         }
 
 
