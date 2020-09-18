@@ -19,7 +19,6 @@ public class Killable : MonoBehaviour
     {
         if (_character.CompareTag("Player"))
         {
-            Debug.Log("Killed Player!");
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  // Lädt die InGame Szene neu
         }
         else if(_character.GetComponent<PlateController>() != null)

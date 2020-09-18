@@ -870,11 +870,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74fbc52665ec35841b749aa56037d587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 1
   layerMask:
     serializedVersion: 2
     m_Bits: 1024
-  range: 8
-  maxAngle: 45
   offset: {x: 0, y: 2, z: 0}
 --- !u!114 &6586289851376604122
 MonoBehaviour:
@@ -888,10 +887,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972ec6f42f8dbdf49861368351c1f53d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 1
   layerMask:
     serializedVersion: 2
     m_Bits: 7991
-  moveSpeed: 3
   turnRange: 2
   direction: {x: 1, y: 0, z: 0}
   rotated: 0
@@ -924,7 +923,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   splashPrefab: {fileID: 260916201467912036, guid: 7315dc899536e5b478428ca7c6697d94, type: 3}
-  sceneName: Level 1
 --- !u!65 &2627834630965283271
 BoxCollider:
   m_ObjectHideFlags: 0
