@@ -1120,7 +1120,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 65
+  field of view: 60
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1146,7 +1146,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 394716186}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.1878474, z: -7}
+  m_LocalPosition: {x: 0, y: 1.7391195, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1476,10 +1476,10 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 884433560}
+  m_LookAt: {fileID: 884433560}
+  m_Follow: {fileID: 1306414552}
   m_Lens:
-    FieldOfView: 65
+    FieldOfView: 60
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -1501,7 +1501,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 656835658}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.1878474, z: -7}
+  m_LocalPosition: {x: 0, y: 1.7391195, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1381880386}
@@ -2390,6 +2390,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8636457419588461497, guid: 61e107c669ba65a4188ac62a571af42a, type: 3}
   m_PrefabInstance: {fileID: 1264272834}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1306414552 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3125131243484565125, guid: 0f2af4da406889541915690fb0ff965e, type: 3}
+  m_PrefabInstance: {fileID: 16359863}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1332554805 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 535020354343799164, guid: 0f2af4da406889541915690fb0ff965e, type: 3}
@@ -2453,7 +2458,7 @@ MonoBehaviour:
   m_ZDamping: 0.6
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
-  m_ScreenY: 0.65
+  m_ScreenY: 0.61
   m_CameraDistance: 7
   m_DeadZoneWidth: 0.23
   m_DeadZoneHeight: 0.26405108
@@ -2487,6 +2492,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1456132618 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8670982777713575633, guid: 6867304089f899d4eabbb2a2cd1fb0fe, type: 3}
+  m_PrefabInstance: {fileID: 8670982776985926361}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1487645635
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2494,6 +2504,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1798325325, guid: 7315dc899536e5b478428ca7c6697d94, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.atime1
+      value: 61102
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798325325, guid: 7315dc899536e5b478428ca7c6697d94, type: 3}
+      propertyPath: InitialModule.startLifetime.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798325325, guid: 7315dc899536e5b478428ca7c6697d94, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 260916201467912036, guid: 7315dc899536e5b478428ca7c6697d94, type: 3}
       propertyPath: m_Name
       value: EnemySplash
@@ -3141,7 +3163,7 @@ MonoBehaviour:
   playerLayer: 10
   waitUntilReload: 5
   wonText: {fileID: 1349335334}
-  timerText: {fileID: 0}
+  timerText: {fileID: 1456132618}
   finished: 0
 --- !u!65 &2003063807
 BoxCollider:
@@ -3492,6 +3514,14 @@ PrefabInstance:
     - target: {fileID: 6336908066308908652, guid: 6867304089f899d4eabbb2a2cd1fb0fe, type: 3}
       propertyPath: m_Name
       value: WinningScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 8670982777713575635, guid: 6867304089f899d4eabbb2a2cd1fb0fe, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 8670982777789449201, guid: 6867304089f899d4eabbb2a2cd1fb0fe, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6867304089f899d4eabbb2a2cd1fb0fe, type: 3}

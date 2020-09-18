@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class Killable : MonoBehaviour
 {
@@ -46,6 +47,7 @@ public class Killable : MonoBehaviour
         if(model != null)
             model.SetActive(false);
         GetComponent<SphereCollider>().enabled = false;
+        GetComponentInParent<PlayerInput>().enabled = false;
         yield return new WaitForSeconds(2);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  // Lädt die InGame Szene neu
     }
