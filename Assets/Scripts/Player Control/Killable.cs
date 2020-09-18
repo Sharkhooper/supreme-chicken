@@ -10,6 +10,7 @@ public class Killable : MonoBehaviour
 {
     public GameObject splashPrefab, lostText, model;
     private GameObject _character;
+    private bool dead;
 
     private void Awake()
     {
@@ -18,6 +19,8 @@ public class Killable : MonoBehaviour
 
     public void GetKilled()
     {
+        if (dead) return;
+        dead = true;
         if (_character.CompareTag("Player"))
         {
             StartCoroutine(Losing());
@@ -30,8 +33,18 @@ public class Killable : MonoBehaviour
         {
             if(splashPrefab != null)
                 Instantiate(splashPrefab, transform.position + new Vector3(0,1,0), Quaternion.identity);
-            Destroy(_character.transform.parent.gameObject);
-            // Trigger Death Animation
+
+            Dismemberment d = GetComponent<Dismemberment>();
+            if (d != null) {
+                Destroy(_character.transform.parent.gameObject);
+                Vector3 direction = d.Origin.position - MovementController.Active.transform.position;
+                direction.y *= 0.15f;
+                direction.Normalize();
+                d.DismemberWithForce(direction);
+            }
+            else {
+                Destroy(_character.transform.parent.gameObject);
+            }
         }
     }
 

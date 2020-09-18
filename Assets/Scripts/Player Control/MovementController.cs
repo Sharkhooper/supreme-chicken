@@ -24,6 +24,9 @@ public class MovementController : MonoBehaviour {
         Dashing = 8,
     }
 
+    public static MovementController Active => active;
+    private static MovementController active;
+
     // Maximum horizontal velocity
     [SerializeField] private float maxVelocity = 16;
     // Velocity damping - zero equals instant changes
@@ -120,6 +123,8 @@ public class MovementController : MonoBehaviour {
     private void Start() {
         cam = Camera.main;
         Debug.Assert(dashCooldown > dashDuration);
+
+        active = this;
 
 
         animationParameters = new AnimationParameters {
@@ -344,7 +349,7 @@ public class MovementController : MonoBehaviour {
                     }
                 }
                 // Regular gravity
-                else if (!state.HasFlag(MovementState.OnGround) && !state.HasFlag(MovementState.WallGrab)) {
+                else if (!state.HasFlag(MovementState.OnGround)) {
                     animator.SetBool(animationParameters.ascending, false);
                     gravity += Physics.gravity * fallMultiplier * Time.fixedDeltaTime;
                 }
