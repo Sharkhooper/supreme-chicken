@@ -234,12 +234,11 @@ public class MovementController : MonoBehaviour {
                     Collider[] hits = Physics.OverlapSphere(origin, attackRange);
                     foreach (Collider c in hits) {
                         if ((1 << c.gameObject.layer & damageLayers.value) != 0) {
-                            Killable k = c.GetComponent<Killable>();
-                            if (k == null) {
-                                Debug.LogWarning($"Gameobject {c.gameObject.name} is on Killable layer, but has no Killable component!");
+                            if (c.TryGetComponent(out Killable k)) {
+                                k.GetKilled();
                             }
                             else {
-                                k.GetKilled();
+                                Debug.LogWarning($"Gameobject {c.gameObject.name} is on Killable layer, but has no Killable component!");
                             }
                         }
                     }
