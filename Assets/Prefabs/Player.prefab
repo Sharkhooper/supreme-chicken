@@ -242,7 +242,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3125131243217173978}
   - component: {fileID: 3125131243217173979}
-  - component: {fileID: 485274375}
   m_Layer: 10
   m_Name: Body Collider
   m_TagString: Player
@@ -277,22 +276,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.42
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &485274375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3125131243217173957}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2844a3709081e36438a29876c5fc5ca0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  splashPrefab: {fileID: 260916201467912036, guid: 7315dc899536e5b478428ca7c6697d94, type: 3}
-  deadChickenPrefab: {fileID: 6163606314541252620, guid: ab2152424da840949af795679f92ab98, type: 3}
-  lostText: {fileID: 0}
-  model: {fileID: 535020354343799164}
 --- !u!1 &3125131243484565126
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,7 +322,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3125131243484565126}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
@@ -562,6 +545,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6480683765964471112}
   - component: {fileID: 6516265917065430380}
+  - component: {fileID: 1889361830}
   m_Layer: 10
   m_Name: BoxBody
   m_TagString: Untagged
@@ -596,6 +580,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.59397, y: 0.59397, z: 0.59397}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1889361830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6670318882261712062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2844a3709081e36438a29876c5fc5ca0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  splashPrefab: {fileID: 260916201467912036, guid: 7315dc899536e5b478428ca7c6697d94, type: 3}
+  deadChickenPrefab: {fileID: 6163606314541252620, guid: ab2152424da840949af795679f92ab98, type: 3}
+  lostText: {fileID: 0}
+  model: {fileID: 535020354343799164}
 --- !u!1001 &3125131243107798911
 PrefabInstance:
   m_ObjectHideFlags: 0
