@@ -1,4 +1,4 @@
-﻿using DG.Tweening;
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -337,6 +337,7 @@ public class MovementController : MonoBehaviour {
             // #### Gravity ####
             // =================
 
+            // if GRAVITY
             // Handle jump gravity
             if (gravity.y > 0) {
                 animator.SetBool(animationParameters.ascending, true);
@@ -408,6 +409,11 @@ public class MovementController : MonoBehaviour {
             else {
                 rb.velocity += onGroundCorrection / Time.fixedDeltaTime;
             }
+        }
+            else { // elseif GRAVITY
+                rb.velocity = Vector3.zero;
+            }
+
         }
 
         jumpButton.down = false;
