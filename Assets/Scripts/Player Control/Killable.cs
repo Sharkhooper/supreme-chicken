@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class Killable : MonoBehaviour
 {
-    public GameObject splashPrefab;
+    public GameObject splashPrefab, lostText, model;
     private GameObject _character;
 
     private void Awake()
@@ -19,7 +19,7 @@ public class Killable : MonoBehaviour
     {
         if (_character.CompareTag("Player"))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  // Lädt die InGame Szene neu
+            StartCoroutine(Losing());
         }
         else if(_character.GetComponent<PlateController>() != null)
         {
@@ -32,5 +32,20 @@ public class Killable : MonoBehaviour
             Destroy(_character.transform.parent.gameObject);
             // Trigger Death Animation
         }
+    }
+
+    private IEnumerator Losing()
+    {
+        if(lostText != null)
+            lostText.SetActive(true);
+        if (splashPrefab != null)
+        {
+            GameObject splash = Instantiate(splashPrefab, transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+            splash.transform.localScale *= 0.5f;
+        }
+        if(model != null)
+            model.SetActive(false);
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  // Lädt die InGame Szene neu
     }
 }
