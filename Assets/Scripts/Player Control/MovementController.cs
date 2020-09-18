@@ -39,6 +39,7 @@ public class MovementController : MonoBehaviour {
     // Maximum angle at which a plane is walkable / counts as ground
     [SerializeField] private float slopeAngleThreshold = 45;
 
+    [SerializeField] private bool allowWallgrab = true;
     // Maximum angle at which a ledge is considerd for a grab
     [SerializeField] private float wallGrabAngleThreshold = 33;
     // Distance tolerance for wall grab spherecast
@@ -306,7 +307,9 @@ public class MovementController : MonoBehaviour {
                     coyoteTimeCooldown -= Time.fixedDeltaTime;
                 }
 
-                if (Physics.SphereCast(bodyPos + Vector3.up * 0.001f, bodyRad, Vector3.down, out hit, 0.001f + wallGrabDistTolerance, collisionLayers)) {
+
+                // Wall Grab
+                if (allowWallgrab && Physics.SphereCast(bodyPos + Vector3.up * 0.001f, bodyRad, Vector3.down, out hit, 0.001f + wallGrabDistTolerance, collisionLayers)) {
                     float angle = Vector3.Angle(Vector3.up, hit.normal);
                     if (angle < wallGrabAngleThreshold) {
                         state |= MovementState.WallGrab;
@@ -402,8 +405,11 @@ public class MovementController : MonoBehaviour {
                     // therefor results in infinite hover, cancelable through a jump
                     Vector3 off = velocity.normalized * 0.01f;
                     if (Physics.SphereCast(feetPos - off, feetRad, rb.velocity, out hit, rb.velocity.magnitude * Time.fixedDeltaTime + feetRad + 0.01f, collisionLayers)) {
-                        float dist = Vector3.Distance(feetPos, hit.point) - feetRad;
-                        rb.velocity = rb.velocity.normalized * dist / Time.fixedDeltaTime;
+                        float angle = Vector3.Angle(Vector3.up, hit.normal);
+                        if (angle < slopeAngleThreshold) {
+                            float dist = Vector3.Distance(feetPos, hit.point) - feetRad;
+                            rb.velocity = rb.velocity.normalized * dist / Time.fixedDeltaTime;
+                        }
                     }
                 }
                 else {
