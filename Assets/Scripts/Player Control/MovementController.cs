@@ -72,6 +72,8 @@ public class MovementController : MonoBehaviour {
     [SerializeField] private float dashResetFallTime = 0.25f;
     [SerializeField] private float dashVelocity = 22;
     [SerializeField] private float dashDuration = 0.5f;
+    [SerializeField] private int   dashTicks;
+    private int dashActiveTicks;
     private float dashTime = 0;
 
     // Attack
@@ -198,6 +200,7 @@ public class MovementController : MonoBehaviour {
             animator.SetBool(animationParameters.attack, false);
             animator.SetBool(animationParameters.dash, true);
             animator.SetBool(animationParameters.ascending, false);
+            dashActiveTicks = 0;
         }
         else if (attackButton.down && !state.HasFlag(MovementState.WallGrab) && attackTime <= 0) {
             attackTime = attackCooldown;
@@ -222,6 +225,10 @@ public class MovementController : MonoBehaviour {
             else {
                 model.rotation = Quaternion.Euler(0, Vector3.Angle(Vector3.right, dashDirection) < 90 ? 0 : 180, 0);
                 rb.velocity = dashDirection;
+                if (dashActiveTicks <= 0) {
+                    DoDamage();
+                    dashActiveTicks = dashTicks;
+                }
             }
         }
 
