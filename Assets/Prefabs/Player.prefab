@@ -441,8 +441,10 @@ MonoBehaviour:
   initialJumpVelocity: 15
   coyoteTime: 0.09
   dashCooldown: 1.5
+  dashResetFallTime: 0.25
   dashVelocity: 22
   dashDuration: 0.25
+  dashTicks: 0
   attackDuration: 0.71
   attackCooldown: 0.9
   attackRange: 1

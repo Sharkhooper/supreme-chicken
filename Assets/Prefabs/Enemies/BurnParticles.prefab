@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6214729889011919334}
   - component: {fileID: 2116604703377415549}
   - component: {fileID: 6707043630945875768}
+  - component: {fileID: 6612991157557806841}
   m_Layer: 0
   m_Name: BurnParticles
   m_TagString: Untagged
@@ -4812,3 +4813,16 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &6612991157557806841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5254735629226669536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee21e7c210c684d4d9eef75c7103b3b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifespan: 3

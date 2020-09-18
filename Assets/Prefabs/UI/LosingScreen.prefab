@@ -71,7 +71,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 11, y: 14.8}
+  m_AnchoredPosition: {x: 11, y: 26}
   m_SizeDelta: {x: 900, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8670982777789449200
@@ -104,8 +104,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: YOU DIED!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e62ed50a9ad9c8f42a25695563a50d3f, type: 2}
-  m_sharedMaterial: {fileID: -4397483819274537208, guid: e62ed50a9ad9c8f42a25695563a50d3f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 31c09c6cea2b9b54a9ed4abd7b4c111d, type: 2}
+  m_sharedMaterial: {fileID: 1200258579042386993, guid: 31c09c6cea2b9b54a9ed4abd7b4c111d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -129,8 +129,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 90
-  m_fontSizeBase: 90
+  m_fontSize: 150
+  m_fontSizeBase: 150
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

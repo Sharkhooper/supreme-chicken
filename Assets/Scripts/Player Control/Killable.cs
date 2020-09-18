@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 
 public class Killable : MonoBehaviour
 {
-    public GameObject splashPrefab, lostText, model;
+    public GameObject splashPrefab, deadChickenPrefab, lostText, model;
     private GameObject _character;
     private bool dead;
 
@@ -59,6 +59,11 @@ public class Killable : MonoBehaviour
         }
         if(model != null)
             model.SetActive(false);
+
+        GameObject deadChick = Instantiate(deadChickenPrefab, transform.position, Quaternion.identity);
+        Rigidbody rb = deadChick.GetComponent<Rigidbody>();
+        rb.AddForce(Vector3.up * 200);
+        rb.AddTorque(new Vector3(UnityEngine.Random.Range(10, 180), UnityEngine.Random.Range(10, 180), UnityEngine.Random.Range(10, 180)));
         GetComponent<SphereCollider>().enabled = false;
         GetComponentInParent<PlayerInput>().enabled = false;
         yield return new WaitForSeconds(2);
