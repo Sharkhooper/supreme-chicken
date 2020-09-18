@@ -1,4 +1,4 @@
-﻿using DG.Tweening;
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -233,19 +233,7 @@ public class MovementController : MonoBehaviour {
                 --attackActiveTicks;
 
                 if (attackActiveTicks <= 0) {
-                    // Damage Code
-                    Vector3 origin = rb.transform.position;
-                    Collider[] hits = Physics.OverlapSphere(origin, attackRange);
-                    foreach (Collider c in hits) {
-                        if ((1 << c.gameObject.layer & damageLayers.value) != 0) {
-                            if (c.TryGetComponent(out Killable k)) {
-                                k.GetKilled();
-                            }
-                            else {
-                                Debug.LogWarning($"Gameobject {c.gameObject.name} is on Killable layer, but has no Killable component!");
-                            }
-                        }
-                    }
+                    DoDamage();
                     attackActiveTicks = attackTicks;
                 }
 
@@ -430,6 +418,21 @@ public class MovementController : MonoBehaviour {
         }
 
         prevState = state;
+    }
+
+    private void DoDamage() {
+        Vector3 origin = rb.transform.position;
+        Collider[] hits = Physics.OverlapSphere(origin, attackRange);
+        foreach (Collider c in hits) {
+            if ((1 << c.gameObject.layer & damageLayers.value) != 0) {
+                if (c.TryGetComponent(out Killable k)) {
+                    k.GetKilled();
+                }
+                else {
+                    Debug.LogWarning($"Gameobject {c.gameObject.name} is on Killable layer, but has no Killable component!");
+                }
+            }
+        }
     }
 
     // Currently only supports vectors on xy-plane. For more versatility project on some plane.
