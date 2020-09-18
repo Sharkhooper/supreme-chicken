@@ -14,6 +14,8 @@ namespace Mainmenu
     {
         public Transform m_head;
         
+        public List<Difficulty> m_difficulties;
+
         private Quaternion m_currentRot;
         private Vector3 m_currentDir;
         private bool m_animating;
@@ -24,7 +26,7 @@ namespace Mainmenu
         }
 
         // Rotate the slider to the clicked difficulty box
-        public void DifficultyClicked(Vector3 pos)
+        public void DifficultyClicked(Vector3 pos, int index)
         {
             var currentDir = (m_head.position - transform.position).normalized;
             var dir = (pos - transform.position).normalized;
@@ -35,6 +37,7 @@ namespace Mainmenu
             
             if(Mathf.Abs(angle) > 20 && !m_animating)
             {
+                Difficulty.current = m_difficulties[index];
                 m_currentRot *= Quaternion.Euler(0, angle,0);
                 m_animating = true;
                 transform.DORotateQuaternion(m_currentRot, 0.3f).onComplete += () => m_animating = false;

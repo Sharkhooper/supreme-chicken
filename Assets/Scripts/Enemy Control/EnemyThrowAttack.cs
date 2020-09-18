@@ -8,6 +8,15 @@ public class EnemyThrowAttack : MonoBehaviour
     public GameObject platePrefab;
     private EnemyHolder holder;
     private bool running;
+    private Difficulty difficulty;
+    private Animator animator;
+
+    private void Start() {
+        animator = GetComponent<Animator>();
+        difficulty = Difficulty.current;
+        waitBetweenThrows /= difficulty.waiter.attackSpeed;
+        animator.SetFloat("attackSpeed", difficulty.waiter.attackSpeed);
+    }
 
     public void StartAttack(Vector3 direction, float angle, Vector3 offset)
     {

@@ -268,12 +268,6 @@ public class MovementController : MonoBehaviour {
             cameraTarget.localPosition =  Vector3.Lerp(cameraTarget.localPosition, cameraOffset * velocityMagnitude, cameraMaxDelta * Time.fixedDeltaTime);
 
             RaycastHit hit;
-            float animWalk = Mathf.Abs(velocityMagnitude);
-            if (animWalk < 0.05f) animWalk = 0;
-            if (animWalk > 0.95f) animWalk = 1;
-            animator.SetFloat(animationParameters.walking, 1);
-            animator.SetLayerWeight(animator.GetLayerIndex("Walking"), animWalk);
-
 
             // Get ground Vector and project velocity accordingly
             state &= ~MovementState.OnGround;
@@ -337,77 +331,84 @@ public class MovementController : MonoBehaviour {
             // #### Gravity ####
             // =================
 
-            // Handle jump gravity
-            if (gravity.y > 0) {
-                animator.SetBool(animationParameters.ascending, true);
-                if (jumpButton.pressed) {
-                    gravity += Physics.gravity * highJumpMultiplier * Time.fixedDeltaTime;
+            // if GRAVITY
+            if (!state.HasFlag(MovementState.WallGrab)) {
+                // Handle jump gravity
+                if (gravity.y > 0) {
+                    animator.SetBool(animationParameters.ascending, true);
+                    if (jumpButton.pressed) {
+                        gravity += Physics.gravity * highJumpMultiplier * Time.fixedDeltaTime;
+                    }
+                    else {
+                        gravity += Physics.gravity * lowJumpMultiplier * Time.fixedDeltaTime;
+                    }
                 }
+                // Regular gravity
+                else if (!state.HasFlag(MovementState.OnGround) && !state.HasFlag(MovementState.WallGrab)) {
+                    animator.SetBool(animationParameters.ascending, false);
+                    gravity += Physics.gravity * fallMultiplier * Time.fixedDeltaTime;
+                }
+                // On ground special cases
                 else {
-                    gravity += Physics.gravity * lowJumpMultiplier * Time.fixedDeltaTime;
-                }
-            }
-            // Regular gravity
-            else if (!state.HasFlag(MovementState.OnGround) && !state.HasFlag(MovementState.WallGrab)) {
-                animator.SetBool(animationParameters.ascending, false);
-                gravity += Physics.gravity * fallMultiplier * Time.fixedDeltaTime;
-            }
-            // On ground special cases
-            else {
-                gravity = Vector3.zero;
+                    gravity = Vector3.zero;
 
-                // Slope Fix if not jumping
-                // Fixes speedloss on transition between planes with different angles
-                Vector3 ground = hit.point;
-                // Fire spherecast in velocity direction
-                if (Mathf.Abs(velocityMagnitude) > 0.00001f && Physics.SphereCast(feetPos, feetRad, velocity, out hit, velocity.magnitude, collisionLayers)) {
-                    // check if cast hits something and hitted plane is a walkable plane
-                    float angle = Vector3.Angle(Vector3.up, hit.normal);
-                    if (angle < slopeAngleThreshold) {
-                        // Get intersection point of velocity line and plane tangent
-                        Vector3 tangent = planeNormalRotation * hit.normal;
-                        Vector3 intersect = GetIntersectionPointCoordinates(ground, ground + velocity, hit.point, hit.point + tangent, out bool found);
-                        if (found) {
-                            // Slice velocity vector at intersection and "project" remaining piece to tangent while keeping the same magnitude
-                            float f = Vector3.Dot(intersect - ground, velocity);
-                            velocity = f * velocity + orientation * (1 - f) * velocity.magnitude * tangent.normalized;
+                    // Slope Fix if not jumping
+                    // Fixes speedloss on transition between planes with different angles
+                    Vector3 ground = hit.point;
+                    // Fire spherecast in velocity direction
+                    if (Mathf.Abs(velocityMagnitude) > 0.00001f && Physics.SphereCast(feetPos, feetRad, velocity, out hit, velocity.magnitude, collisionLayers)) {
+                        // check if cast hits something and hitted plane is a walkable plane
+                        float angle = Vector3.Angle(Vector3.up, hit.normal);
+                        if (angle < slopeAngleThreshold) {
+                            // Get intersection point of velocity line and plane tangent
+                            Vector3 tangent = planeNormalRotation * hit.normal;
+                            Vector3 intersect = GetIntersectionPointCoordinates(ground, ground + velocity, hit.point, hit.point + tangent, out bool found);
+                            if (found) {
+                                // Slice velocity vector at intersection and "project" remaining piece to tangent while keeping the same magnitude
+                                float f = Vector3.Dot(intersect - ground, velocity);
+                                velocity = f * velocity + orientation * (1 - f) * velocity.magnitude * tangent.normalized;
+                            }
                         }
                     }
                 }
-            }
 
-            // Wall detection
-            if (velocity.magnitude > 0.01f && Physics.SphereCast(bodyPos - Vector3.right * orientation * 0.01f, bodyRad, velocity, out hit, velocity.magnitude + 0.01f, collisionLayers)) {
-                float angle = Vector3.Angle(Vector3.up, hit.normal);
-                if (angle >= slopeAngleThreshold) {
-                    velocity.Normalize();
-                    float dist = Vector3.Distance(hit.point, bodyPos) - bodyRad;
-                    velocity *= dist;
+                // Wall detection
+                if (velocity.magnitude > 0.01f && Physics.SphereCast(bodyPos - Vector3.right * orientation * 0.01f, bodyRad, velocity, out hit, velocity.magnitude + 0.01f, collisionLayers)) {
+                    float angle = Vector3.Angle(Vector3.up, hit.normal);
+                    if (angle >= slopeAngleThreshold) {
+                        velocity.Normalize();
+                        float dist = Vector3.Distance(hit.point, bodyPos) - bodyRad;
+                        velocity *= dist;
+                    }
+                }
+
+                rb.velocity = velocity / Time.fixedDeltaTime;
+
+
+                if (!state.HasFlag(MovementState.OnGround)) {
+                    rb.velocity += gravity;
+                    // Cap velocity to not glitch into ground
+                    // Capping this on velocity instead of on gravity and then correcting velocity like on slopes
+                    // results in a slowdown on landing, because horizontal movement gets skipped
+                    // Ideally remember the cut part and perform a slope fix on it with the landingplane as ground
+
+                    // Calculating this step on gravity instead of velocity can result in a glitch where walking
+                    // over a ledge causes swapping to WallGrab state without actually snapping to a wall, which
+                    // therefor results in infinite hover, cancelable through a jump
+                    Vector3 off = velocity.normalized * 0.01f;
+                    if (Physics.SphereCast(feetPos - off, feetRad, rb.velocity, out hit, rb.velocity.magnitude * Time.fixedDeltaTime + feetRad + 0.01f, collisionLayers)) {
+                        float dist = Vector3.Distance(feetPos, hit.point) - feetRad;
+                        rb.velocity = rb.velocity.normalized * dist / Time.fixedDeltaTime;
+                    }
+                }
+                else {
+                    rb.velocity += onGroundCorrection / Time.fixedDeltaTime;
                 }
             }
-
-            rb.velocity = velocity / Time.fixedDeltaTime;
-
-
-            if (!state.HasFlag(MovementState.OnGround)) {
-                rb.velocity += gravity;
-                // Cap velocity to not glitch into ground
-                // Capping this on velocity instead of on gravity and then correcting velocity like on slopes
-                // results in a slowdown on landing, because horizontal movement gets skipped
-                // Ideally remember the cut part and perform a slope fix on it with the landingplane as ground
-
-                // Calculating this step on gravity instead of velocity can result in a glitch where walking
-                // over a ledge causes swapping to WallGrab state without actually snapping to a wall, which
-                // therefor results in infinite hover, cancelable through a jump
-                Vector3 off = velocity.normalized * 0.01f;
-                if (Physics.SphereCast(feetPos - off, feetRad, rb.velocity, out hit, rb.velocity.magnitude * Time.fixedDeltaTime + feetRad + 0.01f, collisionLayers)) {
-                    float dist = Vector3.Distance(feetPos, hit.point) - feetRad;
-                    rb.velocity = rb.velocity.normalized * dist / Time.fixedDeltaTime;
-                }
+            else { // elseif GRAVITY
+                rb.velocity = Vector3.zero;
             }
-            else {
-                rb.velocity += onGroundCorrection / Time.fixedDeltaTime;
-            }
+
         }
 
         jumpButton.down = false;
@@ -419,6 +420,17 @@ public class MovementController : MonoBehaviour {
         }
         else {
             animator.SetBool(animationParameters.air, true);
+        }
+
+        if (state.HasFlag(MovementState.OnGround)) {
+            float animWalk = Mathf.Abs(velocityMagnitude);
+            if (animWalk < 0.05f) animWalk = 0;
+            if (animWalk > 0.95f) animWalk = 1;
+            animator.SetFloat(animationParameters.walking, 1);
+            animator.SetLayerWeight(animationParameters.layerWalking, animWalk);
+        }
+        else {
+            animator.SetLayerWeight(animationParameters.layerWalking, 0);
         }
 
         if (walkingHobbleCondition) {

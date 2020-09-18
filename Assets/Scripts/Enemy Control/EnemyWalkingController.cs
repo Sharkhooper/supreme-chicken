@@ -4,15 +4,36 @@ using UnityEngine;
 
 public class EnemyWalkingController : MonoBehaviour
 {
+    public enum EnemyType { Chef, Waiter, Cockroach }
+    public EnemyType type;
     public LayerMask layerMask;
     private EnemyHolder holder;
-    public float moveSpeed, turnRange;
+    private float moveSpeed;
+    public float turnRange;
     public Vector3 direction = new Vector3(1, 0, 0);
     public bool rotated = false, move = true;
     private Animator animator;
+    private Difficulty difficulty;
 
     private void Start() {
         animator = GetComponent<Animator>();
+        difficulty = Difficulty.current;
+        switch (type)
+        {
+            case EnemyType.Chef:
+                moveSpeed = difficulty.chef.moveSpeed;
+                break;
+            case EnemyType.Waiter:
+                moveSpeed = difficulty.waiter.moveSpeed;
+                break;
+            case EnemyType.Cockroach:
+                moveSpeed = difficulty.cockroach.moveSpeed;
+                break;
+            default:
+                break;
+        }
+        if(animator != null)
+            animator.SetFloat("moveSpeed", moveSpeed);
     }
 
     public void PlaceDown() {
@@ -44,7 +65,7 @@ public class EnemyWalkingController : MonoBehaviour
     {
         if(move)
         {
-            Vector3 newPos = holder.transform.position + direction * Time.deltaTime * moveSpeed;
+            Vector3 newPos = holder.transform.position + direction * Time.deltaTime * moveSpeed *4 ;
             holder.transform.position = newPos;
         }
 
