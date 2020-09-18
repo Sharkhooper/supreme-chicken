@@ -49,6 +49,7 @@ public class MenuButtons : MonoBehaviour
                 m_animating = true;
                 Animate(m_quitButton);
                 EventSystems.MainEventSystem.MainEvents.GameQuit();
+                Application.Quit();
             }
         }
     }
