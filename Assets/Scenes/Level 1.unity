@@ -873,7 +873,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 255203264}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -28.45, y: 0, z: 0}
+  m_LocalPosition: {x: -28.45, y: 0.54, z: -0.13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 925436978}
@@ -3337,6 +3337,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerLayer: 10
+  waitUntilReload: 0
+  wonText: {fileID: 0}
+  timerText: {fileID: 0}
+  finished: 0
 --- !u!4 &1156203990 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2928074979051735031, guid: 346d6a37eb126d142bb143706951cdf3, type: 3}
