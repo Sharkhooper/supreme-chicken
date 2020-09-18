@@ -970,7 +970,7 @@ MonoBehaviour:
   forceScale: 15
   directionScatter: 15
   rotationForce: 10000
-  destroyDelay: 4
+  destroyDelay: 30
   origin: {fileID: 6126159612379742193}
   exploders:
   - bone: {fileID: 8328562244909879709}
