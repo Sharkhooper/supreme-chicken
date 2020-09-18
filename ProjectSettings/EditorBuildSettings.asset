@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MarvinScene.unity
     guid: 581f6695321d5464988f324ddbd3a666
   - enabled: 1
