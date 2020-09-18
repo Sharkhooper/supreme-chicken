@@ -10,9 +10,9 @@ public class finishLine : MonoBehaviour
     [SerializeField] private int playerLayer = 10;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer.Equals(playerLayer))
+        if (other.gameObject.layer == playerLayer)
         {
-            Application.Quit();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }
