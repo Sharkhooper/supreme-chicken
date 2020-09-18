@@ -9,7 +9,6 @@ public class Killable : MonoBehaviour
 {
     public GameObject splashPrefab;
     private GameObject _character;
-    [SerializeField] private String sceneName = "Level 1";
 
     private void Awake()
     {
@@ -29,7 +28,7 @@ public class Killable : MonoBehaviour
         }
         else
         {
-            if(splashPrefab)
+            if(splashPrefab != null)
                 Instantiate(splashPrefab, transform.position + new Vector3(0,1,0), Quaternion.identity);
             Destroy(_character.transform.parent.gameObject);
             // Trigger Death Animation
