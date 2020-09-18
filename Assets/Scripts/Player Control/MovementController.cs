@@ -45,6 +45,7 @@ public class MovementController : MonoBehaviour {
     [SerializeField] [Range(0, 1)]  private float groundCorrectionScale = 0.98f;
 
     [SerializeField] private MovementState state;
+    private MovementState prevState;
 
     // Movement
     private ButtonHelper jumpButton;
@@ -68,8 +69,11 @@ public class MovementController : MonoBehaviour {
 
     // Dash
     [SerializeField] private float dashCooldown = 1.5f;
+    [SerializeField] private float dashResetFallTime = 0.25f;
     [SerializeField] private float dashVelocity = 22;
     [SerializeField] private float dashDuration = 0.5f;
+    [SerializeField] private int   dashTicks;
+    private int dashActiveTicks;
     private float dashTime = 0;
 
     // Attack
@@ -196,9 +200,12 @@ public class MovementController : MonoBehaviour {
             animator.SetBool(animationParameters.attack, false);
             animator.SetBool(animationParameters.dash, true);
             animator.SetBool(animationParameters.ascending, false);
+            dashActiveTicks = 0;
         }
         else if (attackButton.down && !state.HasFlag(MovementState.WallGrab) && attackTime <= 0) {
             attackTime = attackCooldown;
+            // Skip first attack to account for animation delay
+            attackActiveTicks = attackTicks;
         }
 
 
@@ -212,36 +219,30 @@ public class MovementController : MonoBehaviour {
 
 
         if (state.HasFlag(MovementState.Dashing)) {
-            model.rotation = Quaternion.Euler(0, Vector3.Angle(Vector3.right, dashDirection) < 90 ? 0 : 180, 0);
-
-            if (dashTime >= dashCooldown - dashDuration)
-                rb.velocity = dashDirection;
-            else {
+            if (dashTime < dashCooldown - dashDuration) {
                 state &= ~MovementState.Dashing;
                 trail.emitting = false;
                 animator.SetBool(animationParameters.dash, false);
             }
+            else {
+                model.rotation = Quaternion.Euler(0, Vector3.Angle(Vector3.right, dashDirection) < 90 ? 0 : 180, 0);
+                rb.velocity = dashDirection;
+                if (dashActiveTicks <= 0) {
+                    DoDamage();
+                    dashActiveTicks = dashTicks;
+                }
+            }
         }
-        else {
+
+        // not else so this path is called when dashing flag is cleared
+        if (!state.HasFlag(MovementState.Dashing)) {
             if (attackTime >= attackCooldown - attackDuration) {
                 trail.emitting = true;
                 animator.SetBool(animationParameters.attack, true);
                 --attackActiveTicks;
 
                 if (attackActiveTicks <= 0) {
-                    // Damage Code
-                    Vector3 origin = rb.transform.position;
-                    Collider[] hits = Physics.OverlapSphere(origin, attackRange);
-                    foreach (Collider c in hits) {
-                        if ((1 << c.gameObject.layer & damageLayers.value) != 0) {
-                            if (c.TryGetComponent(out Killable k)) {
-                                k.GetKilled();
-                            }
-                            else {
-                                Debug.LogWarning($"Gameobject {c.gameObject.name} is on Killable layer, but has no Killable component!");
-                            }
-                        }
-                    }
+                    DoDamage();
                     attackActiveTicks = attackTicks;
                 }
 
@@ -267,12 +268,6 @@ public class MovementController : MonoBehaviour {
             cameraTarget.localPosition =  Vector3.Lerp(cameraTarget.localPosition, cameraOffset * velocityMagnitude, cameraMaxDelta * Time.fixedDeltaTime);
 
             RaycastHit hit;
-            float animWalk = Mathf.Abs(velocityMagnitude);
-            if (animWalk < 0.05f) animWalk = 0;
-            if (animWalk > 0.95f) animWalk = 1;
-            animator.SetFloat(animationParameters.walking, 1);
-            animator.SetLayerWeight(animator.GetLayerIndex("Walking"), animWalk);
-
 
             // Get ground Vector and project velocity accordingly
             state &= ~MovementState.OnGround;
@@ -284,6 +279,13 @@ public class MovementController : MonoBehaviour {
                 float angle = Vector3.Angle(Vector3.up, hit.normal);
                 if (angle < slopeAngleThreshold) {
                     state |= MovementState.OnGround;
+
+                    // Reset Dash Cooldown on Landing
+                    // Only reset if enogh time has passed since end of dash
+                    if (!prevState.HasFlag(MovementState.Dashing) && !prevState.HasFlag(MovementState.OnGround) && dashTime < dashCooldown - dashDuration - dashResetFallTime) {
+                        dashTime = 0;
+                        Debug.Log("Cooldown Reset");
+                    }
 
                     coyoteTimeCooldown = coyoteTime;
 
@@ -329,77 +331,84 @@ public class MovementController : MonoBehaviour {
             // #### Gravity ####
             // =================
 
-            // Handle jump gravity
-            if (gravity.y > 0) {
-                animator.SetBool(animationParameters.ascending, true);
-                if (jumpButton.pressed) {
-                    gravity += Physics.gravity * highJumpMultiplier * Time.fixedDeltaTime;
+            // if GRAVITY
+            if (!state.HasFlag(MovementState.WallGrab)) {
+                // Handle jump gravity
+                if (gravity.y > 0) {
+                    animator.SetBool(animationParameters.ascending, true);
+                    if (jumpButton.pressed) {
+                        gravity += Physics.gravity * highJumpMultiplier * Time.fixedDeltaTime;
+                    }
+                    else {
+                        gravity += Physics.gravity * lowJumpMultiplier * Time.fixedDeltaTime;
+                    }
                 }
+                // Regular gravity
+                else if (!state.HasFlag(MovementState.OnGround) && !state.HasFlag(MovementState.WallGrab)) {
+                    animator.SetBool(animationParameters.ascending, false);
+                    gravity += Physics.gravity * fallMultiplier * Time.fixedDeltaTime;
+                }
+                // On ground special cases
                 else {
-                    gravity += Physics.gravity * lowJumpMultiplier * Time.fixedDeltaTime;
-                }
-            }
-            // Regular gravity
-            else if (!state.HasFlag(MovementState.OnGround) && !state.HasFlag(MovementState.WallGrab)) {
-                animator.SetBool(animationParameters.ascending, false);
-                gravity += Physics.gravity * fallMultiplier * Time.fixedDeltaTime;
-            }
-            // On ground special cases
-            else {
-                gravity = Vector3.zero;
+                    gravity = Vector3.zero;
 
-                // Slope Fix if not jumping
-                // Fixes speedloss on transition between planes with different angles
-                Vector3 ground = hit.point;
-                // Fire spherecast in velocity direction
-                if (Mathf.Abs(velocityMagnitude) > 0.00001f && Physics.SphereCast(feetPos, feetRad, velocity, out hit, velocity.magnitude, collisionLayers)) {
-                    // check if cast hits something and hitted plane is a walkable plane
-                    float angle = Vector3.Angle(Vector3.up, hit.normal);
-                    if (angle < slopeAngleThreshold) {
-                        // Get intersection point of velocity line and plane tangent
-                        Vector3 tangent = planeNormalRotation * hit.normal;
-                        Vector3 intersect = GetIntersectionPointCoordinates(ground, ground + velocity, hit.point, hit.point + tangent, out bool found);
-                        if (found) {
-                            // Slice velocity vector at intersection and "project" remaining piece to tangent while keeping the same magnitude
-                            float f = Vector3.Dot(intersect - ground, velocity);
-                            velocity = f * velocity + orientation * (1 - f) * velocity.magnitude * tangent.normalized;
+                    // Slope Fix if not jumping
+                    // Fixes speedloss on transition between planes with different angles
+                    Vector3 ground = hit.point;
+                    // Fire spherecast in velocity direction
+                    if (Mathf.Abs(velocityMagnitude) > 0.00001f && Physics.SphereCast(feetPos, feetRad, velocity, out hit, velocity.magnitude, collisionLayers)) {
+                        // check if cast hits something and hitted plane is a walkable plane
+                        float angle = Vector3.Angle(Vector3.up, hit.normal);
+                        if (angle < slopeAngleThreshold) {
+                            // Get intersection point of velocity line and plane tangent
+                            Vector3 tangent = planeNormalRotation * hit.normal;
+                            Vector3 intersect = GetIntersectionPointCoordinates(ground, ground + velocity, hit.point, hit.point + tangent, out bool found);
+                            if (found) {
+                                // Slice velocity vector at intersection and "project" remaining piece to tangent while keeping the same magnitude
+                                float f = Vector3.Dot(intersect - ground, velocity);
+                                velocity = f * velocity + orientation * (1 - f) * velocity.magnitude * tangent.normalized;
+                            }
                         }
                     }
                 }
-            }
 
-            // Wall detection
-            if (velocity.magnitude > 0.01f && Physics.SphereCast(bodyPos - Vector3.right * orientation * 0.01f, bodyRad, velocity, out hit, velocity.magnitude + 0.01f, collisionLayers)) {
-                float angle = Vector3.Angle(Vector3.up, hit.normal);
-                if (angle >= slopeAngleThreshold) {
-                    velocity.Normalize();
-                    float dist = Vector3.Distance(hit.point, bodyPos) - bodyRad;
-                    velocity *= dist;
+                // Wall detection
+                if (velocity.magnitude > 0.01f && Physics.SphereCast(bodyPos - Vector3.right * orientation * 0.01f, bodyRad, velocity, out hit, velocity.magnitude + 0.01f, collisionLayers)) {
+                    float angle = Vector3.Angle(Vector3.up, hit.normal);
+                    if (angle >= slopeAngleThreshold) {
+                        velocity.Normalize();
+                        float dist = Vector3.Distance(hit.point, bodyPos) - bodyRad;
+                        velocity *= dist;
+                    }
+                }
+
+                rb.velocity = velocity / Time.fixedDeltaTime;
+
+
+                if (!state.HasFlag(MovementState.OnGround)) {
+                    rb.velocity += gravity;
+                    // Cap velocity to not glitch into ground
+                    // Capping this on velocity instead of on gravity and then correcting velocity like on slopes
+                    // results in a slowdown on landing, because horizontal movement gets skipped
+                    // Ideally remember the cut part and perform a slope fix on it with the landingplane as ground
+
+                    // Calculating this step on gravity instead of velocity can result in a glitch where walking
+                    // over a ledge causes swapping to WallGrab state without actually snapping to a wall, which
+                    // therefor results in infinite hover, cancelable through a jump
+                    Vector3 off = velocity.normalized * 0.01f;
+                    if (Physics.SphereCast(feetPos - off, feetRad, rb.velocity, out hit, rb.velocity.magnitude * Time.fixedDeltaTime + feetRad + 0.01f, collisionLayers)) {
+                        float dist = Vector3.Distance(feetPos, hit.point) - feetRad;
+                        rb.velocity = rb.velocity.normalized * dist / Time.fixedDeltaTime;
+                    }
+                }
+                else {
+                    rb.velocity += onGroundCorrection / Time.fixedDeltaTime;
                 }
             }
-
-            rb.velocity = velocity / Time.fixedDeltaTime;
-
-
-            if (!state.HasFlag(MovementState.OnGround)) {
-                rb.velocity += gravity;
-                // Cap velocity to not glitch into ground
-                // Capping this on velocity instead of on gravity and then correcting velocity like on slopes
-                // results in a slowdown on landing, because horizontal movement gets skipped
-                // Ideally remember the cut part and perform a slope fix on it with the landingplane as ground
-
-                // Calculating this step on gravity instead of velocity can result in a glitch where walking
-                // over a ledge causes swapping to WallGrab state without actually snapping to a wall, which
-                // therefor results in infinite hover, cancelable through a jump
-                Vector3 off = velocity.normalized * 0.01f;
-                if (Physics.SphereCast(feetPos - off, feetRad, rb.velocity, out hit, rb.velocity.magnitude * Time.fixedDeltaTime + feetRad + 0.01f, collisionLayers)) {
-                    float dist = Vector3.Distance(feetPos, hit.point) - feetRad;
-                    rb.velocity = rb.velocity.normalized * dist / Time.fixedDeltaTime;
-                }
+            else { // elseif GRAVITY
+                rb.velocity = Vector3.zero;
             }
-            else {
-                rb.velocity += onGroundCorrection / Time.fixedDeltaTime;
-            }
+
         }
 
         jumpButton.down = false;
@@ -413,9 +422,37 @@ public class MovementController : MonoBehaviour {
             animator.SetBool(animationParameters.air, true);
         }
 
+        if (state.HasFlag(MovementState.OnGround)) {
+            float animWalk = Mathf.Abs(velocityMagnitude);
+            if (animWalk < 0.05f) animWalk = 0;
+            if (animWalk > 0.95f) animWalk = 1;
+            animator.SetFloat(animationParameters.walking, 1);
+            animator.SetLayerWeight(animationParameters.layerWalking, animWalk);
+        }
+        else {
+            animator.SetLayerWeight(animationParameters.layerWalking, 0);
+        }
+
         if (walkingHobbleCondition) {
             walkingHobble.Rewind();
             walkingHobble.Play();
+        }
+
+        prevState = state;
+    }
+
+    private void DoDamage() {
+        Vector3 origin = rb.transform.position;
+        Collider[] hits = Physics.OverlapSphere(origin, attackRange);
+        foreach (Collider c in hits) {
+            if ((1 << c.gameObject.layer & damageLayers.value) != 0) {
+                if (c.TryGetComponent(out Killable k)) {
+                    k.GetKilled();
+                }
+                else {
+                    Debug.LogWarning($"Gameobject {c.gameObject.name} is on Killable layer, but has no Killable component!");
+                }
+            }
         }
     }
 

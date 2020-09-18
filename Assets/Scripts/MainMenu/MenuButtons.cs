@@ -29,7 +29,7 @@ public class MenuButtons : MonoBehaviour
         Vector3 pos = Mouse.current.position.ReadValue();
         pos.z = 1000;
         m_lastMousePos = m_camera.ScreenToWorldPoint(pos);
-        Debug.DrawRay(m_camera.transform.position, m_lastMousePos, Color.black, 100);
+        
         // Determine which button was pressed if any
         RaycastHit hit;
         if (Physics.Raycast(m_camera.transform.position, m_lastMousePos - m_camera.transform.position, out hit, int.MaxValue) && !m_animating)
