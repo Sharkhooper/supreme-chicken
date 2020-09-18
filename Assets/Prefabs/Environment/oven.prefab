@@ -307,8 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f168358f0f78ba841a09447369693778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_camera: {fileID: 0}
-  m_wheel: {fileID: 0}
+  m_index: 0
 --- !u!114 &2408764195054988801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,7 +407,7 @@ Transform:
   m_LocalScale: {x: 0.0024161462, y: 0.0024161465, z: 0.002416147}
   m_Children: []
   m_Father: {fileID: 4576933170786240545}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5097989787197664619
 MeshFilter:
@@ -485,8 +484,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f168358f0f78ba841a09447369693778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_camera: {fileID: 0}
-  m_wheel: {fileID: 0}
+  m_index: 1
 --- !u!114 &3574468215270732075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -806,6 +804,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_head: {fileID: 4576933171094085182}
+  m_difficulties:
+  - {fileID: 11400000, guid: 3ab3c17cf850a1d4da6b19176ea8ba28, type: 2}
+  - {fileID: 11400000, guid: d1b6daaac00c6cf4e89096a7e6cb9f0d, type: 2}
+  - {fileID: 11400000, guid: 58ccfce85e59caf4082fbbdb67548bc3, type: 2}
 --- !u!1 &4576933170786240544
 GameObject:
   m_ObjectHideFlags: 0
@@ -834,8 +836,8 @@ Transform:
   m_LocalScale: {x: 0.15608448, y: 0.15608448, z: 0.15608448}
   m_Children:
   - {fileID: 7027959913015202915}
-  - {fileID: 6233774439741501126}
   - {fileID: 6875862735243981903}
+  - {fileID: 6233774439741501126}
   m_Father: {fileID: 3684297916384671750}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: -180}
@@ -1174,7 +1176,7 @@ Transform:
   m_LocalScale: {x: 0.0024161462, y: 0.0024161465, z: 0.002416147}
   m_Children: []
   m_Father: {fileID: 4576933170786240545}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6913174393025868012
 MeshFilter:
@@ -1251,8 +1253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f168358f0f78ba841a09447369693778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_camera: {fileID: 0}
-  m_wheel: {fileID: 0}
+  m_index: 2
 --- !u!114 &8708760540389691810
 MonoBehaviour:
   m_ObjectHideFlags: 0
