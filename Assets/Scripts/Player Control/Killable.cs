@@ -45,6 +45,7 @@ public class Killable : MonoBehaviour
         }
         if(model != null)
             model.SetActive(false);
+        GetComponent<SphereCollider>().enabled = false;
         yield return new WaitForSeconds(2);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  // Lädt die InGame Szene neu
     }
