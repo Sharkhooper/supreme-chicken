@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultDifficulty: 0
   chef:
-    range: 1.5
+    range: 2
     angle: 35
     attackSpeed: 3
     moveSpeed: 0.5

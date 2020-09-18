@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7420958335009953548}
   - component: {fileID: 7420958335009953551}
   m_Layer: 0
-  m_Name: CM vcam1
+  m_Name: GameplayCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -132,16 +132,16 @@ MonoBehaviour:
   m_ZDamping: 0.6
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
-  m_ScreenY: 0.65
+  m_ScreenY: 0.70000005
   m_CameraDistance: 10
-  m_DeadZoneWidth: 0.23
-  m_DeadZoneHeight: 0.26405108
+  m_DeadZoneWidth: 0.07
+  m_DeadZoneHeight: 0.04
   m_DeadZoneDepth: 0
   m_UnlimitedSoftZone: 0
-  m_SoftZoneWidth: 0.56089175
-  m_SoftZoneHeight: 0.5597169
+  m_SoftZoneWidth: 0.16
+  m_SoftZoneHeight: 0.21
   m_BiasX: 0
-  m_BiasY: -0.11488415
+  m_BiasY: -0.11488481
   m_CenterOnActivate: 1
   m_GroupFramingMode: 2
   m_AdjustmentMode: 0

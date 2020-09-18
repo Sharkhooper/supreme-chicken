@@ -18,7 +18,8 @@ public class MenuButtons : MonoBehaviour
     public Transform m_quitButton;
     public Transform m_door;
     public Transform m_pivot;
-    
+    public GameObject finishLine;
+
     private void Awake()
     {
         m_camera = Camera.main;
@@ -36,6 +37,16 @@ public class MenuButtons : MonoBehaviour
         {
             if(hit.transform == m_startButton)
             {
+                SlowMotionOverTime slowMo = GetComponent<SlowMotionOverTime>();
+                if(slowMo != null)
+                {
+                    slowMo.StartScaling();
+                }
+                if(finishLine != null)
+                {
+                    finishLine.GetComponent<finishLine>().ResetTime();
+                }
+
                 m_animating = true;
                 Animate(m_startButton);
                 EventSystems.MainEventSystem.MainEvents.GameStarts();

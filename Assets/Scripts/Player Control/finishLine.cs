@@ -46,4 +46,9 @@ public class finishLine : MonoBehaviour
         yield return new WaitForSeconds(waitUntilReload);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
+    public void ResetTime()
+    {
+        time = 0;
+    }
 }
