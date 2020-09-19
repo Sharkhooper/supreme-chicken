@@ -50,31 +50,34 @@ public class Killable : MonoBehaviour
 
     private IEnumerator Losing()
     {
-        Debug.Log("Losing Text = " + lostText.name);
         if(lostText != null)
         {
-            Debug.Log("Set LostText");
             lostText.SetActive(true);
         }
         if (splashPrefab != null)
         {
             GameObject splash = Instantiate(splashPrefab, transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
             splash.transform.localScale *= 0.5f;
-            Debug.Log("Test");
         }
         if(model != null)
             model.SetActive(false);
 
         GameObject deadChick = Instantiate(deadChickenPrefab, transform.position, Quaternion.identity);
         Rigidbody rb = deadChick.GetComponent<Rigidbody>();
+
         AudioSource src = deadChick.AddComponent<AudioSource>();
         src.clip = MovementController.Active.Sound.Death;
         src.volume = MovementController.Active.Sound.Volume;
+        src.Play();
+
         rb.AddForce(Vector3.up * 200);
         rb.AddTorque(new Vector3(UnityEngine.Random.Range(10, 180), UnityEngine.Random.Range(10, 180), UnityEngine.Random.Range(10, 180)));
+
         GetComponent<BoxCollider>().enabled = false;
         GetComponentInParent<PlayerInput>().enabled = false;
+
         yield return new WaitForSeconds(2);
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  // Lädt die InGame Szene neu
     }
 }

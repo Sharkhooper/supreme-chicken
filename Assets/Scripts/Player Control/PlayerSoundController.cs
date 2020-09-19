@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerSoundController : MonoBehaviour {
     [SerializeField] private AudioClip attack;
     [SerializeField] private AudioClip dash;
+    [SerializeField] private AudioClip dashWoRev;
     [SerializeField] private AudioClip death;
     [SerializeField] private AudioClip scream;
     [SerializeField] private AudioClip scream2;
@@ -54,8 +55,8 @@ public class PlayerSoundController : MonoBehaviour {
     }
 
     public void Jump() {
-        Play(dash);
-        DampWalking(dash.length - 0.2f);
+        Play(dashWoRev);
+        DampWalking(dashWoRev.length - 0.2f);
     }
 
     public void StartWalk() {
