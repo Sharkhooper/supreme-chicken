@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5930157160850592986}
   - component: {fileID: 5930157160850592987}
   - component: {fileID: 8094381485447358585}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Finish Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,3 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerLayer: 10
+  waitUntilReload: 0
+  wonText: {fileID: 0}
+  timerText: {fileID: 0}
+  finished: 0

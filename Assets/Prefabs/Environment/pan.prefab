@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 1354554698692164592}
   - component: {fileID: 4751527649898792713}
   - component: {fileID: 1893673492775517277}
-  m_Layer: 0
+  - component: {fileID: -5836043675199162745}
+  m_Layer: 12
   m_Name: pan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,3 +98,16 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!65 &-5836043675199162745
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6470554691611145173}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 44.961777, y: 5.433346, z: 25.067871}
+  m_Center: {x: -9.946953, y: 2.716671, z: 0}

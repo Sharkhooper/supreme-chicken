@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8281323657368552972}
   - component: {fileID: 7813608622228790721}
   - component: {fileID: 7528416706820156037}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: oven_button_down
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 5775995954254293118}
   - component: {fileID: 1278628844186617801}
   - component: {fileID: 7728227220768778149}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: oven_door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 4764430229303084215}
   - component: {fileID: 6614347517109869971}
   - component: {fileID: 2923338702508057781}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: buttons_medium
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -252,7 +252,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4195558154157903399}
-  m_Layer: 0
+  - component: {fileID: -8272086014131476796}
+  m_Layer: 12
   m_Name: oven 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,6 +282,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!65 &-8272086014131476796
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3562995214482347165}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3876840125566458508
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,7 +306,7 @@ GameObject:
   - component: {fileID: 1909715890901489916}
   - component: {fileID: 1851217860008750388}
   - component: {fileID: 5085490428206193420}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: control_dial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -373,7 +387,7 @@ GameObject:
   - component: {fileID: 9006360295741498523}
   - component: {fileID: 3281782978452094477}
   - component: {fileID: 7377962141881541108}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: button_easy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -454,7 +468,7 @@ GameObject:
   - component: {fileID: 5756808659329114890}
   - component: {fileID: 6126025842172896854}
   - component: {fileID: 7649099831263681775}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: oven_button_up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -535,7 +549,7 @@ GameObject:
   - component: {fileID: 5730508248111808420}
   - component: {fileID: 8341513990105543933}
   - component: {fileID: 4896497951558611403}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: oven
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -616,7 +630,7 @@ GameObject:
   - component: {fileID: 5473985045764890174}
   - component: {fileID: 4793474654453645332}
   - component: {fileID: 6443308107710693411}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: button_hard
   m_TagString: Untagged
   m_Icon: {fileID: 0}

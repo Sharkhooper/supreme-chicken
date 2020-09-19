@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 1168350368989312681}
   - component: {fileID: 2853324952168495372}
   - component: {fileID: 35462156628659654}
-  m_Layer: 0
+  - component: {fileID: 7979757869152167915}
+  m_Layer: 12
   m_Name: extractor_hood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,3 +82,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7979757869152167915
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1980740325781384211}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 88.342926, y: 118.07486, z: 70.15838}
+  m_Center: {x: 0.0000076293945, y: 50.3785, z: 0}

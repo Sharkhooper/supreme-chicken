@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 256909937089583798}
   - component: {fileID: 3764835218917233939}
   - component: {fileID: 1430903224149336537}
-  m_Layer: 0
+  - component: {fileID: 1083324233934693175}
+  m_Layer: 12
   m_Name: waiter_table
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,3 +82,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1083324233934693175
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638220967261126668}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 70.01653, y: 181.87326, z: 96.53575}
+  m_Center: {x: 0, y: 0.0000038146973, z: 0}
