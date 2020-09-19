@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,11 @@ public class EnemyLaserAttack : MonoBehaviour
     public Vector3 offset;
     public float rotationZoffset;
 
+    [SerializeField] private SoundMap charge;
+    [SerializeField] private SoundMap fire;
+    private AudioSource chargeSource;
+    private AudioSource fireSource;
+
     private void Start()
     {
         difficulty = Difficulty.current;
@@ -21,6 +27,13 @@ public class EnemyLaserAttack : MonoBehaviour
         shootDuration = difficulty.cockroach.shootDuration;
         growSpeed = difficulty.cockroach.growSpeed;
         waitBetweenShoots = difficulty.cockroach.shootCooldown;
+
+        if (charge != null) {
+            chargeSource = gameObject.AddComponent<AudioSource>();
+        }
+        if (fire != null) {
+            fireSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     private void Update()
@@ -53,6 +66,9 @@ public class EnemyLaserAttack : MonoBehaviour
         {
             StartCoroutine(Aiming(angle));
             holder.enemyWalkingController.move = false;
+            if (charge != null) {
+                charge.Play(chargeSource);
+            }
         }
     }
 
@@ -87,6 +103,16 @@ public class EnemyLaserAttack : MonoBehaviour
         yield return new WaitForSeconds(aimDuration);
         myAim.SetActive(false);
         shooting = true;
+
+        // FIREEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        if (charge) {
+            Sequence s = DOTween.Sequence();
+            s.Append(chargeSource.DOFade(0, 0.1f));
+            s.Play();
+        }
+        if (fire) {
+            fire.Play(fireSource);
+        }
         myLaser.SetActive(true);
         burnParticles = Instantiate(burnParticlesPrefab);
 
