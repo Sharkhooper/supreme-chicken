@@ -177,16 +177,8 @@
                 {
                     "name": "UI Click",
                     "type": "Button",
-                    "id": "c7939bd1-e4f5-4b03-a3a0-509e47b8865d",
+                    "id": "b07bb3a4-c4a9-4544-8a9c-636a9189b2c4",
                     "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "MouseParameters",
-                    "type": "PassThrough",
-                    "id": "40924d0d-0c9f-42cb-bc81-7408ddfde8f9",
-                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
                 }
@@ -194,23 +186,12 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "bb175b35-9e7c-4b2b-bd86-ed71070fc3ba",
+                    "id": "b7cc26dc-f3df-4940-adb8-6e0a310990d8",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "UI Click",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d9e22f55-1846-4c49-8e3b-51b1219feaa7",
-                    "path": "<Mouse>/position",
-                    "interactions": "",
-                    "processors": "",
                     "groups": "Mouse&Keyboard",
-                    "action": "MouseParameters",
+                    "action": "UI Click",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

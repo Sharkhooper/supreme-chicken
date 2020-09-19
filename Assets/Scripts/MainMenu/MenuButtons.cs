@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using DG.Tweening.Core;
+using MainMenu;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,6 +15,7 @@ public class MenuButtons : MonoBehaviour
 
     private bool m_animating;
 
+    public List<DiffBox> m_boxes;
     public Transform m_startButton;
     public Transform m_quitButton;
     public Transform m_door;
@@ -61,6 +63,17 @@ public class MenuButtons : MonoBehaviour
                 Animate(m_quitButton);
                 EventSystems.MainEventSystem.MainEvents.GameQuit();
                 Application.Quit();
+            }
+            else
+            {
+                for (int i = 0; i < m_boxes.Count; ++i)
+                {
+                    var box = m_boxes[i];
+                    if (box.transform == hit.transform)
+                    {
+                        box.Click();
+                    }
+                }
             }
         }
     }

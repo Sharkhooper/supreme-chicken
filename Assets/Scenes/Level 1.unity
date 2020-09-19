@@ -605,6 +605,94 @@ Transform:
   m_Father: {fileID: 1271617824}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!1 &85584452 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3574468215270732072, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+  m_PrefabInstance: {fileID: 1828306182}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &85584454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85584452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: ee0336a47353d3b40a61509e1b971468, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a53bf271-f336-4c63-8216-92c6c3715f6b
+    m_ActionName: actionMap/Movement[/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c715acba-2c7f-4046-b0fd-b4c756279d4c
+    m_ActionName: actionMap/Jump[/Keyboard/space,/Keyboard/w]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0d39739f-97b3-46f0-9b64-56bdb0a77fad
+    m_ActionName: actionMap/Attack[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4cbafefa-0833-4338-8ca7-643c7056ea8e
+    m_ActionName: actionMap/Dash[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d644f844-f747-4fa6-966a-adad64bd817c
+    m_ActionName: actionMap/Pad Dash
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 85584455}
+        m_TargetAssemblyTypeName: MainMenu.DiffBoxMedium, Assembly-CSharp
+        m_MethodName: MouseClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c7939bd1-e4f5-4b03-a3a0-509e47b8865d
+    m_ActionName: Menu/UI Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 40924d0d-0c9f-42cb-bc81-7408ddfde8f9
+    m_ActionName: Menu/MouseParameters[/Mouse/position]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Mouse&Keyboard
+  m_DefaultActionMap: Menu
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &85584455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85584452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 336043a99dac41cbbc34590de2285cfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_index: 1
 --- !u!1001 &114296954
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4389,7 +4477,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh16850
+  m_Name: pb_Mesh16774
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4644,6 +4732,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94066f84b8ffa184d9437a0e590b9ef1, type: 3}
+--- !u!1 &432933650 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2408764195054988830, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+  m_PrefabInstance: {fileID: 1828306182}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &432933653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 432933650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f168358f0f78ba841a09447369693778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_index: 0
 --- !u!1 &438413993
 GameObject:
   m_ObjectHideFlags: 0
@@ -6785,7 +6891,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1102814387}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 737352a0f82f54a4ba7acebf2328c4d2, type: 3}
   m_Name: 
@@ -8112,7 +8218,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17104
+  m_Name: pb_Mesh17030
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -9213,6 +9319,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af2cd7da82a6d9248a0a35e3b30bfc48, type: 3}
+--- !u!1 &1547184752 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8708760540389691839, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+  m_PrefabInstance: {fileID: 1828306182}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1547184755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1547184752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f168358f0f78ba841a09447369693778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_index: 2
 --- !u!1001 &1547604824
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11244,6 +11368,42 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 1602996260698801743, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MainMenu.DiffBox, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MouseClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionId
+      value: d644f844-f747-4fa6-966a-adad64bd817c
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionName
+      value: actionMap/Pad Dash[/XInputControllerWindows/rightTrigger]
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_NeverAutoSwitchControlSchemes
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 432933653}
     - target: {fileID: 2408764195054988830, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_Layer
       value: 12
@@ -11251,6 +11411,38 @@ PrefabInstance:
     - target: {fileID: 3574468215270732072, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_Layer
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3574468215270732072, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3574468215270732075, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3574468215270732075, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionId
+      value: d644f844-f747-4fa6-966a-adad64bd817c
+      objectReference: {fileID: 0}
+    - target: {fileID: 3574468215270732075, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionName
+      value: actionMap/Pad Dash
+      objectReference: {fileID: 0}
+    - target: {fileID: 3574468215270732075, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3574468215270732075, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 85584455}
+    - target: {fileID: 3574468215270732075, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MouseClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 3574468215270732075, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MainMenu.DiffBoxMedium, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3802312646760990863, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_Layer
@@ -11260,13 +11452,25 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 4065221883889558204, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4383569288923720877, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 4383569288923720879, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4576933170786240544, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_Layer
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576933170786240544, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4576933171064306414, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_Layer
@@ -11280,14 +11484,38 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 4576933171205821259, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576933171205821259, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576933171205821259, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionId
+      value: d644f844-f747-4fa6-966a-adad64bd817c
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576933171205821259, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionName
+      value: actionMap/Pad Dash[/XInputControllerWindows/rightTrigger]
+      objectReference: {fileID: 0}
     - target: {fileID: 5275509538756498480, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_Layer
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5275509538756498480, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5398415688582203370, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: a00d06006a5fd054089694a37b9c8f8d, type: 2}
+    - target: {fileID: 6233774439741501126, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.292
+      objectReference: {fileID: 0}
     - target: {fileID: 7086679205629383044, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -11344,11 +11572,39 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8708760540389691810, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708760540389691810, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1547184755}
+    - target: {fileID: 8708760540389691810, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MouseClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708760540389691810, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionId
+      value: d644f844-f747-4fa6-966a-adad64bd817c
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708760540389691810, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionName
+      value: actionMap/Pad Dash
+      objectReference: {fileID: 0}
     - target: {fileID: 8708760540389691839, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8708760540389691839, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 8708760540389691809, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+    - {fileID: 3574468215270732074, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+    - {fileID: 2408764195054988800, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+    - {fileID: 3574468215270732075, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
 --- !u!95 &1828306183 stripped
 Animator:
