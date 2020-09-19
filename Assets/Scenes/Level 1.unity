@@ -7638,6 +7638,10 @@ PrefabInstance:
       propertyPath: lostText
       value: 
       objectReference: {fileID: 131616590}
+    - target: {fileID: 1889361830, guid: 0f2af4da406889541915690fb0ff965e, type: 3}
+      propertyPath: lostText
+      value: 
+      objectReference: {fileID: 131616590}
     - target: {fileID: 3125131243484565124, guid: 0f2af4da406889541915690fb0ff965e, type: 3}
       propertyPath: m_ActionEvents.Array.size
       value: 7
@@ -7712,6 +7716,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3125131243484565126, guid: 0f2af4da406889541915690fb0ff965e, type: 3}
       propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6670318882261712062, guid: 0f2af4da406889541915690fb0ff965e, type: 3}
+      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []

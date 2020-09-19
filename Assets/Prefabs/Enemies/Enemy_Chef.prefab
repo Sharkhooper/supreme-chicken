@@ -1593,6 +1593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   splashPrefab: {fileID: 260916201467912036, guid: 7315dc899536e5b478428ca7c6697d94, type: 3}
+  deadChickenPrefab: {fileID: 0}
   lostText: {fileID: 0}
   model: {fileID: 0}
 --- !u!114 &9205654295829279010

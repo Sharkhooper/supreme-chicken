@@ -27,7 +27,7 @@ MonoBehaviour:
     accuracy: 0.25
   cockroach:
     range: 12
-    angle: 45
+    angle: 35
     moveSpeed: 1
     aimDuration: 1
     shootDuration: 1
