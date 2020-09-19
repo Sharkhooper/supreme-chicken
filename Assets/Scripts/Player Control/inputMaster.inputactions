@@ -200,6 +200,14 @@
                     "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "ControllerClick",
+                    "type": "Button",
+                    "id": "51ee8517-e18b-4853-894e-5c574d3787b4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -207,17 +215,6 @@
                     "name": "",
                     "id": "b7cc26dc-f3df-4940-adb8-6e0a310990d8",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "UI Click",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4223281e-9662-48f5-a4f0-7c63d4ee60f8",
-                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -290,6 +287,17 @@
                     "action": "Navigation",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "1f30a230-399c-4c92-92e1-a32f1286362b",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ControllerClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
