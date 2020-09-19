@@ -10,6 +10,10 @@ public class EnemyCloseAttack : MonoBehaviour
     private KillPlayerOnHit killPlayer;
     private Animator animator;
     private Difficulty difficulty;
+
+    [SerializeField] private SoundMap sounds;
+    private AudioSource source;
+
     private void Start()
     {
         difficulty = Difficulty.current;
@@ -17,12 +21,20 @@ public class EnemyCloseAttack : MonoBehaviour
         killPlayer = weapon.GetComponent<KillPlayerOnHit>();
         killPlayer.shouldKill = false;
         animator.SetFloat("attackSpeed", difficulty.chef.attackSpeed);
+
+        if (sounds != null) {
+            source = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     public void StartAttack()
     {
-        if(!running)
+        if(!running) {
             StartCoroutine(Attack());
+            if (sounds != null) {
+                sounds.Play(source);
+            }
+        }
     }
 
     private IEnumerator Attack()

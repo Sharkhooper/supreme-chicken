@@ -876,6 +876,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 5687
   offset: {x: 0, y: 2, z: 0}
+  shootPoint: {fileID: 0}
 --- !u!114 &6586289851376604122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -911,6 +912,7 @@ MonoBehaviour:
   instantiateDistance: 1
   waitBetweenThrows: 0.55
   platePrefab: {fileID: 8290947007672981349, guid: 9a907e73995e4754bb07db7c9263f14d, type: 3}
+  sounds: {fileID: 11400000, guid: 9e7bfddc4153ad948b3a9722984db8b4, type: 2}
 --- !u!114 &1900206654047868823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -986,6 +988,7 @@ MonoBehaviour:
     Limb: {fileID: 1337366656719948267, guid: 9a99ccf73e37e5542b3d7195eea8f8c6, type: 3}
   - bone: {fileID: 6126159612379742193}
     Limb: {fileID: 634204334849612874, guid: f8ade49a57dd04d46bc0d4009f1793d9, type: 3}
+  sounds: {fileID: 11400000, guid: 13dd1dc60472db7449f6a0ba3a7f1223, type: 2}
   dodo: 0
 --- !u!1 &6851548748317569428
 GameObject:

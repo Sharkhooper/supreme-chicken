@@ -14,6 +14,11 @@ public class CloseRangeController : MonoBehaviour
     private Difficulty difficulty;
     public GameObject shootPoint;
 
+    private EnemyCloseAttack enemyCloseAttack;
+    private EnemyLaserAttack enemyLaserAttack;
+    private EnemyThrowAttack enemyThrowAttack;
+    private EnemyWalkingController enemyWalkingController;
+
     private void Start() {
         if(GetComponent<EnemyLaserAttack>() != null)
         {
@@ -40,6 +45,11 @@ public class CloseRangeController : MonoBehaviour
             default:
                 break;
         }
+
+        enemyCloseAttack = GetComponent<EnemyCloseAttack>();
+        enemyThrowAttack = GetComponent<EnemyThrowAttack>();
+        enemyLaserAttack = GetComponent<EnemyLaserAttack>();
+        enemyWalkingController = GetComponent<EnemyWalkingController>();
     }
 
     void Update()
@@ -48,16 +58,16 @@ public class CloseRangeController : MonoBehaviour
             return;
         Vector3 distanceVector = player.transform.position - (transform.position + offset);
         Vector3 normalized = distanceVector.normalized;
-        Vector3 direction = GetComponent<EnemyWalkingController>().direction;
+        Vector3 direction = enemyWalkingController.direction;
         float angle = Vector3.Angle(distanceVector - offset, direction);
         //Debug.Log("angle " + angle);
         if(distanceVector.magnitude < range && angle < maxAngle)
         {
-            if(GetComponent<EnemyLaserAttack>() != null)
+            if(enemyLaserAttack != null)
             {
                 if (player.transform.position.y < offset.y)
                     angle *= -1;
-                GetComponent<EnemyLaserAttack>().TurnLaser(angle);
+                enemyLaserAttack.TurnLaser(angle);
             }
             Debug.DrawRay(transform.position + offset, distanceVector, Color.green, Time.deltaTime);
             //Debug.DrawLine(transform.position + offset, player.transform.position, Color.green, Time.deltaTime);
@@ -66,28 +76,28 @@ public class CloseRangeController : MonoBehaviour
             {
                 if(hit.transform.CompareTag("Player"))
                 {
-                    if (GetComponent<EnemyCloseAttack>() != null)
-                        GetComponent<EnemyCloseAttack>().StartAttack();
-                    else if (GetComponent<EnemyThrowAttack>() != null)
-                        GetComponent<EnemyThrowAttack>().StartAttack(distanceVector, angle, offset);
-                    else if (GetComponent<EnemyLaserAttack>() != null)
+                    if (enemyCloseAttack != null)
+                        enemyCloseAttack.StartAttack();
+                    else if (enemyThrowAttack != null)
+                        enemyThrowAttack.StartAttack(distanceVector, angle, offset);
+                    else if (enemyLaserAttack != null)
                     {
-                        GetComponent<EnemyLaserAttack>().StartAttack(angle);
+                        enemyLaserAttack.StartAttack(angle);
                     }
                 }
                 else
                 {
-                    GetComponent<EnemyWalkingController>().MoveUpdate();
+                    enemyWalkingController.MoveUpdate();
                 }
             }
             else
             {
-                GetComponent<EnemyWalkingController>().MoveUpdate();
+                enemyWalkingController.MoveUpdate();
             }
         }
         else
         {
-            GetComponent<EnemyWalkingController>().MoveUpdate();
+            enemyWalkingController.MoveUpdate();
         }
 
         Vector3 targetLine = transform.position + offset + direction * range;

@@ -12,11 +12,15 @@ public class PlayerSoundController : MonoBehaviour {
     [SerializeField] private AudioClip scream2;
     [SerializeField] private AudioClip walking;
 
+    [SerializeField] private AudioClip jumpSwoosh;
+    [SerializeField] private AudioClip dashSwoosh;
+
     [SerializeField] [Range(0,1)] private float volume = 1;
     [SerializeField] private float fadeTime = 0.2f;
 
     private AudioSource source;
     private AudioSource source2;
+    private AudioSource sfx;
 
     private Sequence walkSequence;
     private bool isWalking;
@@ -33,12 +37,15 @@ public class PlayerSoundController : MonoBehaviour {
         source2.volume = 0;
         source2.loop = true;
         source2.Play();
+        
+        sfx= gameObject.AddComponent<AudioSource>();
+        sfx.volume = volume;
 
         walkSequence = DOTween.Sequence();
     }
 
     public void Attack(float duration = 0.4f) {
-        //duration = attack.length - 0.15f;
+        duration = attack.length - 0.08f;
         Play(attack);
         DampWalking(duration);
     }
@@ -51,11 +58,15 @@ public class PlayerSoundController : MonoBehaviour {
     public void Dash(float duration = 0.2f) {
         //duration = dash.length - 0.15f;
         Play(dash);
+        sfx.clip = dashSwoosh;
+        sfx.Play();
         DampWalking(duration);
     }
 
     public void Jump() {
         Play(dashWoRev);
+        sfx.clip = jumpSwoosh;
+        sfx.Play();
         DampWalking(dashWoRev.length - 0.2f);
     }
 

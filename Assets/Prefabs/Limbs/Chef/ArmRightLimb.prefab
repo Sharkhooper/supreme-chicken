@@ -24,6 +24,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4320296288115221446}
   - component: {fileID: 3757760293286099288}
+  - component: {fileID: 2239041106777167419}
   m_Layer: 11
   m_Name: ArmRightLimb
   m_TagString: Untagged
@@ -63,6 +64,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2239041106777167419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8482834707698909431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4485d519dafbfd24598e0610a694c3b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds: {fileID: 11400000, guid: 104c9ffb88a27eb4a85d40d9ee720fca, type: 2}
+  sources: 1
+  layers:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!1001 &1046716118321327954
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -4962,6 +4962,7 @@ MonoBehaviour:
   explosionForce: 20
   explosionRadius: 10
   direction: {x: 0, y: 0, z: 0}
+  shatter: {fileID: 11400000, guid: d44be93f59e4a584a8b6233318e3b6bc, type: 2}
 --- !u!54 &8095710384992949980
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5017,3 +5018,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   splashPrefab: {fileID: 0}
+  deadChickenPrefab: {fileID: 0}
+  lostText: {fileID: 0}
+  model: {fileID: 0}

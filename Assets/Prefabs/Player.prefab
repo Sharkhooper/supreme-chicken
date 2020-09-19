@@ -546,8 +546,10 @@ MonoBehaviour:
   scream: {fileID: 8300000, guid: e9cb30d17e01dc84eb20bf979059ccfa, type: 3}
   scream2: {fileID: 8300000, guid: ab8b5603755121848ad46e54cb870b6b, type: 3}
   walking: {fileID: 8300000, guid: 235a5ccb7973379459acc5b861e91ef8, type: 3}
-  volume: 0.674
-  fadeTime: 0.2
+  jumpSwoosh: {fileID: 8300000, guid: c5c7d599b490f08499688fac87b8f307, type: 3}
+  dashSwoosh: {fileID: 8300000, guid: cbb8428976484794797c45c283dcc934, type: 3}
+  volume: 0.378
+  fadeTime: 0.1
 --- !u!1 &3125131243661864890
 GameObject:
   m_ObjectHideFlags: 0
