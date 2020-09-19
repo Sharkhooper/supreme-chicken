@@ -50,12 +50,17 @@ public class Killable : MonoBehaviour
 
     private IEnumerator Losing()
     {
+        Debug.Log("Losing Text = " + lostText.name);
         if(lostText != null)
+        {
+            Debug.Log("Set LostText");
             lostText.SetActive(true);
+        }
         if (splashPrefab != null)
         {
             GameObject splash = Instantiate(splashPrefab, transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
             splash.transform.localScale *= 0.5f;
+            Debug.Log("Test");
         }
         if(model != null)
             model.SetActive(false);
@@ -67,7 +72,7 @@ public class Killable : MonoBehaviour
         src.volume = MovementController.Active.Sound.Volume;
         rb.AddForce(Vector3.up * 200);
         rb.AddTorque(new Vector3(UnityEngine.Random.Range(10, 180), UnityEngine.Random.Range(10, 180), UnityEngine.Random.Range(10, 180)));
-        GetComponent<SphereCollider>().enabled = false;
+        GetComponent<BoxCollider>().enabled = false;
         GetComponentInParent<PlayerInput>().enabled = false;
         yield return new WaitForSeconds(2);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  // Lädt die InGame Szene neu

@@ -874,7 +874,7 @@ MonoBehaviour:
   type: 1
   layerMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 5687
   offset: {x: 0, y: 2, z: 0}
 --- !u!114 &6586289851376604122
 MonoBehaviour:
@@ -924,6 +924,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   splashPrefab: {fileID: 260916201467912036, guid: 7315dc899536e5b478428ca7c6697d94, type: 3}
+  deadChickenPrefab: {fileID: 0}
   lostText: {fileID: 0}
   model: {fileID: 0}
 --- !u!65 &2627834630965283271

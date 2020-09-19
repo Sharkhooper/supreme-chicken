@@ -5,12 +5,14 @@ using UnityEngine;
 public class EnemyLaserAttack : MonoBehaviour
 {
     private float aimDuration, shootDuration, growSpeed, waitBetweenShoots;
-    public GameObject myLaser, myAim, burnParticlesPrefab;
+    public GameObject myCannon, myLaser, myAim, burnParticlesPrefab;
     private EnemyHolder holder;
     private bool shooting, running, aiming;
     private float timeElapsed = 0;
     private GameObject burnParticles;
     private Difficulty difficulty;
+    public Vector3 offset;
+    public float rotationZoffset;
 
     private void Start()
     {
@@ -37,6 +39,12 @@ public class EnemyLaserAttack : MonoBehaviour
             holder.enemyWalkingController.move = true;
             StartCoroutine(WaitForNextShoot());
         }
+        else{
+            if(burnParticles != null)
+            {
+                Destroy(burnParticles);
+            }
+        }
     }
 
     public void StartAttack(float angle)
@@ -48,22 +56,45 @@ public class EnemyLaserAttack : MonoBehaviour
         }
     }
 
+    public void TurnLaser(float angle)
+    {
+        if(running)
+        {
+            Quaternion cannonRot = myCannon.transform.rotation;
+            if(GetComponent<EnemyWalkingController>().rotated)
+                cannonRot = Quaternion.Euler(0, 180, angle);
+            else
+                cannonRot = Quaternion.Euler(0, 0, angle);
+            myCannon.transform.rotation = cannonRot;
+        }
+    }
+
     private IEnumerator Aiming(float angle)
     {
+        Quaternion cannonRot = myCannon.transform.rotation;
+        if (GetComponent<EnemyWalkingController>().rotated)
+            cannonRot = Quaternion.Euler(0, 180, angle);
+        else
+            cannonRot = Quaternion.Euler(0, 0, angle);
+        myCannon.transform.rotation = cannonRot;
+        //StartCoroutine(WaitForNextShoot());
         aiming = true;
         myAim.SetActive(true);
-        myAim.transform.position = transform.position;
-        myAim.transform.rotation = Quaternion.Euler(0, 0, (90 - angle) * holder.enemyWalkingController.direction.x * -1);
+        //myAim.transform.position = transform.position + offset;
+        //myAim.transform.rotation = Quaternion.Euler(0, 0, (90 - angle) * holder.enemyWalkingController.direction.x * -1);
+        //myCannon.transform.Rotate(new Vector3(0, 0, angle + rotationZoffset));
+        //myCannon.transform.rotation = Quaternion.Euler(0, 0, angle * holder.enemyWalkingController.direction.x * -1);
         yield return new WaitForSeconds(aimDuration);
         myAim.SetActive(false);
         shooting = true;
         myLaser.SetActive(true);
         burnParticles = Instantiate(burnParticlesPrefab);
 
-        myLaser.transform.position = transform.position;
+        //myLaser.transform.position = transform.position + offset;
         myLaser.transform.localScale = Vector3.one;
-        myLaser.transform.rotation = Quaternion.Euler(0, 0, (90 - angle) * holder.enemyWalkingController.direction.x * -1);
+        //myLaser.transform.rotation = Quaternion.Euler(0, 0, (90 - angle) * holder.enemyWalkingController.direction.x * -1);
         aiming = false;
+        GetComponent<Animator>().ResetTrigger("attack");
     }
 
     private IEnumerator WaitForNextShoot()

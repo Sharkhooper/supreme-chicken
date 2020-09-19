@@ -12,9 +12,16 @@ public class CloseRangeController : MonoBehaviour
     private GameObject player;
     public Vector3 offset;
     private Difficulty difficulty;
+    public GameObject shootPoint;
 
     private void Start() {
+        if(GetComponent<EnemyLaserAttack>() != null)
+        {
+            offset.y += GetComponent<EnemyLaserAttack>().myLaser.transform.localPosition.y;
+            offset.y += GetComponent<EnemyLaserAttack>().myCannon.transform.localPosition.y;
+        }
         difficulty = Difficulty.current;
+        //Debug.Log("DIFF = " + difficulty);
         player = FindObjectOfType<MovementController>().gameObject;
         switch(type)
         {
@@ -42,20 +49,36 @@ public class CloseRangeController : MonoBehaviour
         Vector3 distanceVector = player.transform.position - (transform.position + offset);
         Vector3 normalized = distanceVector.normalized;
         Vector3 direction = GetComponent<EnemyWalkingController>().direction;
-        float angle = Vector3.Angle(distanceVector, direction);
+        float angle = Vector3.Angle(distanceVector - offset, direction);
+        //Debug.Log("angle " + angle);
         if(distanceVector.magnitude < range && angle < maxAngle)
         {
+            if(GetComponent<EnemyLaserAttack>() != null)
+            {
+                if (player.transform.position.y < offset.y)
+                    angle *= -1;
+                GetComponent<EnemyLaserAttack>().TurnLaser(angle);
+            }
             Debug.DrawRay(transform.position + offset, distanceVector, Color.green, Time.deltaTime);
             //Debug.DrawLine(transform.position + offset, player.transform.position, Color.green, Time.deltaTime);
             RaycastHit hit;
             if (Physics.Raycast(transform.position + offset, distanceVector, out hit, range, layerMask))
             {
-                if (GetComponent<EnemyCloseAttack>() != null)
-                    GetComponent<EnemyCloseAttack>().StartAttack();
-                else if (GetComponent<EnemyThrowAttack>() != null)
-                    GetComponent<EnemyThrowAttack>().StartAttack(distanceVector, angle, offset);
-                else if (GetComponent<EnemyLaserAttack>() != null)
-                    GetComponent<EnemyLaserAttack>().StartAttack(angle);
+                if(hit.transform.CompareTag("Player"))
+                {
+                    if (GetComponent<EnemyCloseAttack>() != null)
+                        GetComponent<EnemyCloseAttack>().StartAttack();
+                    else if (GetComponent<EnemyThrowAttack>() != null)
+                        GetComponent<EnemyThrowAttack>().StartAttack(distanceVector, angle, offset);
+                    else if (GetComponent<EnemyLaserAttack>() != null)
+                    {
+                        GetComponent<EnemyLaserAttack>().StartAttack(angle);
+                    }
+                }
+                else
+                {
+                    GetComponent<EnemyWalkingController>().MoveUpdate();
+                }
             }
             else
             {
