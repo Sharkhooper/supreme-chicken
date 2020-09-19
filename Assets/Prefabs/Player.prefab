@@ -289,6 +289,7 @@ GameObject:
   - component: {fileID: 3125131243484565127}
   - component: {fileID: 3125131243484565146}
   - component: {fileID: 1308256078}
+  - component: {fileID: 4986935771434078210}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -479,6 +480,7 @@ MonoBehaviour:
   damageLayers:
     serializedVersion: 2
     m_Bits: 512
+  sound: {fileID: 4986935771434078210}
   debugScale: 0.2
   hobbleInterval: 0.1
   hobbleHeight: 0.11
@@ -517,6 +519,26 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4986935771434078210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3125131243484565126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee48759c134a4ec4f849ead3945509b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack: {fileID: 8300000, guid: e292177de26be06458311e0138b161a2, type: 3}
+  dash: {fileID: 8300000, guid: 5ae8b7e4238328e489f3873d7e310c0d, type: 3}
+  death: {fileID: 8300000, guid: a5dc7889855230f4d82432a1df63eb92, type: 3}
+  scream: {fileID: 8300000, guid: e9cb30d17e01dc84eb20bf979059ccfa, type: 3}
+  scream2: {fileID: 8300000, guid: ab8b5603755121848ad46e54cb870b6b, type: 3}
+  walking: {fileID: 8300000, guid: 235a5ccb7973379459acc5b861e91ef8, type: 3}
+  volume: 0.674
+  fadeTime: 0.2
 --- !u!1 &3125131243661864890
 GameObject:
   m_ObjectHideFlags: 0

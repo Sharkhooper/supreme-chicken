@@ -62,6 +62,9 @@ public class Killable : MonoBehaviour
 
         GameObject deadChick = Instantiate(deadChickenPrefab, transform.position, Quaternion.identity);
         Rigidbody rb = deadChick.GetComponent<Rigidbody>();
+        AudioSource src = deadChick.AddComponent<AudioSource>();
+        src.clip = MovementController.Active.Sound.Death;
+        src.volume = MovementController.Active.Sound.Volume;
         rb.AddForce(Vector3.up * 200);
         rb.AddTorque(new Vector3(UnityEngine.Random.Range(10, 180), UnityEngine.Random.Range(10, 180), UnityEngine.Random.Range(10, 180)));
         GetComponent<SphereCollider>().enabled = false;

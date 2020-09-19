@@ -99,7 +99,10 @@ public class MovementController : MonoBehaviour {
     [SerializeField] private float cameraMaxDelta = 1.86f;
     [SerializeField] private LayerMask collisionLayers = ~0;
     [SerializeField] private LayerMask damageLayers = 0;
+    [SerializeField] private PlayerSoundController sound;
     private Camera cam;
+
+    public PlayerSoundController Sound => sound;
 
     private struct AnimationParameters {
         public int air;
@@ -194,6 +197,10 @@ public class MovementController : MonoBehaviour {
         }
     }
 
+    public void Kill() {
+        sound.Die();
+    }
+
     private static readonly Plane intersectionPlane = new Plane(Vector3.forward, 0);
     private static readonly Quaternion planeNormalRotation = Quaternion.Euler(0, 0, -90);
     private Vector3 plane;
@@ -221,6 +228,8 @@ public class MovementController : MonoBehaviour {
             velocity = Vector3.zero;
             attackTime = 0;
 
+            sound.Dash(dashDuration);
+
             if (dashDirection == Vector3.zero) {
                 dashDirection = (orientation > 0 ? Vector3.right : Vector3.left) * dashVelocity;
             }
@@ -233,6 +242,7 @@ public class MovementController : MonoBehaviour {
         }
         else if (attackButton.down && !state.HasFlag(MovementState.WallGrab) && attackTime <= 0) {
             attackTime = attackCooldown;
+            sound.Attack(attackDuration);
             // Skip first attack to account for animation delay
             attackActiveTicks = attackTicks;
         }
@@ -292,6 +302,10 @@ public class MovementController : MonoBehaviour {
             if (Mathf.Abs(velocityMagnitude) > 0.1f) {
                 orientation = velocityMagnitude > 0 ? 1 : -1;
                 model.rotation = Quaternion.Euler(0, velocityMagnitude > 0 ? 0 : 180, 0);
+                sound.StartWalk();
+            }
+            else {
+                sound.StopWalk();
             }
 
             cameraTarget.localPosition =  Vector3.Lerp(cameraTarget.localPosition, cameraOffset * velocityMagnitude, cameraMaxDelta * Time.fixedDeltaTime);
@@ -351,6 +365,8 @@ public class MovementController : MonoBehaviour {
                 state &= ~MovementState.OnGround;
                 state &= ~MovementState.WallGrab;
                 coyoteTimeCooldown = 0;
+
+                sound.Jump();
             }
 
             // Stop receiving new jump input midair
