@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 namespace MainMenu
 {
-    public class DiffBox : MonoBehaviour, IClickable
+    public class DiffBox : MenuItem
     {
         public int m_index;
         
@@ -18,11 +18,12 @@ namespace MainMenu
         
         private void Start()
         {
+            m_transformProperty = transform;
             m_camera = Camera.main;
             m_wheel = FindObjectOfType<DiffWheel>();
         }
 
-        public void Click()
+        public override void Click()
         {
             m_wheel.DifficultyClicked(transform.position, m_index);
         }

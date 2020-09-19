@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using DG.Tweening.Core;
@@ -15,16 +16,23 @@ public class MenuButtons : MonoBehaviour
 
     private bool m_animating;
 
-    public List<DiffBox> m_boxes;
-    public Transform m_startButton;
-    public Transform m_quitButton;
-    public Transform m_door;
-    public Transform m_pivot;
-    public GameObject finishLine;
+    public List<MenuItem> m_boxes;
+    
 
+    private MenuItem m_currentSelection;
+    private Color m_selectionStartColor;
+    
     private void Awake()
     {
         m_camera = Camera.main;
+    }
+
+    private void Start()
+    {
+        m_currentSelection = m_boxes[0];
+        m_selectionStartColor = m_currentSelection.m_transformProperty.GetComponent<Renderer>().material.color;
+        
+        m_currentSelection.m_transformProperty.GetComponent<Renderer>().material.color = Color.red;
     }
 
     public void MouseClick()
@@ -32,63 +40,61 @@ public class MenuButtons : MonoBehaviour
         Vector3 pos = Mouse.current.position.ReadValue();
         pos.z = 1000;
         m_lastMousePos = m_camera.ScreenToWorldPoint(pos);
-        
+
         // Determine which button was pressed if any
         RaycastHit hit;
-        if (Physics.Raycast(m_camera.transform.position, m_lastMousePos - m_camera.transform.position, out hit, int.MaxValue) && !m_animating)
+        if (Physics.Raycast(m_camera.transform.position, m_lastMousePos - m_camera.transform.position, out hit,
+            int.MaxValue) && !m_animating)
         {
-            if(hit.transform == m_startButton)
+            for (int i = 0; i < m_boxes.Count; ++i)
             {
-                SlowMotionOverTime slowMo = GetComponent<SlowMotionOverTime>();
-                if(slowMo != null)
+                var box = m_boxes[i];
+                if (box.m_transformProperty == hit.transform)
                 {
-                    slowMo.StartScaling();
+                    box.Click();
+                    m_currentSelection.m_transformProperty.GetComponent<Renderer>().material.color = m_selectionStartColor;
+                    m_currentSelection = m_boxes[i];
+                    m_selectionStartColor = m_currentSelection.m_transformProperty.GetComponent<Renderer>().material.color;
+                    m_currentSelection.m_transformProperty.GetComponent<Renderer>().material.color = Color.red;
                 }
-                if(finishLine != null)
-                {
-                    finishLine.GetComponent<finishLine>().ResetTime();
-                }
+            }
 
-                m_animating = true;
-                Animate(m_startButton);
-                EventSystems.MainEventSystem.MainEvents.GameStarts();
-                
-                m_door.RotateAround(m_pivot.position, new Vector3(1, 0,0), -90);
-                m_door.position = m_door.transform.forward * -1;
-            }
-            
-            else if(hit.transform == m_quitButton)
-            {
-                m_animating = true;
-                Animate(m_quitButton);
-                EventSystems.MainEventSystem.MainEvents.GameQuit();
-                Application.Quit();
-            }
-            else
-            {
-                for (int i = 0; i < m_boxes.Count; ++i)
-                {
-                    var box = m_boxes[i];
-                    if (box.transform == hit.transform)
-                    {
-                        box.Click();
-                    }
-                }
-            }
         }
     }
 
-    private void Animate(Transform toAnimate)
+    public void ControllerClick()
     {
-        //Vector3[] points = new Vector3[2];
-        //points[0] = new Vector3(toAnimate.position.x, toAnimate.position.y, toAnimate.position.z + 0.06f);
-        //points[1] = new Vector3(toAnimate.position.x, toAnimate.position.y, toAnimate.position.z - 0.06f);
-        Vector3 backPos = toAnimate.transform.localPosition - new Vector3(0.1f,0,0);
-        Vector3 fowPos = toAnimate.transform.localPosition;
-        
-        toAnimate.DOLocalMove(backPos, 0.6f)
-            .onComplete += () =>
-            toAnimate.DOLocalMove(fowPos, 0.6f)
-                .onComplete += () => m_animating = false;
+        m_currentSelection.Click();
     }
+
+    public void Move(InputAction.CallbackContext context)
+    {
+       var value = context.ReadValue<float>();
+       if(value == 0)
+           return;
+       for (int i = 0; i < m_boxes.Count; ++i)
+       {
+           Debug.Log(i);
+           Debug.Log("Val  " + value);
+           var box = m_boxes[i];
+           if (m_currentSelection.m_transformProperty == box.m_transformProperty)
+           {
+               if (i == m_boxes.Count - 1 && value > 0 ||
+                   i == 0 && value < 0)
+               {
+                   Debug.Log("Abort");
+                   return;
+               }
+
+               m_currentSelection.m_transformProperty.GetComponent<Renderer>().material.color = m_selectionStartColor;
+               int index = value > 0? i + 1 : i - 1;
+               m_currentSelection = m_boxes[index];
+               m_selectionStartColor = m_currentSelection.m_transformProperty.GetComponent<Renderer>().material.color;
+               m_currentSelection.m_transformProperty.GetComponent<Renderer>().material.color = Color.red;
+
+               return;
+           }
+       }
+    }
+   
 }
