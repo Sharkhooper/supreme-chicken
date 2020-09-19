@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 624391325984945339}
   - component: {fileID: 4541197492244839198}
   - component: {fileID: 1792824382745546708}
-  m_Layer: 0
+  - component: {fileID: -584781310757472654}
+  m_Layer: 12
   m_Name: broom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,3 +82,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &-584781310757472654
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279672012934917633}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1059.9249, y: 3840.4045, z: 674.3516}
+  m_Center: {x: 186.60622, y: 1920.2025, z: 10.484862}

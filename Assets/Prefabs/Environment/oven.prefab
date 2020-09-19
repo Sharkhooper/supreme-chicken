@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7311417119829322720}
   - component: {fileID: 7017333473105091748}
   - component: {fileID: 912255248584450456}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: QuitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 1776184816258871784}
   - component: {fileID: 7086679205629383044}
   - component: {fileID: 1602996260698801776}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: oven_door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 8869445621448134924}
   - component: {fileID: 2408764195054988831}
   - component: {fileID: 2408764195054988800}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: button_easy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -320,7 +320,7 @@ GameObject:
   - component: {fileID: 3883397798632789069}
   - component: {fileID: 3574468215270732073}
   - component: {fileID: 3574468215270732074}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: buttons_medium
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -429,7 +429,7 @@ GameObject:
   - component: {fileID: 6637418051246919799}
   - component: {fileID: 7151667021631613646}
   - component: {fileID: 3802312646760990896}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: StartButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -522,7 +522,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3684297916384671750}
   - component: {fileID: 4065221883889558205}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: oven
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -572,7 +572,7 @@ GameObject:
   - component: {fileID: 5731840012729953581}
   - component: {fileID: 4383569288923720879}
   - component: {fileID: 4383569288923720878}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: control_dial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -683,7 +683,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4576933170786240545}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -716,7 +716,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4576933171064306415}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -746,7 +746,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4576933171094085182}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -778,7 +778,7 @@ GameObject:
   - component: {fileID: 4576933171205821258}
   - component: {fileID: 4576933171205821260}
   - component: {fileID: 4576933171205821259}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: MenuButtons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -818,11 +818,6 @@ MonoBehaviour:
   - {fileID: 2408764195054988800}
   - {fileID: 3574468215270732074}
   - {fileID: 8708760540389691809}
-  m_startButton: {fileID: 5115128750181635371}
-  m_quitButton: {fileID: 8932317546812502061}
-  m_door: {fileID: 6426822696321490527}
-  m_pivot: {fileID: 4576933171064306415}
-  finishLine: {fileID: 0}
 --- !u!114 &4576933171205821259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -900,7 +895,7 @@ GameObject:
   - component: {fileID: 5088511660153686405}
   - component: {fileID: 8852913865712960220}
   - component: {fileID: 5398415688582203370}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: oven
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -979,7 +974,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8666606649652065949}
-  m_Layer: 0
+  - component: {fileID: 2719085537165270137}
+  m_Layer: 12
   m_Name: oven
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1002,6 +998,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2719085537165270137
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7899438315451484360}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8708760540389691839
 GameObject:
   m_ObjectHideFlags: 0
@@ -1015,7 +1024,7 @@ GameObject:
   - component: {fileID: 4908477343616725211}
   - component: {fileID: 8708760540389691808}
   - component: {fileID: 8708760540389691809}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: button_hard
   m_TagString: Untagged
   m_Icon: {fileID: 0}

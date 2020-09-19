@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 8560648522161466088}
   - component: {fileID: 7787807586096685365}
   - component: {fileID: 8536136040854464972}
-  m_Layer: 0
+  - component: {fileID: -1778341229881828744}
+  m_Layer: 12
   m_Name: Sub_Cup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,3 +82,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &-1778341229881828744
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8818768179893496863}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 26.957891, y: 4.5173035, z: 26.957886}
+  m_Center: {x: 0.000002861023, y: 2.2586517, z: 0.0000014305115}
