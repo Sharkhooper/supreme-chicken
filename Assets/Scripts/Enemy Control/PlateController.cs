@@ -11,6 +11,8 @@ public class PlateController : MonoBehaviour
     private GameObject mesh, particle;
     private Difficulty difficulty;
 
+    [SerializeField] private SoundMap shatter;
+
     private void Start() {
         difficulty = Difficulty.current;
         moveSpeed = difficulty.waiter.plateSpeed;
@@ -37,6 +39,9 @@ public class PlateController : MonoBehaviour
 
     public void Explode()
     {
+        if (shatter != null) {
+            shatter.SpawnSource(transform);
+        }
         rb.velocity = Vector3.zero;
         Destroy(mesh);
         GetComponent<BoxCollider>().enabled = false;

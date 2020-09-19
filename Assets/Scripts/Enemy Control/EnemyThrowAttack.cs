@@ -11,32 +11,50 @@ public class EnemyThrowAttack : MonoBehaviour
     private Difficulty difficulty;
     private Animator animator;
 
+    [SerializeField] private SoundMap sounds;
+    private AudioSource audioSource;
+
     private void Start() {
         animator = GetComponent<Animator>();
         difficulty = Difficulty.current;
         waitBetweenThrows /= difficulty.waiter.attackSpeed;
         animator.SetFloat("attackSpeed", difficulty.waiter.attackSpeed);
+        if (sounds != null) {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     public void StartAttack(Vector3 direction, float angle, Vector3 offset)
     {
-        if (!running)
+        if (!running) {
             StartCoroutine(Attack(direction, angle, offset));
+            if (sounds != null) {
+                sounds.Play(audioSource);
+            }
+        }
     }
 
     private IEnumerator Attack(Vector3 direction, float angle, Vector3 offset)
     {
         running = true;
-        GetComponent<Animator>().SetTrigger("throw");
+        animator.SetTrigger("throw");
+ 
         yield return new WaitForSeconds(waitBetweenThrows/2);
+        
         Vector3 instantiatePos = transform.position + offset + holder.enemyWalkingController.direction * instantiateDistance;
         GameObject newPlate = Instantiate(platePrefab, instantiatePos, Quaternion.identity);
         Vector3 throwDirection = new Vector3(direction.x - instantiateDistance * holder.enemyWalkingController.direction.x, direction.y, direction.z);
-        newPlate.GetComponent<PlateController>().direction = throwDirection ;
-        newPlate.GetComponent<PlateController>().toRotate = angle * holder.enemyWalkingController.direction.x;
+
+        var plateController = newPlate.GetComponent<PlateController>();
+        plateController.direction = throwDirection ;
+        plateController.toRotate = angle * holder.enemyWalkingController.direction.x;
+
         yield return new WaitForSeconds(waitBetweenThrows);
-        GetComponent<Animator>().ResetTrigger("throw");
+
+        animator.ResetTrigger("throw");
+
         yield return new WaitForSeconds(waitBetweenThrows/2);
+
         running = false;
     }
 

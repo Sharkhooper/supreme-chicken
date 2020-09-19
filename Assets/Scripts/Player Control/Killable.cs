@@ -50,6 +50,9 @@ public class Killable : MonoBehaviour
 
     private IEnumerator Losing()
     {
+        if (MusicController.Active != null) {
+            MusicController.Active.FadeOut();
+        }
         if(lostText != null)
         {
             lostText.SetActive(true);

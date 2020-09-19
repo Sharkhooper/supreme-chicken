@@ -15,6 +15,7 @@ public class Dismemberment : MonoBehaviour {
     [SerializeField] private float destroyDelay;
     [SerializeField] private Transform origin;
     [SerializeField] private DismemberPart[] exploders;
+    [SerializeField] private SoundMap sounds;
 
     public float DestroyDelay => destroyDelay;
     public Transform Origin => origin;
@@ -51,6 +52,9 @@ public class Dismemberment : MonoBehaviour {
             rb.AddTorque(0, 0, Random.Range(-rotationForce, rotationForce), ForceMode.Force);
             rb.AddForce(forceScale * randoDir, ForceMode.Impulse);
             Destroy(rb.gameObject, destroyDelay);
+        }
+        if (sounds != null) {
+            sounds.SpawnSource(origin);
         }
     }
 }

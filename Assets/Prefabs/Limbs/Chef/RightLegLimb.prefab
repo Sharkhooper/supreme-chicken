@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3638753003102932101}
   - component: {fileID: 2464729497830486196}
+  - component: {fileID: 1024161757080435998}
   m_Layer: 11
   m_Name: RightLegLimb
   m_TagString: Untagged
@@ -49,6 +50,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1024161757080435998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084312410904911204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4485d519dafbfd24598e0610a694c3b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds: {fileID: 11400000, guid: 104c9ffb88a27eb4a85d40d9ee720fca, type: 2}
+  sources: 1
+  layers:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!135 &2359601426397920840
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -1056,6 +1056,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldKill: 1
+  sounds: {fileID: 11400000, guid: 13dd1dc60472db7449f6a0ba3a7f1223, type: 2}
 --- !u!65 &8746992001400934253
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1543,6 +1544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 3763305428807527178}
+  sounds: {fileID: 11400000, guid: 23c4061c6c5ee6641bb1dffc43d36706, type: 2}
 --- !u!114 &2602985229764588355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1560,6 +1562,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   offset: {x: 0, y: 1, z: 0}
+  shootPoint: {fileID: 0}
 --- !u!114 &5306107705548631353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1626,6 +1629,7 @@ MonoBehaviour:
     Limb: {fileID: 3757760293286099288, guid: 46778ca445b08a9448de7e4d42479216, type: 3}
   - bone: {fileID: 8829504734519136344}
     Limb: {fileID: 552877989648332772, guid: cf9aa803c908651408e7c7d9bf5eebe4, type: 3}
+  sounds: {fileID: 11400000, guid: 13dd1dc60472db7449f6a0ba3a7f1223, type: 2}
   dodo: 0
 --- !u!1 &7231676504165643847
 GameObject:

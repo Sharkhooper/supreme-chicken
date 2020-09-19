@@ -522,6 +522,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3684297916384671750}
   - component: {fileID: 4065221883889558205}
+  - component: {fileID: 1069277733425971690}
   m_Layer: 12
   m_Name: oven
   m_TagString: Untagged
@@ -559,6 +560,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 994bcab312d64876b293e56254e2b259, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1069277733425971690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4065221883889558204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be13409be797ed4d931447b8538b70e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 0.8
 --- !u!1 &4383569288923720877
 GameObject:
   m_ObjectHideFlags: 0
