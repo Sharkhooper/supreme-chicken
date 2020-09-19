@@ -610,76 +610,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3574468215270732072, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
   m_PrefabInstance: {fileID: 1828306182}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &85584454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 85584452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: ee0336a47353d3b40a61509e1b971468, type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: a53bf271-f336-4c63-8216-92c6c3715f6b
-    m_ActionName: actionMap/Movement[/Keyboard/a,/Keyboard/d]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: c715acba-2c7f-4046-b0fd-b4c756279d4c
-    m_ActionName: actionMap/Jump[/Keyboard/space,/Keyboard/w]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 0d39739f-97b3-46f0-9b64-56bdb0a77fad
-    m_ActionName: actionMap/Attack[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 4cbafefa-0833-4338-8ca7-643c7056ea8e
-    m_ActionName: actionMap/Dash[/Mouse/rightButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: d644f844-f747-4fa6-966a-adad64bd817c
-    m_ActionName: actionMap/Pad Dash
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 85584455}
-        m_TargetAssemblyTypeName: MainMenu.DiffBoxMedium, Assembly-CSharp
-        m_MethodName: MouseClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: c7939bd1-e4f5-4b03-a3a0-509e47b8865d
-    m_ActionName: Menu/UI Click[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 40924d0d-0c9f-42cb-bc81-7408ddfde8f9
-    m_ActionName: Menu/MouseParameters[/Mouse/position]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Mouse&Keyboard
-  m_DefaultActionMap: Menu
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!114 &85584455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -689,7 +619,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 85584452}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 336043a99dac41cbbc34590de2285cfe, type: 3}
+  m_Script: {fileID: 11500000, guid: f168358f0f78ba841a09447369693778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_index: 1
@@ -6884,6 +6814,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4576933171205821257, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
   m_PrefabInstance: {fileID: 1828306182}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1102814390 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4576933171205821260, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+  m_PrefabInstance: {fileID: 1828306182}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1102814387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef6cf152f4bfeb04c85fa9d70f909dbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1102814391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6891,7 +6832,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1102814387}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 737352a0f82f54a4ba7acebf2328c4d2, type: 3}
   m_Name: 
@@ -11374,7 +11315,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_ActionEvents.Array.size
-      value: 7
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -11386,11 +11343,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_ActionEvents.Array.data[6].m_ActionId
-      value: d644f844-f747-4fa6-966a-adad64bd817c
+      value: 2a47217b-08cf-401b-a4d8-57a37c8dab8f
       objectReference: {fileID: 0}
     - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_ActionEvents.Array.data[6].m_ActionName
-      value: actionMap/Pad Dash[/XInputControllerWindows/rightTrigger]
+      value: Menu/UI Click 2[/Mouse/leftButton]
       objectReference: {fileID: 0}
     - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_NeverAutoSwitchControlSchemes
@@ -11398,12 +11355,136 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_DefaultControlScheme
-      value: 
+      value: Mouse&Keyboard
       objectReference: {fileID: 0}
     - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 432933653}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_NotificationBehavior
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_ActionId
+      value: af6f0024-c354-4214-95b2-d8e0325a5a15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_ActionName
+      value: Menu1/UI Click[/Mouse/leftButton]
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_ActionId
+      value: b871e8c0-62fd-46f4-ba12-d22d4ba8df51
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_ActionName
+      value: Menu1/MouseParameters[/Mouse/position]
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 432933653}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MainMenu.DiffBox, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MouseClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_ActionId
+      value: b07bb3a4-c4a9-4544-8a9c-636a9189b2c4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_ActionName
+      value: Menu/UI Click[/Mouse/leftButton]
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_DefaultActionMap
+      value: Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionId
+      value: d644f844-f747-4fa6-966a-adad64bd817c
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionName
+      value: actionMap/Pad Dash[/XInputControllerWindows/rightTrigger]
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 432933650}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MainMenu.DiffBox, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 432933653}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MainMenu.DiffBox, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MouseClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408764195054988801, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2408764195054988830, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_Layer
       value: 12
@@ -11435,7 +11516,7 @@ PrefabInstance:
     - target: {fileID: 3574468215270732075, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 85584455}
+      objectReference: {fileID: 0}
     - target: {fileID: 3574468215270732075, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: MouseClick
@@ -11486,10 +11567,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4576933171205821259, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_ActionEvents.Array.size
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4576933171205821259, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576933171205821259, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4576933171205821259, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
@@ -11500,6 +11585,58 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[6].m_ActionName
       value: actionMap/Pad Dash[/XInputControllerWindows/rightTrigger]
       objectReference: {fileID: 0}
+    - target: {fileID: 4576933171205821259, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionId
+      value: d644f844-f747-4fa6-966a-adad64bd817c
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576933171205821259, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionName
+      value: actionMap/Pad Dash[/XInputControllerWindows/rightTrigger]
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576933171205821259, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1102814390}
+    - target: {fileID: 4576933171205821259, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MenuButtons, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576933171205821259, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MouseClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576933171205821259, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576933171205821259, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576933171205821259, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_ActionId
+      value: b07bb3a4-c4a9-4544-8a9c-636a9189b2c4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576933171205821259, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_ActionName
+      value: Menu/UI Click[/Mouse/leftButton]
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576933171205821260, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_boxes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576933171205821260, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_boxes.Array.data[0]
+      value: 
+      objectReference: {fileID: 432933653}
+    - target: {fileID: 4576933171205821260, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_boxes.Array.data[1]
+      value: 
+      objectReference: {fileID: 85584455}
+    - target: {fileID: 4576933171205821260, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_boxes.Array.data[2]
+      value: 
+      objectReference: {fileID: 1547184755}
     - target: {fileID: 5275509538756498480, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_Layer
       value: 12
@@ -11527,6 +11664,10 @@ PrefabInstance:
     - target: {fileID: 7899438315451484360, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_Layer
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7899438315451484360, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8666606649652065949, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11574,7 +11715,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8708760540389691810, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_ActionEvents.Array.size
-      value: 7
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708760540389691810, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708760540389691810, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8708760540389691810, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -11591,6 +11740,58 @@ PrefabInstance:
     - target: {fileID: 8708760540389691810, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_ActionEvents.Array.data[6].m_ActionName
       value: actionMap/Pad Dash
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708760540389691810, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708760540389691810, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: Mouse&Keyboard
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708760540389691810, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionId
+      value: d644f844-f747-4fa6-966a-adad64bd817c
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708760540389691810, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionName
+      value: actionMap/Pad Dash
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708760540389691810, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708760540389691810, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708760540389691810, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_ActionId
+      value: b07bb3a4-c4a9-4544-8a9c-636a9189b2c4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708760540389691810, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_ActionName
+      value: Menu/UI Click[/Mouse/leftButton]
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708760540389691810, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1547184755}
+    - target: {fileID: 8708760540389691810, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MainMenu.DiffBox, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708760540389691810, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MouseClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708760540389691810, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708760540389691810, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8708760540389691839, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_Layer
