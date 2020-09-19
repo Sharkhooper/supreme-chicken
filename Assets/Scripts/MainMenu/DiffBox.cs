@@ -24,9 +24,7 @@ namespace MainMenu
 
         public void Click()
         {
-            
-                    m_wheel.DifficultyClicked(transform.position, m_index);
-                 
+            m_wheel.DifficultyClicked(transform.position, m_index);
         }
     }
 }
