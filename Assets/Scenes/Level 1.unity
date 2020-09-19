@@ -6864,6 +6864,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   afterSeconds: 0.4
   scale: 0.4
+--- !u!95 &1102814392
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1102814387}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1116243122
 GameObject:
   m_ObjectHideFlags: 0
@@ -11733,6 +11752,10 @@ PrefabInstance:
     - target: {fileID: 4576933171205821259, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576933171205821259, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4576933171205821260, guid: c808405b9ff83da4ba2b0d7b8377178d, type: 3}
       propertyPath: m_boxes.Array.size
@@ -19362,6 +19385,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6632328625073946965, guid: ebf468faf774cfa44814179ad0476de3, type: 3}
+      propertyPath: m_SceneBindings.Array.size
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6632328625073946965, guid: ebf468faf774cfa44814179ad0476de3, type: 3}
       propertyPath: m_SceneBindings.Array.data[5].value
       value: 
       objectReference: {fileID: 1308256078}
@@ -19389,6 +19416,14 @@ PrefabInstance:
       propertyPath: m_ExposedReferences.m_References.Array.data[11].second
       value: 
       objectReference: {fileID: 3559240826037432134}
+    - target: {fileID: 6632328625073946965, guid: ebf468faf774cfa44814179ad0476de3, type: 3}
+      propertyPath: m_SceneBindings.Array.data[14].key
+      value: 
+      objectReference: {fileID: 3877161162673441106, guid: 2b030cf9950ccfb4b9652326a58c5dbd, type: 2}
+    - target: {fileID: 6632328625073946965, guid: ebf468faf774cfa44814179ad0476de3, type: 3}
+      propertyPath: m_SceneBindings.Array.data[14].value
+      value: 
+      objectReference: {fileID: 1102814392}
     - target: {fileID: 6632328625073946966, guid: ebf468faf774cfa44814179ad0476de3, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0.55068254
