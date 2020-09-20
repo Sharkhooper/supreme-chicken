@@ -17,19 +17,19 @@ MonoBehaviour:
     range: 2
     angle: 45
     attackSpeed: 4
-    moveSpeed: 0.6
+    moveSpeed: 0.8
   waiter:
     range: 8
     angle: 45
-    attackSpeed: 1.5
-    moveSpeed: 0.6
-    plateSpeed: 20
-    accuracy: 0.25
+    attackSpeed: 1.8
+    moveSpeed: 0.8
+    plateSpeed: 25
+    accuracy: 0.5
   cockroach:
     range: 12
-    angle: 35
-    moveSpeed: 1
-    aimDuration: 1
-    shootDuration: 1
-    growSpeed: 1
-    shootCooldown: 1
+    angle: 45
+    moveSpeed: 1.2
+    aimDuration: 0.6
+    shootDuration: 1.2
+    growSpeed: 1.5
+    shootCooldown: 0.6
