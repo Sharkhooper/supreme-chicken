@@ -35,19 +35,20 @@ public class GameManager : MonoBehaviour {
         if (!(force || AllowReload)) return;
         if (reloading) return;
         reloading = true;
-        HotStart = true;
-        StartCoroutine(Reload());
+        StartCoroutine(Reload(true));
     }
 
     public void GotoMenu(bool force = false) {
         if (!(force || AllowReload)) return;
         if (reloading) return;
         reloading = true;
-        HotStart = false;
-        StartCoroutine(Reload());
+        StartCoroutine(Reload(false));
     }
 
-    private IEnumerator Reload() {
+    private IEnumerator Reload(bool hotStart) {
+        if (MusicController.Active != null) {
+            MusicController.Active.FadeOut();
+        }
         Tween t = overlay.DOFade(1, fadeTime).SetEase(Ease.InOutSine);
         yield return t.WaitForCompletion();
         AllowReload = false;
@@ -65,6 +66,7 @@ public class GameManager : MonoBehaviour {
                 yield return null;
             }
         }
+        HotStart = hotStart;
         t = overlay.DOFade(0, fadeTime).SetEase(Ease.InOutSine);
         yield return t.WaitForCompletion();
         reloading = false;

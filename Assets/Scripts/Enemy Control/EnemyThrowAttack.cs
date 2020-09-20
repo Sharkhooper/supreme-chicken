@@ -21,6 +21,7 @@ public class EnemyThrowAttack : MonoBehaviour
         animator.SetFloat("attackSpeed", difficulty.waiter.attackSpeed);
         if (sounds != null) {
             audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.spatialBlend = sounds.SpatialBlend;
         }
     }
 

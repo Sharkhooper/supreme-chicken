@@ -14,6 +14,7 @@ public class DismemberSound : MonoBehaviour
 		src = new AudioSource[sources];
 		for (int i = 0; i < sources; ++i) {
 			src[i] = gameObject.AddComponent<AudioSource>();
+			src[i].spatialBlend = sounds.SpatialBlend;
 		}
 	}
 	private void OnCollisionEnter(Collision collision) {

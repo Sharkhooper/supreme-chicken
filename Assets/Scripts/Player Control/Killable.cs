@@ -50,9 +50,9 @@ public class Killable : MonoBehaviour
 
     private IEnumerator Losing()
     {
-        if (MusicController.Active != null) {
-            MusicController.Active.FadeOut();
-        }
+        //if (MusicController.Active != null) {
+        //    MusicController.Active.FadeOut();
+        //}
         if(lostText != null)
         {
             lostText.SetActive(true);
@@ -69,8 +69,10 @@ public class Killable : MonoBehaviour
         Rigidbody rb = deadChick.GetComponent<Rigidbody>();
 
         AudioSource src = deadChick.AddComponent<AudioSource>();
+        src.spatialBlend = 1;
         src.clip = MovementController.Active.Sound.Death;
         src.volume = MovementController.Active.Sound.Volume;
+        src.spatialBlend = MovementController.Active.Sound.SpatialBlend;
         src.Play();
 
         rb.AddForce(Vector3.up * 200);
@@ -81,7 +83,11 @@ public class Killable : MonoBehaviour
 
         yield return new WaitForSeconds(2);
 
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  // Lädt die InGame Szene neu
-        GameManager.Current.RestartLevel(true);
+        if (GameManager.Current != null) {
+            GameManager.Current.RestartLevel(true);
+        }
+        else {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  // Lädt die InGame Szene neu
+        }
     }
 }

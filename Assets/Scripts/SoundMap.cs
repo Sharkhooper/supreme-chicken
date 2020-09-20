@@ -9,7 +9,10 @@ public class SoundMap : ScriptableObject {
         public AudioClip clip;
         public float volume;
     }
+    [SerializeField] private float spatialBlend = 1;
     [SerializeField] private Sound[] sounds;
+
+    public float SpatialBlend => spatialBlend;
 
     public Sound Get() {
         return sounds[Random.Range(0, sounds.Length)];
@@ -20,6 +23,7 @@ public class SoundMap : ScriptableObject {
         GameObject go = new GameObject();
         go.transform.position = origin.position;
         var src = go.AddComponent<AudioSource>();
+        src.spatialBlend = spatialBlend;
         src.clip = sound.clip;
         src.volume = sound.volume;
         src.Play();
