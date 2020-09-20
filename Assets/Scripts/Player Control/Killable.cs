@@ -81,6 +81,7 @@ public class Killable : MonoBehaviour
 
         yield return new WaitForSeconds(2);
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  // Lädt die InGame Szene neu
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  // Lädt die InGame Szene neu
+        GameManager.Current.RestartLevel(true);
     }
 }

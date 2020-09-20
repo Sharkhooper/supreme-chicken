@@ -44,7 +44,8 @@ public class finishLine : MonoBehaviour
         string timeString = String.Format("{0:00}:{1:00}.{2:00}", minutes, seconds, milli);
         timerText.GetComponent<TextMeshProUGUI>().text = "Your Time: " + timeString;
         yield return new WaitForSeconds(waitUntilReload);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        GameManager.Current.GotoMenu(true);
     }
 
     public void ResetTime()

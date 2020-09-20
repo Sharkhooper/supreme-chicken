@@ -19,5 +19,12 @@ public class MainMenuZoomOut : MonoBehaviour
     {
         // Animate the cam and its rotation
         m_cam.Play();
+        StartCoroutine(AllowReload());
+        
+    }
+
+    private IEnumerator AllowReload() {
+        yield return new WaitForSecondsRealtime((float)m_cam.duration);
+        GameManager.Current.AllowReload = true;
     }
 }
