@@ -30,9 +30,11 @@ public class EnemyLaserAttack : MonoBehaviour
 
         if (charge != null) {
             chargeSource = gameObject.AddComponent<AudioSource>();
+            chargeSource.spatialBlend = charge.SpatialBlend;
         }
         if (fire != null) {
             fireSource = gameObject.AddComponent<AudioSource>();
+            fireSource.spatialBlend = fire.SpatialBlend;
         }
     }
 

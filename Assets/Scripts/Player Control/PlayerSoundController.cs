@@ -17,6 +17,7 @@ public class PlayerSoundController : MonoBehaviour {
 
     [SerializeField] [Range(0,1)] private float volume = 1;
     [SerializeField] private float fadeTime = 0.2f;
+    [SerializeField] private float spatialBlend = 1f;
 
     private AudioSource source;
     private AudioSource source2;
@@ -27,6 +28,7 @@ public class PlayerSoundController : MonoBehaviour {
 
     public AudioClip Death => death;
     public float Volume => volume;
+    public float SpatialBlend => spatialBlend;
 
     private void Start() {
         source = gameObject.AddComponent<AudioSource>();
@@ -38,8 +40,10 @@ public class PlayerSoundController : MonoBehaviour {
         source2.loop = true;
         source2.Play();
         
-        sfx= gameObject.AddComponent<AudioSource>();
+        sfx = gameObject.AddComponent<AudioSource>();
         sfx.volume = volume;
+
+        source.spatialBlend = source2.spatialBlend = sfx.spatialBlend = spatialBlend;
 
         walkSequence = DOTween.Sequence();
     }

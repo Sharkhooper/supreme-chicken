@@ -24,6 +24,7 @@ public class EnemyCloseAttack : MonoBehaviour
 
         if (sounds != null) {
             source = gameObject.AddComponent<AudioSource>();
+            source.spatialBlend = 1;
         }
     }
 

@@ -9,9 +9,6 @@ namespace MainMenu
         public GameObject finishLine;
 
         private bool started = false;
-        private void Start() {
-            Debug.LogError("STARTOO");
-        }
 
         private void LateUpdate() {
             if (started) return;
@@ -22,6 +19,7 @@ namespace MainMenu
 
         public override void Click()
         {
+            if (started) return;
             started = true;
             base.Click();
             SlowMotionOverTime slowMo = GetComponent<SlowMotionOverTime>();
