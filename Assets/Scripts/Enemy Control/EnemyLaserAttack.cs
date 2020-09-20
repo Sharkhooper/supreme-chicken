@@ -11,7 +11,7 @@ public class EnemyLaserAttack : MonoBehaviour
     private bool shooting, running, aiming;
     private float timeElapsed = 0;
     private GameObject burnParticles;
-    private Difficulty difficulty;
+    private Difficulty difficulty => Difficulty.current;
     public Vector3 offset;
     public float rotationZoffset;
 
@@ -22,7 +22,7 @@ public class EnemyLaserAttack : MonoBehaviour
 
     private void Start()
     {
-        difficulty = Difficulty.current;
+        //difficulty = Difficulty.current;
         aimDuration = difficulty.cockroach.aimDuration;
         shootDuration = difficulty.cockroach.shootDuration;
         growSpeed = difficulty.cockroach.growSpeed;
