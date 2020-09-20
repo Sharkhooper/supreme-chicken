@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da977ddd715e0974f80b49bbfd5ea3cd, type: 3}
   m_Name: Shatter
   m_EditorClassIdentifier: 
+  spatialBlend: 1
   sounds:
   - clip: {fileID: 8300000, guid: a0b1100eff814a447958738a549a1a3b, type: 3}
-    volume: 0.2
+    volume: 0.4
   - clip: {fileID: 8300000, guid: 22502ddba8182bb439af5b3df4ad3dcb, type: 3}
-    volume: 0.2
+    volume: 0.4
   - clip: {fileID: 8300000, guid: 4581129b137367d40945c1a4106072a0, type: 3}
-    volume: 0.2
+    volume: 0.4

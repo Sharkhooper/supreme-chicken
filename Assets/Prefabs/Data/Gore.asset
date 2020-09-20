@@ -12,16 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da977ddd715e0974f80b49bbfd5ea3cd, type: 3}
   m_Name: Gore
   m_EditorClassIdentifier: 
+  spatialBlend: 1
   sounds:
   - clip: {fileID: 8300000, guid: c70ca1fb9c4b466469883bc9e41c4269, type: 3}
-    volume: 0.3
+    volume: 0.6
   - clip: {fileID: 8300000, guid: a367cb590a4ebd841b3358a2167cb752, type: 3}
-    volume: 0.3
+    volume: 0.6
   - clip: {fileID: 8300000, guid: cf298fec55b7e104098d221e25c55497, type: 3}
-    volume: 0.3
+    volume: 0.6
   - clip: {fileID: 8300000, guid: f43d20ab65473da4ab939ff8f58ee774, type: 3}
-    volume: 0.3
+    volume: 0.6
   - clip: {fileID: 8300000, guid: 45c7883f41d2cc54cad1171e125fba77, type: 3}
-    volume: 0.3
+    volume: 0.6
   - clip: {fileID: 8300000, guid: d0229452effcf6741a2519f858ec8dcc, type: 3}
-    volume: 0.3
+    volume: 0.6

@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da977ddd715e0974f80b49bbfd5ea3cd, type: 3}
   m_Name: Swing
   m_EditorClassIdentifier: 
+  spatialBlend: 1
   sounds:
   - clip: {fileID: 8300000, guid: 5cef5c6ee8580854aa5ff3128fb06d67, type: 3}
-    volume: 0.25
+    volume: 0.5
   - clip: {fileID: 8300000, guid: 26c030aab78b75f428336a1321d10c42, type: 3}
-    volume: 0.25
+    volume: 0.5
   - clip: {fileID: 8300000, guid: a93d1ed356c891f47b59603d82286713, type: 3}
-    volume: 0.25
+    volume: 0.5

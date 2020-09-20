@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da977ddd715e0974f80b49bbfd5ea3cd, type: 3}
   m_Name: LaserCharge
   m_EditorClassIdentifier: 
+  spatialBlend: 1
   sounds:
   - clip: {fileID: 8300000, guid: b42f3ee5839ac5044bb76103fa891dc1, type: 3}
-    volume: 0.1
+    volume: 0.4

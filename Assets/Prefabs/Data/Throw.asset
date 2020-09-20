@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da977ddd715e0974f80b49bbfd5ea3cd, type: 3}
   m_Name: Throw
   m_EditorClassIdentifier: 
+  spatialBlend: 1
   sounds:
   - clip: {fileID: 8300000, guid: d87c96fa52012d544b54e472ad98f481, type: 3}
-    volume: 0.25
+    volume: 0.5
   - clip: {fileID: 8300000, guid: bc453b64068cd07409247ca449e4d3a5, type: 3}
-    volume: 0.25
+    volume: 0.5
   - clip: {fileID: 8300000, guid: 702f0c136bf991d4492c5d852c65acd9, type: 3}
-    volume: 0.25
+    volume: 0.5
