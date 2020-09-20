@@ -21,6 +21,7 @@ public class finishLine : MonoBehaviour
 
     void Update()
     {
+        Debug.Log("Timer: " + time);
         time += Time.deltaTime;
     }
 
