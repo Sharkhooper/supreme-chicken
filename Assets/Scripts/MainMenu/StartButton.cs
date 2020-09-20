@@ -17,7 +17,6 @@ namespace MainMenu
             if (started) return;
             if (GameManager.Current.HotStart) {
                 Click();
-
             }
         }
 
