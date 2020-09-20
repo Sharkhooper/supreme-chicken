@@ -8,7 +8,7 @@ public class EnemyThrowAttack : MonoBehaviour
     public GameObject platePrefab;
     private EnemyHolder holder;
     private bool running;
-    private Difficulty difficulty;
+    private Difficulty difficulty => Difficulty.current;
     private Animator animator;
 
     [SerializeField] private SoundMap sounds;
@@ -16,7 +16,7 @@ public class EnemyThrowAttack : MonoBehaviour
 
     private void Start() {
         animator = GetComponent<Animator>();
-        difficulty = Difficulty.current;
+        //difficulty = Difficulty.current;
         waitBetweenThrows /= difficulty.waiter.attackSpeed;
         animator.SetFloat("attackSpeed", difficulty.waiter.attackSpeed);
         if (sounds != null) {

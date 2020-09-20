@@ -9,14 +9,14 @@ public class EnemyCloseAttack : MonoBehaviour
     private bool running;
     private KillPlayerOnHit killPlayer;
     private Animator animator;
-    private Difficulty difficulty;
+    private Difficulty difficulty => Difficulty.current;
 
     [SerializeField] private SoundMap sounds;
     private AudioSource source;
 
     private void Start()
     {
-        difficulty = Difficulty.current;
+        //difficulty = Difficulty.current;
         animator = GetComponent<Animator>();
         killPlayer = weapon.GetComponent<KillPlayerOnHit>();
         killPlayer.shouldKill = false;

@@ -9,12 +9,12 @@ public class PlateController : MonoBehaviour
     public Vector3 direction;
     private Rigidbody rb;
     private GameObject mesh, particle;
-    private Difficulty difficulty;
+    private Difficulty difficulty => Difficulty.current;
 
     [SerializeField] private SoundMap shatter;
 
     private void Start() {
-        difficulty = Difficulty.current;
+        //difficulty = Difficulty.current;
         moveSpeed = difficulty.waiter.plateSpeed;
         randomPlusMinusThrow *= (1 - difficulty.waiter.accuracy);
 

@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour {
         if (reloading) return;
         reloading = true;
         StartCoroutine(Reload(false));
+        // Difficulty selector doesnt change when normal isnt default
+        Difficulty.current = Difficulty.defaultDif;
     }
 
     private IEnumerator Reload(bool hotStart) {
@@ -69,6 +71,7 @@ public class GameManager : MonoBehaviour {
         HotStart = hotStart;
         t = overlay.DOFade(0, fadeTime).SetEase(Ease.InOutSine);
         yield return t.WaitForCompletion();
+        Debug.Log(Difficulty.current.name);
         reloading = false;
     }
 }

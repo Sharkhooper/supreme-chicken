@@ -11,7 +11,7 @@ public class CloseRangeController : MonoBehaviour
     private float range, maxAngle;
     private GameObject player;
     public Vector3 offset;
-    private Difficulty difficulty;
+    private Difficulty difficulty => Difficulty.current;
     public GameObject shootPoint;
 
     private EnemyCloseAttack enemyCloseAttack;
@@ -25,7 +25,7 @@ public class CloseRangeController : MonoBehaviour
             offset.y += GetComponent<EnemyLaserAttack>().myLaser.transform.localPosition.y;
             offset.y += GetComponent<EnemyLaserAttack>().myCannon.transform.localPosition.y;
         }
-        difficulty = Difficulty.current;
+        //difficulty = Difficulty.current;
         //Debug.Log("DIFF = " + difficulty);
         player = FindObjectOfType<MovementController>().gameObject;
         switch(type)

@@ -13,11 +13,11 @@ public class EnemyWalkingController : MonoBehaviour
     public Vector3 direction = new Vector3(1, 0, 0);
     public bool rotated = false, move = true;
     private Animator animator;
-    private Difficulty difficulty;
+    private Difficulty difficulty => Difficulty.current;
 
     private void Start() {
         animator = GetComponent<Animator>();
-        difficulty = Difficulty.current;
+        //difficulty = Difficulty.current;
         switch (type)
         {
             case EnemyType.Chef:

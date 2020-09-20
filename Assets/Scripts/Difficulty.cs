@@ -5,10 +5,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Difficulty", menuName = "Difficulty", order = 51)]
 public class Difficulty : ScriptableObject {
     public static Difficulty current;
+    public static Difficulty defaultDif { get; private set; }
     public bool defaultDifficulty;
+ 
     private void OnEnable() {
-        if(defaultDifficulty && current == null)
+        if(defaultDifficulty && defaultDif == null) {
             current = this;
+            defaultDif = this;
+        }
     }
 
     [System.Serializable]
