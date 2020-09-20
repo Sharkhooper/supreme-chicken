@@ -32,8 +32,12 @@ public class EnemyWalkingController : MonoBehaviour
             default:
                 break;
         }
-        if(animator != null)
-            animator.SetFloat("moveSpeed", moveSpeed);
+
+        if (type != EnemyType.Cockroach)
+        {
+            if(animator != null)
+                animator.SetFloat("moveSpeed", moveSpeed);   
+        }
     }
 
     public void PlaceDown() {
