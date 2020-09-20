@@ -1144,6 +1144,7 @@ GameObject:
   - component: {fileID: 6439777955974822516}
   - component: {fileID: 4934614792315479335}
   - component: {fileID: 4925502841404038186}
+  - component: {fileID: 6276575105703143249}
   m_Layer: 9
   m_Name: cockroach (1)
   m_TagString: Untagged
@@ -1290,6 +1291,44 @@ MonoBehaviour:
   direction: {x: 1, y: 0, z: 0}
   rotated: 0
   move: 1
+--- !u!114 &6276575105703143249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7327887499454668163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd53a290e5993b74f8f6e1617bd5a86a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forceScale: 15
+  directionScatter: 15
+  rotationForce: 10000
+  destroyDelay: 30
+  origin: {fileID: 6652051618278125274}
+  exploders:
+  - bone: {fileID: 50658293300363149}
+    Limb: {fileID: 5412448573446596257, guid: 5a60ffc2bc9ca0d489e4f1e4c7ecc5c7, type: 3}
+  - bone: {fileID: 4322743298182345956}
+    Limb: {fileID: 6194744032617373670, guid: 87e542e2e524f3e49a4b7e26c86395d6, type: 3}
+  - bone: {fileID: 3230949482567744599}
+    Limb: {fileID: 5412448573446596257, guid: 5a60ffc2bc9ca0d489e4f1e4c7ecc5c7, type: 3}
+  - bone: {fileID: 6324088433154817131}
+    Limb: {fileID: 6194744032617373670, guid: 87e542e2e524f3e49a4b7e26c86395d6, type: 3}
+  - bone: {fileID: 7966427888981014846}
+    Limb: {fileID: 5412448573446596257, guid: 5a60ffc2bc9ca0d489e4f1e4c7ecc5c7, type: 3}
+  - bone: {fileID: 1449385640179285390}
+    Limb: {fileID: 6194744032617373670, guid: 87e542e2e524f3e49a4b7e26c86395d6, type: 3}
+  - bone: {fileID: 1888555241926093892}
+    Limb: {fileID: 3816114988865075114, guid: 76be7ab51cb92f741b04c85ecbaca61b, type: 3}
+  - bone: {fileID: 6652051618278125274}
+    Limb: {fileID: 5616680507429511106, guid: 56acd5f5af3570e40868cb30d1d64022, type: 3}
+  - bone: {fileID: 6652051618278125274}
+    Limb: {fileID: -7792194445315141439, guid: d6f918ae619c4054cba1f002b73e6e3f, type: 3}
+  sounds: {fileID: 11400000, guid: 13dd1dc60472db7449f6a0ba3a7f1223, type: 2}
+  dodo: 0
 --- !u!1 &7495462232372839688
 GameObject:
   m_ObjectHideFlags: 0
