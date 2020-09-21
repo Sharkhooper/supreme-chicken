@@ -55,6 +55,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2306957591002606581}
   - component: {fileID: -7792194445315141439}
+  - component: {fileID: -3013984773765285930}
   m_Layer: 11
   m_Name: LaserLimb
   m_TagString: Untagged
@@ -93,6 +94,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-3013984773765285930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6805253606619278102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4485d519dafbfd24598e0610a694c3b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds: {fileID: 11400000, guid: f4efed6b934e7914a8f4500013738cdf, type: 2}
+  sources: 1
+  layers:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!1001 &5508758889781013434
 PrefabInstance:
   m_ObjectHideFlags: 0
