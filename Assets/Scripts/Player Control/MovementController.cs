@@ -100,6 +100,8 @@ public class MovementController : MonoBehaviour {
     [SerializeField] private LayerMask collisionLayers = ~0;
     [SerializeField] private LayerMask damageLayers = 0;
     [SerializeField] private PlayerSoundController sound;
+    [SerializeField] private ParticleSystem[] attackEffects;
+    [SerializeField] private int[] attackEffectsEmmisionRate;
     private Camera cam;
 
     public PlayerSoundController Sound => sound;
@@ -236,8 +238,10 @@ public class MovementController : MonoBehaviour {
 
             trail.emitting = true;
             animator.SetBool(animationParameters.attack, false);
+            SetAttackEffect(false);
             animator.SetBool(animationParameters.dash, true);
             animator.SetBool(animationParameters.ascending, false);
+
             dashActiveTicks = 0;
         }
         else if (attackButton.down && !state.HasFlag(MovementState.WallGrab) && attackTime <= 0) {
@@ -278,6 +282,7 @@ public class MovementController : MonoBehaviour {
             if (attackTime >= attackCooldown - attackDuration) {
                 trail.emitting = true;
                 animator.SetBool(animationParameters.attack, true);
+                SetAttackEffect(true);
                 --attackActiveTicks;
 
                 if (attackActiveTicks <= 0) {
@@ -289,6 +294,7 @@ public class MovementController : MonoBehaviour {
             else {
                 trail.emitting = false;
                 animator.SetBool(animationParameters.attack, false);
+                SetAttackEffect(false);
             }
 
             // ==================
@@ -489,6 +495,14 @@ public class MovementController : MonoBehaviour {
         }
 
         prevState = state;
+    }
+
+    private void SetAttackEffect(bool active) {
+        for (int i = 0; i < attackEffects.Length; ++i) {
+            int rate = active ? attackEffectsEmmisionRate[i] : 0;
+            var emi = attackEffects[i].emission;
+            emi.rateOverTime = rate;
+        }
     }
 
     private void DoDamage() {
