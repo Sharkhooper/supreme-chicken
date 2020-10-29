@@ -892,7 +892,7 @@ MonoBehaviour:
   type: 1
   layerMask:
     serializedVersion: 2
-    m_Bits: 7991
+    m_Bits: 4865
   turnRange: 2
   direction: {x: 1, y: 0, z: 0}
   rotated: 0
@@ -929,6 +929,7 @@ MonoBehaviour:
   deadChickenPrefab: {fileID: 0}
   lostText: {fileID: 0}
   model: {fileID: 0}
+  invulnerable: 0
 --- !u!65 &2627834630965283271
 BoxCollider:
   m_ObjectHideFlags: 0

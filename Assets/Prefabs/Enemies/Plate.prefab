@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8290947006444695774}
   - component: {fileID: 8290947006444695770}
   - component: {fileID: 8290947006444695771}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: PlateObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 8290947006964888556}
   - component: {fileID: 8290947006964888554}
   - component: {fileID: 8290947006964888555}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: PlateExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4908,7 +4908,7 @@ GameObject:
   - component: {fileID: 6639482354068088057}
   - component: {fileID: 4240124799295938965}
   - component: {fileID: 470396771252498498}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: Plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5005,6 +5005,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldKill: 1
+  sounds: {fileID: 0}
 --- !u!114 &470396771252498498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5021,3 +5022,4 @@ MonoBehaviour:
   deadChickenPrefab: {fileID: 0}
   lostText: {fileID: 0}
   model: {fileID: 0}
+  invulnerable: 0

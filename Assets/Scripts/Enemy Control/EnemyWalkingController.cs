@@ -55,7 +55,7 @@ public class EnemyWalkingController : MonoBehaviour
         RaycastHit hit;
         if(Physics.Raycast(transform.position, direction, out hit, turnRange, layerMask))
         {
-            if (hit.transform.name != "Player" && hit.transform.name != "Plate(Clone)")
+            //if (hit.transform.name != "Player" && hit.transform.name != "Plate(Clone)")
             {
                 //Debug.Log("Not Player (turn): " + hit.transform.name);
                 direction *= -1;

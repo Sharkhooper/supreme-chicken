@@ -1233,6 +1233,7 @@ MonoBehaviour:
   deadChickenPrefab: {fileID: 0}
   lostText: {fileID: 0}
   model: {fileID: 0}
+  invulnerable: 0
 --- !u!114 &6439777955974822516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1286,7 +1287,7 @@ MonoBehaviour:
   type: 2
   layerMask:
     serializedVersion: 2
-    m_Bits: 7991
+    m_Bits: 4865
   turnRange: 2
   direction: {x: 1, y: 0, z: 0}
   rotated: 0
