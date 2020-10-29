@@ -26,6 +26,8 @@ public class MovementController : MonoBehaviour {
 
     public static MovementController Active { get; private set; }
 
+    [Header("Physics")]
+
     // Maximum horizontal velocity
     [SerializeField] private float maxVelocity = 16;
     // Velocity damping - zero equals instant changes
@@ -60,17 +62,26 @@ public class MovementController : MonoBehaviour {
     private ButtonHelper dashButton;
     private ButtonHelper attackButton;
 
+    // Edge detection
+    [Header("Edge Detection")]
+    [SerializeField] private float gravityThreshold = 10;
+    [SerializeField] private float edgeCastRange = 0.07f;
+    [SerializeField] private Vector3 edgeCastOffset;
+
     // Jump
+    [Header("Jump")]
     [SerializeField] private float lowJumpMultiplier = 5;
     [SerializeField] private float highJumpMultiplier = 3;
     [SerializeField] private float fallMultiplier = 6;
     [SerializeField] private float initialJumpVelocity = 15;
 
     // Coyote Time - Meep Meep
+    [Header("Coyote Time")]
     [SerializeField] private double coyoteTime = 0.09;
     private double coyoteTimeCooldown;
 
     // Dash
+    [Header("Dash")]
     [SerializeField] private float dashCooldown = 1.5f;
     [SerializeField] private float dashResetFallTime = 0.25f;
     [SerializeField] private float dashVelocity = 22;
@@ -80,6 +91,7 @@ public class MovementController : MonoBehaviour {
     private float dashTime = 0;
 
     // Attack
+    [Header("Attack")]
     [SerializeField] private float attackDuration;
     [SerializeField] private float attackCooldown;
     [SerializeField] private float attackRange;
@@ -88,10 +100,12 @@ public class MovementController : MonoBehaviour {
     private int attackActiveTicks = 0;
 
     // Components
+    [Header("Components")]
     [SerializeField] private Animator animator;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private SphereCollider bodyCollider;
     [SerializeField] private SphereCollider feetCollider;
+    [SerializeField] private BoxCollider boxBody;
     [SerializeField] private TrailRenderer trail;
     [SerializeField] private Transform model;
     [SerializeField] private Transform cameraTarget;
@@ -130,7 +144,7 @@ public class MovementController : MonoBehaviour {
         Debug.Assert(dashCooldown > dashDuration);
 
         Active = this;
-
+        rb.sleepThreshold = 0;
 
         animationParameters = new AnimationParameters {
             air = Animator.StringToHash("Air"),
@@ -208,6 +222,8 @@ public class MovementController : MonoBehaviour {
     private Vector3 plane;
     private Vector3 gravity;
     private Vector3 velocity;
+    private Vector3 rbvel = Vector3.zero;
+    private bool edgy = false;
 
     private void FixedUpdate() {
         Vector3 onGroundCorrection = Vector3.zero;
@@ -269,7 +285,7 @@ public class MovementController : MonoBehaviour {
             }
             else {
                 model.rotation = Quaternion.Euler(0, Vector3.Angle(Vector3.right, dashDirection) < 90 ? 0 : 180, 0);
-                rb.velocity = dashDirection;
+                rbvel = dashDirection;
                 if (dashActiveTicks <= 0) {
                     DoDamage();
                     dashActiveTicks = dashTicks;
@@ -305,7 +321,7 @@ public class MovementController : MonoBehaviour {
             velocityMagnitude = Mathf.SmoothDamp(velocityMagnitude, inputVelocity, ref velocityChangeRate, velocitySmooth);
             velocity = Vector3.right * velocityMagnitude * maxVelocity * Time.fixedDeltaTime;
 
-            if (Mathf.Abs(velocityMagnitude) > 0.1f) {
+            if (Mathf.Abs(velocityMagnitude) > 0.01f) {
                 orientation = velocityMagnitude > 0 ? 1 : -1;
                 model.rotation = Quaternion.Euler(0, velocityMagnitude > 0 ? 0 : 180, 0);
                 sound.StartWalk();
@@ -313,8 +329,6 @@ public class MovementController : MonoBehaviour {
             else {
                 sound.StopWalk();
             }
-
-            cameraTarget.localPosition =  Vector3.Lerp(cameraTarget.localPosition, cameraOffset * velocityMagnitude, cameraMaxDelta * Time.fixedDeltaTime);
 
             RaycastHit hit;
 
@@ -328,12 +342,12 @@ public class MovementController : MonoBehaviour {
                 float angle = Vector3.Angle(Vector3.up, hit.normal);
                 if (angle < slopeAngleThreshold) {
                     state |= MovementState.OnGround;
+                    edgy = false;
 
                     // Reset Dash Cooldown on Landing
                     // Only reset if enogh time has passed since end of dash
                     if (!prevState.HasFlag(MovementState.Dashing) && !prevState.HasFlag(MovementState.OnGround) && dashTime < dashCooldown - dashDuration - dashResetFallTime) {
                         dashTime = 0;
-                        Debug.Log("Cooldown Reset");
                     }
 
                     coyoteTimeCooldown = coyoteTime;
@@ -345,11 +359,13 @@ public class MovementController : MonoBehaviour {
                 }
             }
 
+            bool allowLeft = true;
+            bool allowRight = true;
+
             if (!state.HasFlag(MovementState.OnGround)) {
                 if (coyoteTimeCooldown > 0) {
                     coyoteTimeCooldown -= Time.fixedDeltaTime;
                 }
-
 
                 // Wall Grab
                 if (allowWallgrab && Physics.SphereCast(bodyPos + Vector3.up * 0.001f, bodyRad, Vector3.down, out hit, 0.001f + wallGrabDistTolerance, collisionLayers)) {
@@ -361,7 +377,56 @@ public class MovementController : MonoBehaviour {
                         animator.SetBool(animationParameters.air, false);
                     }
                 }
+
+                // Hacky way of edge detection
+                // Check if velocity is smaller than gravity if velocity is below a threshold
+                // If this is true, a object hinders chicken from falling at full speed
+                // As soon as the boxcast fails, we are released and can reset the gravity to a proper value to prevent falling at a shitton of speed
+                float rbvelmag = rb.velocity.magnitude;
+                float gravmag = gravity.magnitude;
+
+                if (rbvelmag < gravityThreshold && gravmag > gravityThreshold) {
+                    float orientation = rb.velocity.x;
+                    if (orientation > 0) {
+                        allowLeft = false;
+                    }
+                    else {
+                        allowRight = false;
+                    }
+
+                    if (Physics.BoxCast(
+                        boxBody.transform.position + edgeCastOffset,
+                        boxBody.bounds.extents,
+                        Vector3.down,
+                        out hit,
+                        boxBody.transform.rotation,
+                        edgeCastRange,
+                        collisionLayers.value)) {
+                        edgy = true;
+                    }
+                }
+                else {
+                    if (edgy) {
+                        Debug.Log("RESET " + rb.velocity.y);
+                        gravity.y = rb.velocity.y;
+                    }
+                    edgy = false;
+                }
             }
+
+            // Kill velocity if not allowed to move there
+            if (velocityMagnitude > 0) {
+                if (!allowRight) {
+                    velocity = Vector3.zero;
+                }
+            }
+            else {
+                if (!allowLeft) {
+                    velocity = Vector3.zero;
+                }
+            }
+
+            cameraTarget.localPosition = Vector3.Lerp(cameraTarget.localPosition, cameraOffset * velocityMagnitude, cameraMaxDelta * Time.fixedDeltaTime);
 
             // Initialize jump
             bool canJump = coyoteTimeCooldown > 0 || state.HasFlag(MovementState.OnGround) || state.HasFlag(MovementState.WallGrab);
@@ -435,11 +500,11 @@ public class MovementController : MonoBehaviour {
                     }
                 }
 
-                rb.velocity = velocity / Time.fixedDeltaTime;
+                rbvel = velocity / Time.fixedDeltaTime;
 
 
                 if (!state.HasFlag(MovementState.OnGround)) {
-                    rb.velocity += gravity;
+                    rbvel += gravity;
                     // Cap velocity to not glitch into ground
                     // Capping this on velocity instead of on gravity and then correcting velocity like on slopes
                     // results in a slowdown on landing, because horizontal movement gets skipped
@@ -449,23 +514,25 @@ public class MovementController : MonoBehaviour {
                     // over a ledge causes swapping to WallGrab state without actually snapping to a wall, which
                     // therefor results in infinite hover, cancelable through a jump
                     Vector3 off = velocity.normalized * 0.01f;
-                    if (Physics.SphereCast(feetPos - off, feetRad, rb.velocity, out hit, rb.velocity.magnitude * Time.fixedDeltaTime + feetRad + 0.01f, collisionLayers)) {
+                    if (Physics.SphereCast(feetPos - off, feetRad, rbvel, out hit, rbvel.magnitude * Time.fixedDeltaTime + feetRad + 0.01f, collisionLayers)) {
                         float angle = Vector3.Angle(Vector3.up, hit.normal);
                         if (angle < slopeAngleThreshold) {
                             float dist = Vector3.Distance(feetPos, hit.point) - feetRad;
-                            rb.velocity = rb.velocity.normalized * dist / Time.fixedDeltaTime;
+                            rbvel = rbvel.normalized * dist / Time.fixedDeltaTime;
                         }
                     }
                 }
                 else {
-                    rb.velocity += onGroundCorrection / Time.fixedDeltaTime;
+                    rbvel += onGroundCorrection / Time.fixedDeltaTime;
                 }
             }
             else { // elseif GRAVITY
-                rb.velocity = Vector3.zero;
+                rbvel = Vector3.zero;
             }
 
         }
+
+        rb.velocity = rbvel;
 
         jumpButton.down = false;
         attackButton.down = false;
@@ -552,10 +619,10 @@ public class MovementController : MonoBehaviour {
         //Gizmos.color = Color.red;
         //Gizmos.DrawWireSphere(rb.transform.position + feetOffset, 0.1f);
         //Gizmos.color = Color.green;
-        //Gizmos.DrawWireSphere(rb.transform.position + feetOffset + rb.velocity * Time.deltaTime, 0.1f);
+        //Gizmos.DrawWireSphere(rb.transform.position + feetOffset + rbvel * Time.deltaTime, 0.1f);
 
         Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(transform.position, transform.position + rb.velocity * debugScale);
+        Gizmos.DrawLine(transform.position, transform.position + rbvel * debugScale);
         Gizmos.DrawLine(transform.position + Vector3.right, transform.position + Vector3.right + gravity * debugScale);
         Gizmos.DrawLine(transform.position + Vector3.down, transform.position + Vector3.down + velocity * debugScale);
     }
