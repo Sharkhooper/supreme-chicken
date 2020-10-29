@@ -38,6 +38,21 @@ public class EnemyLaserAttack : MonoBehaviour
         }
     }
 
+    private void OnEnable() {
+        Difficulty.OnDifficultyChange += UpdateDifficulty;
+    }
+
+    private void OnDisable() {
+        Difficulty.OnDifficultyChange -= UpdateDifficulty;
+    }
+
+    public void UpdateDifficulty(Difficulty d) {
+        aimDuration = d.cockroach.aimDuration;
+        shootDuration = d.cockroach.shootDuration;
+        growSpeed = d.cockroach.growSpeed;
+        waitBetweenShoots = d.cockroach.shootCooldown;
+    }
+
     private void Update()
     {
         if(shooting && timeElapsed < shootDuration)

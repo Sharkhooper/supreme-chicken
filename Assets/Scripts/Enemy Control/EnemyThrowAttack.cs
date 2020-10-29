@@ -10,6 +10,7 @@ public class EnemyThrowAttack : MonoBehaviour
     private bool running;
     private Difficulty difficulty => Difficulty.current;
     private Animator animator;
+    private float _waitBetweenThrows;
 
     [SerializeField] private SoundMap sounds;
     private AudioSource audioSource;
@@ -17,12 +18,25 @@ public class EnemyThrowAttack : MonoBehaviour
     private void Start() {
         animator = GetComponent<Animator>();
         //difficulty = Difficulty.current;
-        waitBetweenThrows /= difficulty.waiter.attackSpeed;
+        _waitBetweenThrows = waitBetweenThrows/ difficulty.waiter.attackSpeed;
         animator.SetFloat("attackSpeed", difficulty.waiter.attackSpeed);
         if (sounds != null) {
             audioSource = gameObject.AddComponent<AudioSource>();
             audioSource.spatialBlend = sounds.SpatialBlend;
         }
+    }
+
+    private void OnEnable() {
+        Difficulty.OnDifficultyChange += UpdateDifficulty;
+    }
+
+    private void OnDisable() {
+        Difficulty.OnDifficultyChange -= UpdateDifficulty;
+    }
+
+    public void UpdateDifficulty(Difficulty d) {
+        _waitBetweenThrows = waitBetweenThrows / d.waiter.attackSpeed;
+        animator.SetFloat("attackSpeed", d.waiter.attackSpeed);
     }
 
     public void StartAttack(Vector3 direction, float angle, Vector3 offset)
@@ -40,7 +54,7 @@ public class EnemyThrowAttack : MonoBehaviour
         running = true;
         animator.SetTrigger("throw");
  
-        yield return new WaitForSeconds(waitBetweenThrows/2);
+        yield return new WaitForSeconds(_waitBetweenThrows / 2);
         
         Vector3 instantiatePos = transform.position + offset + holder.enemyWalkingController.direction * instantiateDistance;
         GameObject newPlate = Instantiate(platePrefab, instantiatePos, Quaternion.identity);
@@ -50,11 +64,11 @@ public class EnemyThrowAttack : MonoBehaviour
         plateController.direction = throwDirection ;
         plateController.toRotate = angle * holder.enemyWalkingController.direction.x;
 
-        yield return new WaitForSeconds(waitBetweenThrows);
+        yield return new WaitForSeconds(_waitBetweenThrows);
 
         animator.ResetTrigger("throw");
 
-        yield return new WaitForSeconds(waitBetweenThrows/2);
+        yield return new WaitForSeconds(_waitBetweenThrows / 2);
 
         running = false;
     }

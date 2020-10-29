@@ -28,6 +28,18 @@ public class EnemyCloseAttack : MonoBehaviour
         }
     }
 
+    private void OnEnable() {
+        Difficulty.OnDifficultyChange += UpdateDifficulty;
+    }
+
+    private void OnDisable() {
+        Difficulty.OnDifficultyChange -= UpdateDifficulty;
+    }
+
+    public void UpdateDifficulty(Difficulty d) {
+        animator.SetFloat("attackSpeed", d.chef.attackSpeed);
+    }
+
     public void StartAttack()
     {
         if(!running) {

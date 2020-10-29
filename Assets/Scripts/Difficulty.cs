@@ -1,16 +1,28 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Difficulty", menuName = "Difficulty", order = 51)]
 public class Difficulty : ScriptableObject {
-    public static Difficulty current;
+    private static Difficulty _current;
+
+    public delegate void DifficultyChange(Difficulty d);
+
+    public static event DifficultyChange OnDifficultyChange;
+
+    public static Difficulty current { get => _current; set {
+            _current = value;
+            OnDifficultyChange.Invoke(_current);
+        }
+    }
+
     public static Difficulty defaultDif { get; private set; }
     public bool defaultDifficulty;
  
     private void OnEnable() {
         if(defaultDifficulty && defaultDif == null) {
-            current = this;
+            _current = this;
             defaultDif = this;
         }
     }
