@@ -9,6 +9,6 @@ PhysicMaterial:
   m_Name: LimbPhysics
   dynamicFriction: 0.6
   staticFriction: 0.6
-  bounciness: 1
+  bounciness: 0.98
   frictionCombine: 0
   bounceCombine: 0
